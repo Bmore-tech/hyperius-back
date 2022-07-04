@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PrintLabel" pageWidth="286" pageHeight="286" columnWidth="270" leftMargin="8" rightMargin="8" topMargin="8" bottomMargin="8" uuid="bd8d15fe-99df-4199-954c-c326e0076a3c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="cm"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="barCode" class="java.lang.String"/>
+	<field name="EXIDV_HU" class="java.lang.String"/>
+	<field name="CHARG4" class="java.lang.String"/>
+	<field name="MATNR" class="java.lang.String"/>
+	<field name="MAKTX_desc" class="java.lang.String"/>
+	<field name="VEMEH" class="java.lang.String"/>
+	<field name="VEMNG" class="java.lang.String"/>
+	<field name="WERKS" class="java.lang.String"/>
+	<field name="NAME1" class="java.lang.String"/>
+	<field name="fechaImpr" class="java.lang.String"/>
+	<detail>
+		<band height="269" splitType="Stretch">
+			<line>
+				<reportElement x="-1" y="0" width="270" height="1" uuid="e1f532e9-3a87-460d-9993-b479ff42c4e5"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="268" uuid="bc044628-9308-47c8-a7bc-9c4e41fcfc0a"/>
+			</line>
+			<line>
+				<reportElement x="269" y="0" width="1" height="268" uuid="19c67444-6275-4f29-bbe3-44cd3075f5ac"/>
+			</line>
+			<line>
+				<reportElement x="0" y="268" width="270" height="1" uuid="759ad7d0-1538-45ae-bcab-52857cb3d273"/>
+			</line>
+			<line>
+				<reportElement x="0" y="150" width="270" height="1" uuid="fb4cbb69-da66-4d48-8e68-e8aec816592e"/>
+			</line>
+			<line>
+				<reportElement x="134" y="0" width="1" height="149" uuid="4ab2bf26-9bd8-459b-9a30-489bc18889d9"/>
+			</line>
+			<componentElement>
+				<reportElement x="-1" y="1" width="137" height="138" uuid="8dd275b6-8aa7-4d3f-a03a-7f4a1d46c8ed"/>
+				<jr:DataMatrix xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" shape="force-square">
+					<jr:codeExpression><![CDATA[$F{barCode}]]></jr:codeExpression>
+				</jr:DataMatrix>
+			</componentElement>
+			<line>
+				<reportElement x="134" y="110" width="136" height="1" uuid="561ba99c-5df3-48d5-a45b-a7ce85967b6c"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="220" width="270" height="1" uuid="dda90afe-efa7-4121-85af-be3aab9a694e"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="244" width="270" height="1" uuid="8d7dcd55-d12d-4de5-b35c-596c10c33c9d">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="180" y="111" width="1" height="39" uuid="4990641f-fecb-45e4-be6a-9828323865b6"/>
+			</line>
+			<line>
+				<reportElement x="135" y="220" width="1" height="24" uuid="cae98f20-2ceb-41ac-90d9-c803b35fc816"/>
+			</line>
+			<line>
+				<reportElement x="70" y="220" width="1" height="48" uuid="f8b1a723-9924-4d7a-a82a-ee5555c899d1"/>
+			</line>
+			<textField>
+				<reportElement x="148" y="54" width="102" height="40" uuid="740eac7d-3eac-4cd7-8495-1ddfc54ca76f"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CHARG4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="119" width="79" height="20" uuid="03310a64-745d-418d-9d2b-bbe27a40c3fd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MATNR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="160" width="252" height="50" uuid="14057f22-5deb-46f6-a283-a1170441d1e5"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MAKTX_desc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="220" width="49" height="20" uuid="58591ec3-9fc0-47fa-b901-3958b832e656"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VEMEH}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="224" width="46" height="20" uuid="abacefc9-51fd-478b-85ca-41002d205aaf"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VEMNG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="248" width="61" height="13" uuid="d0dc0b25-20d8-4bcc-9fea-cadd2738984d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WERKS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="250" width="182" height="14" uuid="01d1578f-8587-4630-9c4d-425f5d4417a7"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NAME1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="136" y="110" width="44" height="38" uuid="8a306f4e-6f61-4ccf-a5a6-f6a67987fe3b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[COD.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="222" width="70" height="20" uuid="58cfef17-7357-4c37-9e23-b30402214162"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[N/A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="222" width="30" height="20" uuid="a1d14519-2eed-4952-b09f-3ec715bd6776"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[RES]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="10" width="122" height="30" uuid="5c0905ca-8d7f-4ddf-815c-9fce20c2ba22"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaImpr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="130" width="138" height="18" uuid="35cd10aa-c41a-46de-9b53-e1731d81c43e"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EXIDV_HU}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
