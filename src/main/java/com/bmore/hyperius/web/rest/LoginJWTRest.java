@@ -51,7 +51,7 @@ public class LoginJWTRest {
 		return loginJwtService.updateJwt(token);
 	}
 
-	@PostMapping(value = "/login/check-token")
+	@PostMapping(value = "/login/check-token2")
 	public String prueba(@RequestHeader("Auth") String token) {
 		log.info("Logout...", token);
 		
