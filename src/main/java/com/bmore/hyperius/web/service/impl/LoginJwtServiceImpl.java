@@ -70,17 +70,21 @@ public class LoginJwtServiceImpl implements LoginJwtService {
 		claims.put("usuario", "PC13");
 		claims.put("werks", "PC13");
 		claims.put("admin", "admin");
-		try {
-			if(!jwtTokenUtil.isTokenExpired(token)) {
-				response.setToken(TOKEN_PREFIX + jwtTokenUtil.updateToken(Utils.getUsuarioFromToken(token), claims));
-				response.setResponseCode(1);
-				response.setMessage("Token válido");
-			}
-		} catch (Exception e) {
-			response.setResponseCode(2);
-			response.setMessage("Token no válido");
-			e.printStackTrace();
-		}
+    
+    response.setToken(TOKEN_PREFIX + jwtTokenUtil.updateToken(Utils.getUsuarioFromToken(token), claims));
+    response.setResponseCode(1);
+    response.setMessage("Token válido");
+		// try {
+		// 	if(!jwtTokenUtil.isTokenExpired(token)) {
+		// 		response.setToken(TOKEN_PREFIX + jwtTokenUtil.updateToken(Utils.getUsuarioFromToken(token), claims));
+		// 		response.setResponseCode(1);
+		// 		response.setMessage("Token válido");
+		// 	}
+		// } catch (Exception e) {
+		// 	response.setResponseCode(2);
+		// 	response.setMessage("Token no válido");
+		// 	e.printStackTrace();
+		// }
 		
 		
 		
