@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,7 +41,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 				|| request.getRequestURI().contains("/webjars")) {
 			chain.doFilter(request, response);
 		} else {
-			final String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+			final String token = request.getHeader("Auth");
 			String username = null;
 			String jwtToken = null;
 			
