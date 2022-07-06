@@ -4,11 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.bmore.hyperius.config.JwtTokenUtil;
-import com.bmore.hyperius.web.dto.LoginUserDetailsDTO;
 import com.bmore.hyperius.web.rest.response.JwtLoginResponse;
 import com.bmore.hyperius.web.rest.resquest.JwtLoginRequest;
 import com.bmore.hyperius.web.service.LoginJwtService;
@@ -25,12 +23,12 @@ public class LoginJwtServiceImpl implements LoginJwtService {
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 
-	@Autowired
-	private JwtUserDetailsService userDetailsService;
+	// @Autowired
+	// private JwtUserDetailsService userDetailsService;
 
 	@Override
 	public JwtLoginResponse loginJwt(JwtLoginRequest request) {
-		LoginUserDetailsDTO<UserDetails> userDetails = null;
+		// LoginUserDetailsDTO<UserDetails> userDetails = null;
 		JwtLoginResponse response = new JwtLoginResponse();
 
 		// try {

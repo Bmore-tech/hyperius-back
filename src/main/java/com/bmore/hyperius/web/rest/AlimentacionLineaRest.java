@@ -1,7 +1,5 @@
 package com.bmore.hyperius.web.rest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,13 +27,11 @@ import com.bmore.hyperius.web.utils.Utils;
 @RequestMapping("${web.uri}/alimentacion-linea")
 public class AlimentacionLineaRest {
 
-	private final Logger log = LoggerFactory.getLogger(getClass());
-
 	@Autowired
 	private AlimentacionLineaService alimentacionLineaService;
 
 	@PostMapping(path = "/valida-orden-produccion", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ValidaOrdenProduccionResponse validaOrdenProduccion(@RequestHeader("Authorization") String token,
+	public ValidaOrdenProduccionResponse validaOrdenProduccion(@RequestHeader("Auth") String token,
 			@RequestBody OrdenProduccionDTO request) {
 
 		ValidaOrdenProduccionResponse response = new ValidaOrdenProduccionResponse();
@@ -50,7 +46,7 @@ public class AlimentacionLineaRest {
 	}
 
 	@PostMapping(path = "/alimenta-envase", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse alimentaEnvase(@RequestHeader("Authorization") String token,
+	public DefaultResponse alimentaEnvase(@RequestHeader("Auth") String token,
 			@RequestBody CarrilesUbicacionDTO request) {
 
 		ResultDTO result = alimentacionLineaService.ingresaDetalleEnvaseBO(request, Utils.getUsuarioFromToken(token),

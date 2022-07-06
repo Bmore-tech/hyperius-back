@@ -3,6 +3,7 @@ package com.bmore.hyperius.web.rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -36,17 +37,16 @@ public class LoginJWTRest {
    *         autenticación.
    * @throws Exception Error en caso de que no se haya podido crear la sesión.
    */
-  @PostMapping(value = "/login/authenticate")
+  @PostMapping(value = "/login/authenticate", produces = MediaType.APPLICATION_JSON_VALUE)
   public JwtLoginResponse createAuthenticationToken(@RequestBody JwtLoginRequest authenticationRequest) {
     log.info("Authenticating user... " + authenticationRequest.getUsername());
 
     return loginJwtService.loginJwt(authenticationRequest);
   }
 
-  @PostMapping(value = "/login/check-token")
+  @PostMapping(value = "/login/check-token", produces = MediaType.APPLICATION_JSON_VALUE)
   public JwtLoginResponse logout(@RequestHeader("Auth") String token) {
     log.info("Checking token...", token);
-
     return loginJwtService.updateJwt(token);
   }
 }
