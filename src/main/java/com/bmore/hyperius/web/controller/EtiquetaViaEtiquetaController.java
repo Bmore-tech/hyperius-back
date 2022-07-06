@@ -63,14 +63,14 @@ public class EtiquetaViaEtiquetaController {
 	private EtiquetaViaEtiquetaService etiquetaViaEtiquetaService;
 
 	@RequestMapping(value = "/etiqueta-via-etiqueta", method = RequestMethod.POST)
-	public ResponseEntity<Resource> etiquetaViaEtiqueta(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+	public ResponseEntity<Resource> etiquetaViaEtiqueta(@RequestHeader("Auth") String token,
 			@RequestBody CreateEtiquetaReportRequest request) {
 		return etiquetaViaEtiquetaService.createEtiquetaReport(request, token);
 	}
 
 	@RequestMapping(value = "/etiqueta-via-etiqueta2", method = RequestMethod.POST, produces = MediaType.APPLICATION_PDF_VALUE)
 	protected @ResponseBody ResponseEntity<InputStreamResource> etiquetaViaEtiqueta(
-			@RequestHeader(HttpHeaders.AUTHORIZATION) String token, HttpServletResponse response,
+			@RequestHeader("Auth") String token, HttpServletResponse response,
 			@RequestBody CreateEtiquetaReportRequest request) throws IOException {
 
 		String jasper = "";

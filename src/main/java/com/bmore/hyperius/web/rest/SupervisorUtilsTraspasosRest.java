@@ -37,7 +37,7 @@ public class SupervisorUtilsTraspasosRest {
 	private SupervisorUtilsTraspasosService supervisorUtilsTraspasosService;
 
 	@PostMapping(path = "/lgort-permitidos", produces = MediaType.APPLICATION_JSON_VALUE)
-	public LgortPermitidosResponse lgortPermitidos(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+	public LgortPermitidosResponse lgortPermitidos(@RequestHeader("Auth") String token) {
 		LgortPermitidosResponse response = new LgortPermitidosResponse();
 		response.setData(supervisorUtilsTraspasosService.lgortPermitidos(Utils.getWerksFromJwt(token)));
 		response.setResponseCode(response.getData().getResultDT().getId());
@@ -47,7 +47,7 @@ public class SupervisorUtilsTraspasosRest {
 	}
 
 	@PostMapping(path = "/lgnum-permitidos", produces = MediaType.APPLICATION_JSON_VALUE)
-	public LgortPermitidosResponse lgnumPermitidos(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+	public LgortPermitidosResponse lgnumPermitidos(@RequestHeader("Auth") String token,
 			@RequestBody AlmacenDTO request) {
 		request.setWerks(Utils.getWerksFromJwt(token));
 		LgortPermitidosResponse response = new LgortPermitidosResponse();
@@ -59,7 +59,7 @@ public class SupervisorUtilsTraspasosRest {
 	}
 
 	@PostMapping(path = "/lgtyp-permitidos", produces = MediaType.APPLICATION_JSON_VALUE)
-	public LgortPermitidosResponse lgtypPermitidos(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+	public LgortPermitidosResponse lgtypPermitidos(@RequestHeader("Auth") String token,
 			@RequestBody AlmacenDTO request) {
 		LgortPermitidosResponse response = new LgortPermitidosResponse();
 		request.setWerks(Utils.getWerksFromJwt(token));
@@ -71,7 +71,7 @@ public class SupervisorUtilsTraspasosRest {
 	}
 
 	@PostMapping(path = "/lgpla-permitidos", produces = MediaType.APPLICATION_JSON_VALUE)
-	public LgortPermitidosResponse lgplaPermitidos(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+	public LgortPermitidosResponse lgplaPermitidos(@RequestHeader("Auth") String token,
 			@RequestBody AlmacenDTO request) {
 		LgortPermitidosResponse response = new LgortPermitidosResponse();
 
@@ -84,7 +84,7 @@ public class SupervisorUtilsTraspasosRest {
 	}
 
 	@PostMapping(path = "/lqua-busqueda-traspasos", produces = MediaType.APPLICATION_JSON_VALUE)
-	public LquaBusquedaTraspasosResponse lquaBusquedaTraspasos(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+	public LquaBusquedaTraspasosResponse lquaBusquedaTraspasos(@RequestHeader("Auth") String token,
 			@RequestBody AlmacenDTO request) {
 		LquaBusquedaTraspasosResponse response = new LquaBusquedaTraspasosResponse();
 
@@ -97,7 +97,7 @@ public class SupervisorUtilsTraspasosRest {
 	}
 
 	@PostMapping(path = "/traspaso", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse traspaso(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+	public DefaultResponse traspaso(@RequestHeader("Auth") String token,
 			@RequestBody InventarioDetalleDTOItem request) {
 		ResultDTO resultDT = supervisorUtilsTraspasosService.traspaso(request, Utils.getUsuarioFromToken(token));
 		DefaultResponse response = new DefaultResponse();

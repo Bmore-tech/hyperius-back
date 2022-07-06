@@ -64,7 +64,7 @@ public class RemisionController {
 	private static final int BUFSIZE = 4096;
 
 	@RequestMapping(value = "/remision", method = RequestMethod.POST)
-	public ResponseEntity<Resource> remision(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+	public ResponseEntity<Resource> remision(@RequestHeader("Auth") String token,
 			@RequestBody RemisionRequest request) {
 		return remisionService.etiquetaPt(request, token);
 	}
