@@ -45,10 +45,11 @@ public class LoginJWTRest {
 	}
 
 	@PostMapping(value = "/login/check-token")
-	public JwtLoginResponse logout(@RequestHeader("Authorization") String token) {
+	public JwtLoginResponse logout(@RequestHeader("Auth") String token) {
 		log.info("Logout...", token);
 		
-		return loginJwtService.updateJwt(token);
+		// return loginJwtService.updateJwt(token);
+		return null;
 	}
 
 	@PostMapping(value = "/login/check-token2")
