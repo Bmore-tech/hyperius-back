@@ -44,7 +44,7 @@ public class EmbarquePTRest {
 	private EmbarquePTService embarquePTService;
 
 	@PostMapping(path = "/validar-embarque-pt", produces = MediaType.APPLICATION_JSON_VALUE)
-	public EmbarquePTResponse validaEmbarquePT(@RequestHeader("Authorization") String token,
+	public EmbarquePTResponse validaEmbarquePT(@RequestHeader("Auth") String token,
 			@RequestBody EmbarqueDTO embarqueDTO) {
 
 		EmbarquePTResponse response = new EmbarquePTResponse();
@@ -68,7 +68,7 @@ public class EmbarquePTRest {
 	}
 
 	@PostMapping(path = "/guardar-embarque-pt", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse guardarEmbarquePT(@RequestHeader("Authorization") String token, HttpServletRequest request,
+	public DefaultResponse guardarEmbarquePT(@RequestHeader("Auth") String token, HttpServletRequest request,
 			@RequestBody CarrilesUbicacionDTO carriles) {
 
 		ResultDTO resultDT = new ResultDTO();
@@ -89,7 +89,7 @@ public class EmbarquePTRest {
 	}
 
 	@PostMapping(path = "/contabilizar-embarque", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse contabilizarEmbarque(@RequestHeader("Authorization") String token,
+	public DefaultResponse contabilizarEmbarque(@RequestHeader("Auth") String token,
 			@RequestBody EmbarqueDTO embarqueDTO) {
 		ResultDTO result = new ResultDTO();
 		DefaultResponse response = new DefaultResponse();
@@ -109,7 +109,7 @@ public class EmbarquePTRest {
 	}
 
 	@PostMapping(path = "/liberar-pendientes", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse liberarPendientes(@RequestHeader("Authorization") String token,
+	public DefaultResponse liberarPendientes(@RequestHeader("Auth") String token,
 			@RequestBody OrdenProduccionDTO ordenProduccionDTO) {
 		ResultDTO result = new ResultDTO();
 		DefaultResponse response = new DefaultResponse();
@@ -122,7 +122,7 @@ public class EmbarquePTRest {
 	}
 
 	@PostMapping(path = "/cambiar-cantidad-orden", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse cambiarCantidadOrden(@RequestHeader("Authorization") String token,
+	public DefaultResponse cambiarCantidadOrden(@RequestHeader("Auth") String token,
 			@RequestBody EmbarqueDetalleDTO embarqueDetalleDTO) {
 		ResultDTO result = new ResultDTO();
 		DefaultResponse response = new DefaultResponse();

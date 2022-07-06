@@ -40,7 +40,7 @@ public class CifrasControlRest {
 	private CifrasControlService cifrasControlService;
 
 	@PostMapping(path = "/descarga-informacion", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DescargaInformacionResponse descargaInformacion(@RequestHeader("Authorization") String token) {
+	public DescargaInformacionResponse descargaInformacion(@RequestHeader("Auth") String token) {
 		DescargaInformacionResponse response = new DescargaInformacionResponse();
 		response.setData(cifrasControlService.getDescargaInformacion());
 		response.setResponseCode(1);
@@ -74,7 +74,7 @@ public class CifrasControlRest {
 	}
 
 	@PostMapping(path = "/almacenar-planeacion", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse almacenarPlaneacion(@RequestHeader("Authorization") String token,
+	public DefaultResponse almacenarPlaneacion(@RequestHeader("Auth") String token,
 			@RequestBody PlaneacionBodyDTO request) {
 		DefaultResponse response = new DefaultResponse();
 

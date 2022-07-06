@@ -35,7 +35,7 @@ public class RecepcionEnvaseRest {
 	private RecepcionEnvaseService recepcionEnvaseService;
 
 	@PostMapping(path = "/validar-entrega", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ValidarEntregaResponse validarEntrega(@RequestHeader("Authorization") String token,
+	public ValidarEntregaResponse validarEntrega(@RequestHeader("Auth") String token,
 			@RequestBody EntregaDTO request) {
 
 		ValidarEntregaResponse response = new ValidarEntregaResponse();
@@ -50,7 +50,7 @@ public class RecepcionEnvaseRest {
 	}
 
 	@PostMapping(path = "/ingresa-detalle-envase", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse ingresaDetalleEnvase(@RequestHeader("Authorization") String token,
+	public DefaultResponse ingresaDetalleEnvase(@RequestHeader("Auth") String token,
 			@RequestBody CarrilesUbicacionDTO request) {
 		ResultDTO resultDT = new ResultDTO();
 		DefaultResponse response = new DefaultResponse();
@@ -64,7 +64,7 @@ public class RecepcionEnvaseRest {
 	}
 
 	@PostMapping(path = "/contabilizar-entrega-entrante", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse contabilizarEntregaEntrante(@RequestHeader("Authorization") String token,
+	public DefaultResponse contabilizarEntregaEntrante(@RequestHeader("Auth") String token,
 			@RequestBody EntregaDTO request) {
 		ResultDTO result = new ResultDTO();
 		DefaultResponse response = new DefaultResponse();

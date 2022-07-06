@@ -38,16 +38,14 @@ public class LoginJWTRest {
    * @throws Exception Error en caso de que no se haya podido crear la sesión.
    */
   @PostMapping(value = "/login/authenticate", produces = MediaType.APPLICATION_JSON_VALUE)
-  public JwtLoginResponse createAuthenticationToken(@RequestBody JwtLoginRequest authenticationRequest,
-      @RequestHeader("Auth") String token) {
-    log.info("Auth token... " + token);
+  public JwtLoginResponse createAuthenticationToken(@RequestBody JwtLoginRequest authenticationRequest) {
     log.info("Authenticating user... " + authenticationRequest.getUsername());
 
     return loginJwtService.loginJwt(authenticationRequest);
   }
 
   @PostMapping(value = "/login/check-token")
-  public JwtLoginResponse logout(@RequestHeader("Authorization") String token) {
+  public JwtLoginResponse logout(@RequestHeader("Auth") String token) {
     log.info("Logout...", token);
 
     return loginJwtService.updateJwt(token);

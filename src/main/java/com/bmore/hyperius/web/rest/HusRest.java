@@ -37,7 +37,7 @@ public class HusRest {
 	private HUsService hUsService;
 
 	@PostMapping(path = "/obtiene-hus", produces = MediaType.APPLICATION_JSON_VALUE)
-	public HusResponse obtieneHUs(@RequestHeader("Authorization") String token, @RequestBody HuDTO hu) {
+	public HusResponse obtieneHUs(@RequestHeader("Auth") String token, @RequestBody HuDTO hu) {
 		HusResponse response = new HusResponse();
 
 		response.setData(hUsService.obtieneHus(hu));

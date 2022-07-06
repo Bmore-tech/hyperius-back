@@ -56,13 +56,13 @@ public class ReportesController {
 	private ReportesService reportesService;
 
 	@RequestMapping(value = "/reportes", method = RequestMethod.POST)
-	public ResponseEntity<Resource> etiquetaViaEtiqueta(@RequestHeader("Authorization") String token,
+	public ResponseEntity<Resource> etiquetaViaEtiqueta(@RequestHeader("Auth") String token,
 			@RequestBody ReportesRequest request) {
 		return reportesService.reportes(request, token);
 	}
 
 	@RequestMapping(value = "/reportes2", method = RequestMethod.POST)
-	protected void reportes2(@RequestHeader("Authorization") String token, ReportesRequest request,
+	protected void reportes2(@RequestHeader("Auth") String token, ReportesRequest request,
 			HttpServletResponse response) throws IOException {
 		String werks = Utils.getWerksFromJwt(token);
 		Calendar calendar = new GregorianCalendar();

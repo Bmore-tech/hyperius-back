@@ -70,7 +70,7 @@ public class RemisionController {
 	}
 
 	@RequestMapping(value = "/remision2", method = RequestMethod.POST)
-	protected void remision2(@RequestHeader("Authorization") String token, RemisionRequest request,
+	protected void remision2(@RequestHeader("Auth") String token, RemisionRequest request,
 			HttpServletResponse response) throws IOException {
 		String werks = Utils.getWerksFromJwt(token);
 

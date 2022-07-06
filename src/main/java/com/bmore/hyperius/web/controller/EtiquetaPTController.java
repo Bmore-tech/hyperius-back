@@ -62,7 +62,7 @@ public class EtiquetaPTController {
 	private ControlPaletizadoraService controlPaletizadoraService;
 
 	@RequestMapping(value = "/etiqueta-pt", method = RequestMethod.POST)
-	public ResponseEntity<Resource> etiquetaViaEtiqueta(@RequestHeader("Authorization") String token,
+	public ResponseEntity<Resource> etiquetaViaEtiqueta(@RequestHeader("Auth") String token,
 			@RequestBody EtiquetaPtRequest request) {
 		log.info("Request Etiqueta PT: " + request.toString());
 		
@@ -83,7 +83,7 @@ public class EtiquetaPTController {
 	}
 
 	@RequestMapping(value = "/etiqueta-pt2", method = RequestMethod.POST)
-	public void etiquetaPt2(@RequestHeader("Authorization") String token, @RequestBody EtiquetaPtRequest request,
+	public void etiquetaPt2(@RequestHeader("Auth") String token, @RequestBody EtiquetaPtRequest request,
 			HttpServletResponse response) throws IOException {
 		String aufnr = (String) request.getAufnr();
 		String key = (String) request.getKey();

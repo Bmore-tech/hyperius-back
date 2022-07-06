@@ -44,13 +44,13 @@ public class HuTxtController {
 	private HuTxtService huTxtService;
 
 	@RequestMapping(value = "/hu-txt", method = RequestMethod.POST)
-	protected ResponseEntity<Resource> huTxtReport(@RequestHeader("Authorization") String token,
+	protected ResponseEntity<Resource> huTxtReport(@RequestHeader("Auth") String token,
 			@RequestBody HuTxtRequest request) {
 		return huTxtService.createEtiquetaReport(request, token);
 	}
 
 	@RequestMapping(value = "/hu-txt2", method = RequestMethod.POST)
-	protected void huTxt(@RequestHeader("Authorization") String token, HttpServletRequest request,
+	protected void huTxt(@RequestHeader("Auth") String token, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 
 		HttpSession session = request.getSession();

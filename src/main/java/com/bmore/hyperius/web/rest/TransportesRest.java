@@ -46,7 +46,7 @@ public class TransportesRest {
 	 * @return {@link TransportesDTO} con la información del transporte obtenida.
 	 */
 	@PostMapping(path = "/validar-transporte-entrada", produces = MediaType.APPLICATION_JSON_VALUE)
-	public TransportesResponse validarTransporteEntrada(@RequestHeader("Authorization") String token,
+	public TransportesResponse validarTransporteEntrada(@RequestHeader("Auth") String token,
 			@RequestBody TransportesDTO transporteDTO) {
 		
 		log.info("token: " + token);
@@ -63,7 +63,7 @@ public class TransportesRest {
 	}
 
 	@PostMapping(path = "/validar-transporte-salida", produces = MediaType.APPLICATION_JSON_VALUE)
-	public TransportesResponse validarTransporteSalida(@RequestHeader("Authorization") String token,
+	public TransportesResponse validarTransporteSalida(@RequestHeader("Auth") String token,
 			@RequestBody TransportesDTO transporteDTO) {
 
 		transporteDTO.setWerks(Utils.getWerksFromJwt(token));
@@ -78,7 +78,7 @@ public class TransportesRest {
 	}
 
 	@PostMapping(path = "/registrar-transporte", produces = MediaType.APPLICATION_JSON_VALUE)
-	public TransportesResponse registrarTransporte(@RequestHeader("Authorization") String token,
+	public TransportesResponse registrarTransporte(@RequestHeader("Auth") String token,
 			@RequestBody TransportesDTO transporteDTO) {
 
 		ResultDTO result = new ResultDTO();
@@ -93,7 +93,7 @@ public class TransportesRest {
 	}
 
 	@PostMapping(path = "/registrar-transporte-salida", produces = MediaType.APPLICATION_JSON_VALUE)
-	public TransportesResponse registrarTransporteSalida(@RequestHeader("Authorization") String token,
+	public TransportesResponse registrarTransporteSalida(@RequestHeader("Auth") String token,
 			@RequestBody TransportesDTO transporteDTO) {
 
 		transporteDTO.setWerks(Utils.getWerksFromJwt(token));
@@ -109,7 +109,7 @@ public class TransportesRest {
 	}
 
 	@PostMapping(path = "/check-web-session", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse checkWebSession(@RequestHeader("Authorization") String token, @RequestBody String id) {
+	public DefaultResponse checkWebSession(@RequestHeader("Auth") String token, @RequestBody String id) {
 
 		DefaultResponse response = new DefaultResponse();
 

@@ -59,7 +59,7 @@ public class ExportacionController {
 	private static final int BUFSIZE = 4096;
 
 	@RequestMapping(value = "/exportacion", method = RequestMethod.POST)
-	protected void exportacion(@RequestHeader("Authorization") String token, @RequestBody ExportacionRequest request,
+	protected void exportacion(@RequestHeader("Auth") String token, @RequestBody ExportacionRequest request,
 			HttpServletResponse response) throws IOException {
 		String werks = Utils.getWerksFromJwt(token);
 

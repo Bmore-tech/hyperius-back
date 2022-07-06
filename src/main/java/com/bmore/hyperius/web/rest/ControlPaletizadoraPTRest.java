@@ -36,7 +36,7 @@ public class ControlPaletizadoraPTRest {
 	private ControlPaletizadoraService controlPaletizadoraService;
 
 	@PostMapping(path = "/obtiene-paletizadoras", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ObtienePaletizadorasResponse obtienePaletizadoras(@RequestHeader("Authorization") String token,
+	public ObtienePaletizadorasResponse obtienePaletizadoras(@RequestHeader("Auth") String token,
 			@RequestBody PaletizadoraDTO request) {
 		ObtienePaletizadorasResponse response = new ObtienePaletizadorasResponse();
 
@@ -48,7 +48,7 @@ public class ControlPaletizadoraPTRest {
 	}
 
 	@PostMapping(path = "/actualiza-orden-en-paletizadora", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse actualizaOrdenEnPaletizadora(@RequestHeader("Authorization") String token,
+	public DefaultResponse actualizaOrdenEnPaletizadora(@RequestHeader("Auth") String token,
 			@RequestBody PaletizadoraDTO request) {
 		ResultDTO resultDT = new ResultDTO();
 
@@ -63,7 +63,7 @@ public class ControlPaletizadoraPTRest {
 	}
 
 	@PostMapping(path = "/obtiene-cantidad-hus", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse obtieneCantidadHus(@RequestHeader("Authorization") String token,
+	public DefaultResponse obtieneCantidadHus(@RequestHeader("Auth") String token,
 			@RequestBody ObtieneCantidadHusRequest request) {
 		ResultDTO resultDT = new ResultDTO();
 		DefaultResponse response = new DefaultResponse();
@@ -76,7 +76,7 @@ public class ControlPaletizadoraPTRest {
 	}
 
 	@PostMapping(path = "/marcar-hus-para-imprimir", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse marcarHusParaImprimir(@RequestHeader("Authorization") String token,
+	public DefaultResponse marcarHusParaImprimir(@RequestHeader("Auth") String token,
 			@RequestBody PaletizadoraDTO request) {
 		ResultDTO resultDT = new ResultDTO();
 		DefaultResponse response = new DefaultResponse();
@@ -90,7 +90,7 @@ public class ControlPaletizadoraPTRest {
 	}
 
 	@PostMapping(path = "/obtiene-normas-embalaje", produces = MediaType.APPLICATION_JSON_VALUE)
-	public NormasEmbalajeResponse obtieneNormasEmbalaje(@RequestHeader("Authorization") String token,
+	public NormasEmbalajeResponse obtieneNormasEmbalaje(@RequestHeader("Auth") String token,
 			@RequestBody PaletizadoraDTO request) {
 		NormasEmbalajeResponse response = new NormasEmbalajeResponse();
 
@@ -104,7 +104,7 @@ public class ControlPaletizadoraPTRest {
 	}
 
 	@PostMapping(path = "/cambiar-norma-embalaje", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse cambiarNormaEmbalaje(@RequestHeader("Authorization") String token,
+	public DefaultResponse cambiarNormaEmbalaje(@RequestHeader("Auth") String token,
 			@RequestBody PaletizadoraDTO request) {
 
 		ResultDTO resultDT = new ResultDTO();
@@ -119,7 +119,7 @@ public class ControlPaletizadoraPTRest {
 	}
 
 	@PostMapping(path = "/embalar-hus", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse embalarHus(@RequestHeader("Authorization") String token,
+	public DefaultResponse embalarHus(@RequestHeader("Auth") String token,
 			@RequestBody PaletizadoraDTO request) {
 		ResultDTO resultDT = new ResultDTO();
 		DefaultResponse response = new DefaultResponse();

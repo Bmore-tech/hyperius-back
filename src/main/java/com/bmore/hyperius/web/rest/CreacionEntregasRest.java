@@ -91,7 +91,7 @@ public class CreacionEntregasRest {
 	}
 
 	@PostMapping(path = "/crear-entrega", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse crearEntrega(@RequestHeader("Authorization") String token,
+	public DefaultResponse crearEntrega(@RequestHeader("Auth") String token,
 			@RequestBody CreacionEntregaItemDTO crearEntrega) {
 		ResultDTO resultDT = creacionEntregasService.crearEntrega(crearEntrega, Utils.getWerksFromJwt(token),
 				Utils.getUsuarioFromToken(token));
@@ -126,7 +126,7 @@ public class CreacionEntregasRest {
 	}
 
 	@PostMapping(path = "/eliminar-entrega-bcps", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse eliminarEntregaBCPS(@RequestHeader("Authorization") String token,
+	public DefaultResponse eliminarEntregaBCPS(@RequestHeader("Auth") String token,
 			@RequestBody CrecionEntregaDTO eliminarEntrega) {
 		ResultDTO resultDT = new ResultDTO();
 

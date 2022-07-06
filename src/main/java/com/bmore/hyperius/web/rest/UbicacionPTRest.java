@@ -40,7 +40,7 @@ public class UbicacionPTRest {
 	private UbicacionPTService ubicacionPTService;
 
 	@PostMapping(path = "/valida-orden-produccion", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ValidaOrdenProduccionResponse validaOrdenProduccion(@RequestHeader("Authorization") String token,
+	public ValidaOrdenProduccionResponse validaOrdenProduccion(@RequestHeader("Auth") String token,
 			@RequestBody OrdenProduccionDTO request) {
 
 		ValidaOrdenProduccionResponse response = new ValidaOrdenProduccionResponse();
@@ -62,7 +62,7 @@ public class UbicacionPTRest {
 	}
 
 	@PostMapping(path = "/grabar-ubicacion-pt", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse grabarUbicacionPT(@RequestHeader("Authorization") String token,
+	public DefaultResponse grabarUbicacionPT(@RequestHeader("Auth") String token,
 			@RequestBody CarrilesUbicacionDTO request) {
 		DefaultResponse response = new DefaultResponse();
 		ResultDTO resultDT = ubicacionPTService.ingresaDetalleEnvaseBO(request, Utils.getUsuarioFromToken(token),
@@ -74,7 +74,7 @@ public class UbicacionPTRest {
 	}
 
 	@PostMapping(path = "/vidrio-ubica-pt", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse vidrioUbicaPT(@RequestHeader("Authorization") String token,
+	public DefaultResponse vidrioUbicaPT(@RequestHeader("Auth") String token,
 			@RequestBody OrdenProduccionInputDTO request) {
 
 		request.setUsuarioMontacarga(Utils.getUsuarioFromToken(token));

@@ -56,7 +56,7 @@ public class SupervisorUtilsRest {
 	private SupervisorUtilsService supervisorUtilsService;
 
 	@PostMapping(path = "/obtiene-entregas", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ObtieneEntregasResponse obtieneEntrega(@RequestHeader("Authorization") String token,
+	public ObtieneEntregasResponse obtieneEntrega(@RequestHeader("Auth") String token,
 			@RequestBody TransportesDTO transporteDTO) {
 
 		ObtieneEntregasResponse response = new ObtieneEntregasResponse();
@@ -75,7 +75,7 @@ public class SupervisorUtilsRest {
 	}
 
 	@PostMapping(path = "/obtiene-inventario", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ObtieneInventarioResponse obtieneInventario(@RequestHeader("Authorization") String token,
+	public ObtieneInventarioResponse obtieneInventario(@RequestHeader("Auth") String token,
 			@RequestBody Map<String, String> values) {
 		ObtieneInventarioResponse response = new ObtieneInventarioResponse();
 
@@ -94,7 +94,7 @@ public class SupervisorUtilsRest {
 	 * @return
 	 */
 	@PostMapping(path = "/obtiene-carriles-bloqueados", produces = MediaType.APPLICATION_JSON_VALUE)
-	public HusEnTransporteResponse obtieneCarrilesBloqueados(@RequestHeader("Authorization") String token,
+	public HusEnTransporteResponse obtieneCarrilesBloqueados(@RequestHeader("Auth") String token,
 			HttpServletRequest request, @RequestBody HUsEnTransporteDetalleDTO husEnTransporteDetalleDTO) {
 
 		HusEnTransporteResponse response = new HusEnTransporteResponse();
@@ -114,7 +114,7 @@ public class SupervisorUtilsRest {
 	 * @return
 	 */
 	@PostMapping(path = "/liberar-carriles", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse liberarCarriles(@RequestHeader("Authorization") String token,
+	public DefaultResponse liberarCarriles(@RequestHeader("Auth") String token,
 			@RequestBody CarrilesUbicacionDTO carriles) {
 		ResultDTO result = new ResultDTO();
 		DefaultResponse response = new DefaultResponse();
@@ -128,7 +128,7 @@ public class SupervisorUtilsRest {
 	}
 
 	@PostMapping(path = "/obtiene-hus-bloqueados", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ObtieneHusBloqueadosResponse obtieneHusBloqueados(@RequestHeader("Authorization") String token,
+	public ObtieneHusBloqueadosResponse obtieneHusBloqueados(@RequestHeader("Auth") String token,
 			@RequestBody HUsEnTransporteDetalleDTO request) {
 		ObtieneHusBloqueadosResponse response = new ObtieneHusBloqueadosResponse();
 
@@ -146,7 +146,7 @@ public class SupervisorUtilsRest {
 	 * @return
 	 */
 	@PostMapping(path = "/libera-hus-bloqueados", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse liberaHusBloqueados(@RequestHeader("Authorization") String token,
+	public DefaultResponse liberaHusBloqueados(@RequestHeader("Auth") String token,
 			@RequestBody CarrilesUbicacionDTO carriles) {
 		ResultDTO result = new ResultDTO();
 		DefaultResponse response = new DefaultResponse();
@@ -171,7 +171,7 @@ public class SupervisorUtilsRest {
 	}
 
 	@PostMapping(path = "/carga-bcps", produces = MediaType.APPLICATION_JSON_VALUE)
-	public CargaBcpsResponse cargaBCPS(@RequestHeader("Authorization") String token) {
+	public CargaBcpsResponse cargaBCPS(@RequestHeader("Auth") String token) {
 		CargaBcpsResponse response = new CargaBcpsResponse();
 		response.setData(
 				supervisorUtilsService.cargaBCPS(Utils.getWerksFromJwt(token), Utils.getUsuarioFromToken(token)));
@@ -182,7 +182,7 @@ public class SupervisorUtilsRest {
 	}
 
 	@PostMapping(path = "/carga-sap", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse cargaSAP(@RequestHeader("Authorization") String token) {
+	public DefaultResponse cargaSAP(@RequestHeader("Auth") String token) {
 		ResultDTO resultDT = new ResultDTO();
 		DefaultResponse response = new DefaultResponse();
 		ZContingenciaRepository zContingencia = new ZContingenciaRepository();
@@ -195,7 +195,7 @@ public class SupervisorUtilsRest {
 	}
 
 	@PostMapping(path = "/switch-ubs-sap", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse switchUbsSAP(@RequestHeader("Authorization") String token,
+	public DefaultResponse switchUbsSAP(@RequestHeader("Auth") String token,
 			@RequestBody SwitchUbsSapRequest request) {
 		ResultDTO resultDT = new ResultDTO();
 		DefaultResponse response = new DefaultResponse();
@@ -208,7 +208,7 @@ public class SupervisorUtilsRest {
 	}
 
 	@PostMapping(path = "/switch-ubs-bcps", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse switchUbsBCPS(@RequestHeader("Authorization") String token,
+	public DefaultResponse switchUbsBCPS(@RequestHeader("Auth") String token,
 			@RequestBody SwitchUbsBcpsRequest request) {
 		ResultDTO resultDT = supervisorUtilsService.switchUbsBCPS(Utils.getWerksFromJwt(token), request.getPassword());
 		DefaultResponse response = new DefaultResponse();
@@ -219,7 +219,7 @@ public class SupervisorUtilsRest {
 	}
 
 	@PostMapping(path = "/buscar-usuario", produces = MediaType.APPLICATION_JSON_VALUE)
-	public BuscarUsuarioResponse buscarUsuario(@RequestHeader("Authorization") String token,
+	public BuscarUsuarioResponse buscarUsuario(@RequestHeader("Auth") String token,
 			@RequestBody BuscarUsuarioRequest request) {
 
 		BuscarUsuarioResponse response = new BuscarUsuarioResponse();
@@ -231,7 +231,7 @@ public class SupervisorUtilsRest {
 	}
 
 	@PostMapping(path = "/eliminar-usuario", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse eliminarUsuario(@RequestHeader("Authorization") String token,
+	public DefaultResponse eliminarUsuario(@RequestHeader("Auth") String token,
 			@RequestBody UsuarioDTO request) {
 		ResultDTO resultDT = supervisorUtilsService.eliminarUsuario(request, Utils.getWerksFromJwt(token));
 		DefaultResponse response = new DefaultResponse();
@@ -242,7 +242,7 @@ public class SupervisorUtilsRest {
 	}
 
 	@PostMapping(path = "/crear-usuario", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse crearUsuario(@RequestHeader("Authorization") String token, @RequestBody UsuarioDTO user) {
+	public DefaultResponse crearUsuario(@RequestHeader("Auth") String token, @RequestBody UsuarioDTO user) {
 		user.setWerks(Utils.getWerksFromJwt(token));
 
 		ResultDTO resultDT = supervisorUtilsService.crearUsuario(user, Utils.getWerksFromJwt(token));
@@ -254,7 +254,7 @@ public class SupervisorUtilsRest {
 	}
 
 	@PostMapping(path = "/modificar-usuario", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse modificarUsuario(@RequestHeader("Authorization") String token,
+	public DefaultResponse modificarUsuario(@RequestHeader("Auth") String token,
 			@RequestBody UsuarioDTO user) {
 		ResultDTO resultDT = supervisorUtilsService.modificarUsuario(user, Utils.getWerksFromJwt(token));
 		DefaultResponse response = new DefaultResponse();
@@ -265,7 +265,7 @@ public class SupervisorUtilsRest {
 	}
 
 	@PostMapping(path = "/obtiene-entregas-agencias", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ObtieneEntregasAgenciasResponse obtieneEntregasAgencias(@RequestHeader("Authorization") String token) {
+	public ObtieneEntregasAgenciasResponse obtieneEntregasAgencias(@RequestHeader("Auth") String token) {
 		/**
 		 * Se obtienen entregas en base a lo que el usuario teclea (idUsuario, werks),
 		 * no tenemos la lista de usuarios de agencias y no se cuenta con la figura para
@@ -302,7 +302,7 @@ public class SupervisorUtilsRest {
 	}
 
 	@PostMapping(path = "/obtiene-bloqueo-carriles", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ObtieneBloqueoCarrilesResponse obtieneBloqueoCarriles(@RequestHeader("Authorization") String token) {
+	public ObtieneBloqueoCarrilesResponse obtieneBloqueoCarriles(@RequestHeader("Auth") String token) {
 
 		UsuarioDTO usuario = new UsuarioDTO();
 		usuario.setWerks(Utils.getWerksFromJwt(token));
