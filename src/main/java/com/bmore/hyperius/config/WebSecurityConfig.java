@@ -68,12 +68,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authenticated();
 
     // Exception handling
-    http.exceptionHandling()
-        .authenticationEntryPoint(jwtAuthenticationEntryPoint);
+    // http.exceptionHandling()
+    //     .authenticationEntryPoint(jwtAuthenticationEntryPoint);
 
     // Session management
-    http.sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    // http.sessionManagement()
+    //     .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     // JWT Filter
     http.addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
