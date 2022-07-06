@@ -24,38 +24,32 @@ import com.bmore.hyperius.web.service.LoginJwtService;
 @RestController
 public class LoginJWTRest {
 
-	private final Logger log = LoggerFactory.getLogger(getClass());
+  private final Logger log = LoggerFactory.getLogger(getClass());
 
-	@Autowired
-	private LoginJwtService loginJwtService;
+  @Autowired
+  private LoginJwtService loginJwtService;
 
-	/**
-	 * Post Rest para el Login a través de JWT.
-	 * 
-	 * @param authenticationRequest Request con los datos del usuario.
-	 * @return {@link DefaultResponse} con la información del estado de la
-	 *         autenticación.
-	 * @throws Exception Error en caso de que no se haya podido crear la sesión.
-	 */
-	@PostMapping(value = "/login/authenticate", produces = MediaType.APPLICATION_JSON_VALUE)
-	public JwtLoginResponse createAuthenticationToken(@RequestBody JwtLoginRequest authenticationRequest) {
-		log.info("Authenticating user... " + authenticationRequest.getUsername());
+  /**
+   * Post Rest para el Login a través de JWT.
+   * 
+   * @param authenticationRequest Request con los datos del usuario.
+   * @return {@link DefaultResponse} con la información del estado de la
+   *         autenticación.
+   * @throws Exception Error en caso de que no se haya podido crear la sesión.
+   */
+  @PostMapping(value = "/login/authenticate", produces = MediaType.APPLICATION_JSON_VALUE)
+  public JwtLoginResponse createAuthenticationToken(@RequestBody JwtLoginRequest authenticationRequest,
+      @RequestHeader("Auth") String token) {
+    log.info("Auth token... " + token);
+    log.info("Authenticating user... " + authenticationRequest.getUsername());
 
-		return loginJwtService.loginJwt(authenticationRequest);
-	}
+    return loginJwtService.loginJwt(authenticationRequest);
+  }
 
-	@PostMapping(value = "/login/check-token")
-	public JwtLoginResponse logout(@RequestHeader("Auth") String token) {
-		log.info("Logout...", token);
-		
-		// return loginJwtService.updateJwt(token);
-		return null;
-	}
+  @PostMapping(value = "/login/check-token")
+  public JwtLoginResponse logout(@RequestHeader("Authorization") String token) {
+    log.info("Logout...", token);
 
-	@PostMapping(value = "/login/check-token2")
-	public String prueba(@RequestHeader("Auth") String token) {
-		log.info("Logout...", token);
-		
-		return "Ok";
-	}
+    return loginJwtService.updateJwt(token);
+  }
 }
