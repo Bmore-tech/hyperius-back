@@ -53,8 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .csrf().disable()
 
         // Endpoints permissions
-        // .authorizeRequests()
-        .authorizeHttpRequests()
+        .authorizeRequests()
         .antMatchers("/login/authenticate",
             "/v2/api-docs",
             "/configuration/ui",
@@ -68,12 +67,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authenticated();
 
     // Exception handling
-    // http.exceptionHandling()
-    //     .authenticationEntryPoint(jwtAuthenticationEntryPoint);
+    http.exceptionHandling()
+        .authenticationEntryPoint(jwtAuthenticationEntryPoint);
 
     // Session management
-    // http.sessionManagement()
-    //     .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    http.sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     // JWT Filter
     http.addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
