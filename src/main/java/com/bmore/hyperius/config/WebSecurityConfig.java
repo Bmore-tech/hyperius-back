@@ -12,7 +12,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -24,8 +23,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Autowired
   private UserDetailsService jwtUserDetailsService;
 
-  @Autowired
-  private JwtRequestFilter jwtRequestFilter;
+  // @Autowired
+  // private JwtRequestFilter jwtRequestFilter;
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -54,17 +53,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Endpoints permissions
         .authorizeRequests()
-        .antMatchers("/login/authenticate",
-            "/v2/api-docs",
-            "/configuration/ui",
-            "/swagger-resources/**",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**",
-            "/mobile-api/**")
-        .permitAll()
-        .anyRequest()
-        .authenticated();
+        .antMatchers("/**")
+          // "/login/authenticate",
+          //   "/v2/api-docs",
+          //   "/configuration/ui",
+          //   "/swagger-resources/**",
+          //   "/configuration/security",
+          //   "/swagger-ui.html",
+          //   "/webjars/**",
+          //   "/mobile-api/**")
+        .permitAll();
+        // .anyRequest()
+        // .authenticated();
 
     // Exception handling
     http.exceptionHandling()
@@ -75,6 +75,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     // JWT Filter
-    http.addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    // http.addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
   }
 }

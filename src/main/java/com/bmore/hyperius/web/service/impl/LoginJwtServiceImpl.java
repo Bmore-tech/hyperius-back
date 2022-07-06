@@ -39,8 +39,8 @@ public class LoginJwtServiceImpl implements LoginJwtService {
 			// if (userDetails.getResultdto().getId() == 1) {
 				// Carga de datos en Payload
 				Map<String, Object> claims = new HashMap<>();
-				claims.put("usuario", "PC13");
-				claims.put("werks", "PC13");
+				claims.put("usuario", request.getUsername());
+				claims.put("werks", request.getPassword());
 				claims.put("admin", 1);
 
 				response.setToken(TOKEN_PREFIX + jwtTokenUtil.generateToken(null, claims));
@@ -67,9 +67,9 @@ public class LoginJwtServiceImpl implements LoginJwtService {
 		log.info("El token es:", token);
 		JwtLoginResponse response = new JwtLoginResponse();
 		Map<String, Object> claims = new HashMap<>();
-		claims.put("usuario", Utils.getUsuarioFromToken(token));
-		claims.put("werks", Utils.getWerksFromJwt(token));
-		claims.put("admin", Utils.getAdminFromToken(token));
+		claims.put("usuario", "PC13");
+		claims.put("werks", "PC13");
+		claims.put("admin", "admin");
 		try {
 			if(!jwtTokenUtil.isTokenExpired(token)) {
 				response.setToken(TOKEN_PREFIX + jwtTokenUtil.updateToken(Utils.getUsuarioFromToken(token), claims));
