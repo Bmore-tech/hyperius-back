@@ -18,63 +18,64 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+  @Autowired
+  private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-	@Autowired
-	private UserDetailsService jwtUserDetailsService;
+  @Autowired
+  private UserDetailsService jwtUserDetailsService;
 
-	@Autowired
-	private JwtRequestFilter jwtRequestFilter;
+  @Autowired
+  private JwtRequestFilter jwtRequestFilter;
 
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		// configure AuthenticationManager so that it knows from where to load
-		// user for matching credentials
-		// Use BCryptPasswordEncoder
-		auth.userDetailsService(jwtUserDetailsService);
-	}
+  @Autowired
+  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    // configure AuthenticationManager so that it knows from where to load
+    // user for matching credentials
+    // Use BCryptPasswordEncoder
+    auth.userDetailsService(jwtUserDetailsService);
+  }
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
+  @Bean
+  @Override
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
+  }
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		// Disable CORS and CSRF
-		http.cors().disable()
-			.csrf().disable()
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    // Disable CORS and CSRF
+    http.cors().disable()
+        .csrf().disable()
 
-		// Endpoints permissions
-		.authorizeRequests()
-			.antMatchers("/login/authenticate"
-						, "/v2/api-docs",
-                        "/configuration/ui",
-                        "/swagger-resources/**",
-                        "/configuration/security",
-                        "/swagger-ui.html",
-                        "/webjars/**",
-                        "/mobile-api/**")
-			.permitAll()
-			.anyRequest()
-			.authenticated();
-		
-		// Exception handling
-		http.exceptionHandling()
-			.authenticationEntryPoint(jwtAuthenticationEntryPoint);
+        // Endpoints permissions
+        // .authorizeRequests()
+        .authorizeHttpRequests()
+        .antMatchers("/login/authenticate",
+            "/v2/api-docs",
+            "/configuration/ui",
+            "/swagger-resources/**",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            "/mobile-api/**")
+        .permitAll()
+        .anyRequest()
+        .authenticated();
 
-		// Session management
-		http.sessionManagement()
-			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    // Exception handling
+    http.exceptionHandling()
+        .authenticationEntryPoint(jwtAuthenticationEntryPoint);
 
-		// JWT Filter
-		http.addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-	}
+    // Session management
+    http.sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+    // JWT Filter
+    http.addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+  }
 }

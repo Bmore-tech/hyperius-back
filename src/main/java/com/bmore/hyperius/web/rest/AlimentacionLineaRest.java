@@ -35,7 +35,7 @@ public class AlimentacionLineaRest {
 	private AlimentacionLineaService alimentacionLineaService;
 
 	@PostMapping(path = "/valida-orden-produccion", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ValidaOrdenProduccionResponse validaOrdenProduccion(@RequestHeader("Auth") String token,
+	public ValidaOrdenProduccionResponse validaOrdenProduccion(@RequestHeader("Authorization") String token,
 			@RequestBody OrdenProduccionDTO request) {
 
 		ValidaOrdenProduccionResponse response = new ValidaOrdenProduccionResponse();
@@ -50,7 +50,7 @@ public class AlimentacionLineaRest {
 	}
 
 	@PostMapping(path = "/alimenta-envase", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse alimentaEnvase(@RequestHeader("Auth") String token,
+	public DefaultResponse alimentaEnvase(@RequestHeader("Authorization") String token,
 			@RequestBody CarrilesUbicacionDTO request) {
 
 		ResultDTO result = alimentacionLineaService.ingresaDetalleEnvaseBO(request, Utils.getUsuarioFromToken(token),
