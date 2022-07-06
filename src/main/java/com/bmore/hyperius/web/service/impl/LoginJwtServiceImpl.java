@@ -14,6 +14,9 @@ import com.bmore.hyperius.web.rest.resquest.JwtLoginRequest;
 import com.bmore.hyperius.web.service.LoginJwtService;
 import com.bmore.hyperius.web.utils.Utils;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class LoginJwtServiceImpl implements LoginJwtService {
 
@@ -68,7 +71,7 @@ public class LoginJwtServiceImpl implements LoginJwtService {
 		claims.put("usuario", Utils.getUsuarioFromToken(token));
 		claims.put("werks", Utils.getWerksFromJwt(token));
 		claims.put("admin", Utils.getAdminFromToken(token));
-		
+		log.info("El token es:", token);
 		try {
 			if(!jwtTokenUtil.isTokenExpired(token)) {
 				response.setToken(TOKEN_PREFIX + jwtTokenUtil.updateToken(Utils.getUsuarioFromToken(token), claims));
