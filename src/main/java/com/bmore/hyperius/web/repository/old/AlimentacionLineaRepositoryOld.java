@@ -103,7 +103,7 @@ public class AlimentacionLineaRepositoryOld {
 		OrdenProduccionDTO orden = new OrdenProduccionDTO();
 		ResultDTO result = new ResultDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 
@@ -163,7 +163,7 @@ public class AlimentacionLineaRepositoryOld {
 		List<OrdenProduccionDetalleDTO> detalle = new ArrayList<OrdenProduccionDetalleDTO>();
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 
@@ -295,7 +295,7 @@ public class AlimentacionLineaRepositoryOld {
 
 		CarrilesUbicacionDTO carrilesDTO = new CarrilesUbicacionDTO();
 		List<CarrilUbicacionDTO> carrilList = new ArrayList<CarrilUbicacionDTO>();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt2 = null;
 		PreparedStatement stmnt4 = null;
 		ResultSet rs2 = null;
@@ -444,7 +444,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public ResultDTO ingresaDetalleEnvase(String aufnr, CarrilesUbicacionDTO carrilesDTO, String user, String werks) {
 		logger.error("ingresaDetalleEnvase DAO AlimentacionLinea");
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		ResultDTO resultDT = new ResultDTO();
 
@@ -502,7 +502,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public ResultDTO validarEntregaPickin(OrdenProduccionInputDTO ordenProduccionInput) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 
@@ -544,7 +544,7 @@ public class AlimentacionLineaRepositoryOld {
 
 		ResultDTO result = new ResultDTO();
 		OrdenProduccionDetalleDTO orden = new OrdenProduccionDetalleDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 
@@ -611,7 +611,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public ResultDTO reservaUbicacionHU1(OrdenProduccionInputDTO ordenProduccionInput) {
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement stmn = null;
@@ -653,7 +653,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public ResultDTO reservaUbicacionHU2(OrdenProduccionInputDTO ordenProduccionInput) {
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement stmn = null;
@@ -701,7 +701,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public OrdenProduccionInputDTO obtieneReservaUbicacionHU1(OrdenProduccionInputDTO ordenProduccionInput) {
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		OrdenProduccionInputDTO ordenProduccionInputReturn = new OrdenProduccionInputDTO();
 		ResultDTO resultDT = new ResultDTO();
@@ -751,7 +751,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public OrdenProduccionInputDTO obtieneDepaletizadora(OrdenProduccionInputDTO ordenProduccionInput) {
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		OrdenProduccionInputDTO ordenProduccionInputReturn = new OrdenProduccionInputDTO();
 		ResultDTO resultDT = new ResultDTO();
@@ -798,7 +798,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public ResultDTO confirmaHUenDepa(OrdenProduccionInputDTO ordenProduccionInput, String hu) {
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement stmn = null;
@@ -846,7 +846,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public ResultDTO validaPickeoPrevioHU(OrdenProduccionInputDTO ordenProduccionInput, String hu) {
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement stmn = null;
@@ -893,7 +893,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public ResultDTO insertProcesoContingencia_5(OrdenProduccionInputDTO ordenProduccionInput, String hu) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -934,7 +934,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public int limpiaPendientes(String vbeln) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -969,7 +969,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public ResultDTO limpiaPendientesXUsuario(String vbeln, String user) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -1006,7 +1006,7 @@ public class AlimentacionLineaRepositoryOld {
 	public ResultDTO consumeInventario(String hu, OrdenProduccionInputDTO ordenProduccionInput) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -1050,7 +1050,7 @@ public class AlimentacionLineaRepositoryOld {
 	public HashMap<String, String> getCarrilesBloqueados(String idProceso, String werks) {
 
 		HashMap<String, String> map = new HashMap<String, String>();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -1088,7 +1088,7 @@ public class AlimentacionLineaRepositoryOld {
 	public HashMap<String, String> getCarrilesMaterialBloqueado(String matnr, String werks) {
 
 		HashMap<String, String> map = new HashMap<String, String>();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;

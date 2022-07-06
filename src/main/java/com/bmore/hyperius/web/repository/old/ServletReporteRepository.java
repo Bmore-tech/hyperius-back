@@ -34,7 +34,7 @@ public class ServletReporteRepository {
 
 	public List<ServletReporteProformaDTO> getDatosProforma() {
 		List<ServletReporteProformaDTO> proformaList = new ArrayList<ServletReporteProformaDTO>();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement("");
 			ResultSet rs = stm.executeQuery();
@@ -61,7 +61,7 @@ public class ServletReporteRepository {
 	public List<ReporteOperacionesDTO> getReporteOperacionesDAO(
 			String werks) {
 		List<ReporteOperacionesDTO> proformaList = new ArrayList<ReporteOperacionesDTO>();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con
 					.prepareStatement(GET_REPORTE_OPERACIONES);
@@ -87,7 +87,7 @@ public class ServletReporteRepository {
 	public List<ReporteOperacionesDTO> getReporteOperacionesInitialStockDAO(
 			String werks) {
 		List<ReporteOperacionesDTO> stock = new ArrayList<ReporteOperacionesDTO>();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(GET_INITIAL_STOCK);
 			stm.setString(1, werks);
@@ -111,7 +111,7 @@ public class ServletReporteRepository {
 	}
 
 	public String getTknum(String Vbeln) {
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		String tknum = "";
 		try {
 			PreparedStatement stm = con.prepareStatement(getTknum);
@@ -139,7 +139,7 @@ public class ServletReporteRepository {
 
 	public List<ReporteShippingDTO> getDatosShipping(String werks) {
 		List<ReporteShippingDTO> shippingList = new ArrayList<ReporteShippingDTO>();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getShipping);
 			stm.setString(1, werks);

@@ -136,7 +136,7 @@ public class SupervisorUtilsRepository {
 
 	public EntregasTransportesDTO obtieneEntrega(String tknum, String werks) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
 
@@ -198,7 +198,7 @@ public class SupervisorUtilsRepository {
 
 	public EntregasTransportesDTO obtieneEntregas(String werks) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
 
@@ -260,7 +260,7 @@ public class SupervisorUtilsRepository {
 
 	public InventarioDTO obtieneInventario(String werks) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
 
@@ -320,7 +320,7 @@ public class SupervisorUtilsRepository {
 
 	public InventarioDTO obtieneInventarioLotes(String werks) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
 
@@ -383,7 +383,7 @@ public class SupervisorUtilsRepository {
 			String vbeln, String werks) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
 
@@ -453,7 +453,7 @@ public class SupervisorUtilsRepository {
 			String vbeln, String werks) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
 
@@ -516,7 +516,7 @@ public class SupervisorUtilsRepository {
 	public ResultDTO limpiaCarril(CarrilUbicacionDTO carril) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -565,7 +565,7 @@ public class SupervisorUtilsRepository {
 			HUsEnTransporteDetalleDTO husEnTransporteDetalleDTO, String werks) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
 
@@ -636,7 +636,7 @@ public class SupervisorUtilsRepository {
 			HUsEnTransporteDetalleDTO husEnTransporteDetalleDTO, String werks) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
 
@@ -703,7 +703,7 @@ public class SupervisorUtilsRepository {
 
 	public ResultDTO validarCarril(CarrilUbicacionDTO carril) {
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement stmn = null;
@@ -772,7 +772,7 @@ public class SupervisorUtilsRepository {
 
 		ListaDTO listaDTO = new ListaDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		List<String> centros = new ArrayList<String>();
 		ResultDTO resultDT = new ResultDTO();
 
@@ -821,7 +821,7 @@ public class SupervisorUtilsRepository {
 		PreparedStatement stm = null;
 		ResultSet rs = null;
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			stm = con.prepareStatement(GET_FTP_CONF);
 
@@ -878,7 +878,7 @@ public class SupervisorUtilsRepository {
 		ResultSet rs = null;
 
 		ListaDTO listaDTO = new ListaDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		List<String> centros = new ArrayList<String>();
 		ResultDTO resultDT = new ResultDTO();
 
@@ -956,7 +956,7 @@ public class SupervisorUtilsRepository {
 	public ResultDTO bulk(String tabla, String werks) {
 
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement st2 = null;
 		PreparedStatement upd = null;
 
@@ -1117,7 +1117,7 @@ public class SupervisorUtilsRepository {
 	}
 
 	public void removeQuality() {
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		CallableStatement callableStatement = null;
 		try {
 			callableStatement = con.prepareCall(REMOVEQUALITY);
@@ -1138,7 +1138,7 @@ public class SupervisorUtilsRepository {
 	public ResultDTO eliminaDuplicados() {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -1171,7 +1171,7 @@ public class SupervisorUtilsRepository {
 	public ResultDTO validaInicioBCPS(String werks) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
 
@@ -1216,7 +1216,7 @@ public class SupervisorUtilsRepository {
 	public UsuarioItemDTO buscarUsuario(String idUser) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
 		UsuarioItemDTO usuariItemDTO = new UsuarioItemDTO();
@@ -1281,7 +1281,7 @@ public class SupervisorUtilsRepository {
 	public ResultDTO eliminarUsuario(String idUser) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CallableStatement callableStatement = null;
 		try {
@@ -1328,7 +1328,7 @@ public class SupervisorUtilsRepository {
 	public ResultDTO crearUsuario(UsuarioDTO user) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CallableStatement callableStatement = null;
 		try {
@@ -1375,7 +1375,7 @@ public class SupervisorUtilsRepository {
 	public ResultDTO modificarUsuario(UsuarioDTO user) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CallableStatement callableStatement = null;
 		try {
@@ -1422,7 +1422,7 @@ public class SupervisorUtilsRepository {
 	public ResultDTO limpiaTablasCentro(String werks) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CallableStatement callableStatement = null;
 		try {
@@ -1462,7 +1462,7 @@ public class SupervisorUtilsRepository {
 
 	public EntregasTransportesDTO obtieneEntregasAgencias(UsuarioDTO usuario) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
 
@@ -1523,7 +1523,7 @@ public class SupervisorUtilsRepository {
 
 	public CarrilesBloqueadosDTO obtieneCarrilesBloqueados(UsuarioDTO usuario) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stm = null;
 		ResultSet rs = null;
 
@@ -1594,7 +1594,7 @@ public class SupervisorUtilsRepository {
 
 		List<EmbarqueDetalleDTO> items = new ArrayList<EmbarqueDetalleDTO>();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		PreparedStatement stmn2 = null;
@@ -1702,7 +1702,7 @@ public class SupervisorUtilsRepository {
 	public ResultDTO initialSnapshot(String werks) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CallableStatement callableStatement = null;
 

@@ -17,7 +17,7 @@ public class EDIGenerationRepository {
 
 	public EDIGenerationDTO_Sec_A Exportacion_EDI_A(String VBELN) {
 		EDIGenerationDTO_Sec_A ediDto = new EDIGenerationDTO_Sec_A();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con
 					.prepareStatement(VS_BCPS_EXPORTACION_EDI_A);
@@ -59,7 +59,7 @@ public class EDIGenerationRepository {
 
 	public EDIGenerationDTO_Sec_B Exportacion_EDI_B(String VBELN) {
 		EDIGenerationDTO_Sec_B ediDto = new EDIGenerationDTO_Sec_B();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con
 					.prepareStatement(VS_BCPS_EXPORTACION_EDI_B);
@@ -96,7 +96,7 @@ public class EDIGenerationRepository {
 
 	public EDIGenerationDTO_Sec_B Exportacion_EDI_C(String VBELN) {
 		EDIGenerationDTO_Sec_B ediDto = new EDIGenerationDTO_Sec_B();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con
 					.prepareStatement(VS_BCPS_EXPORTACION_EDI_C);
@@ -135,7 +135,7 @@ public class EDIGenerationRepository {
 
 	public EDIGenerationDTO_Sec_B Exportacion_EDI_D(String VBELN) {
 		EDIGenerationDTO_Sec_B ediDto = new EDIGenerationDTO_Sec_B();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con
 					.prepareStatement(VS_BCPS_EXPORTACION_EDI_D);
@@ -173,7 +173,7 @@ public class EDIGenerationRepository {
 
 	public EDIGenerationDTO_Sec_B Exportacion_EDI_E(String VBELN) {
 		EDIGenerationDTO_Sec_B ediDto = new EDIGenerationDTO_Sec_B();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con
 					.prepareStatement(VS_BCPS_EXPORTACION_EDI_E);
@@ -209,7 +209,7 @@ public class EDIGenerationRepository {
 
 	public EDIGenerationDTO_Sec_B Exportacion_EDI_F(String VBELN) {
 		EDIGenerationDTO_Sec_B ediDto = new EDIGenerationDTO_Sec_B();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con
 					.prepareStatement(VS_BCPS_EXPORTACION_EDI_F);
@@ -246,7 +246,7 @@ public class EDIGenerationRepository {
 
 	public EDIGenerationDTO_Sec_B Exportacion_EDI_G(String VBELN) {
 		EDIGenerationDTO_Sec_B ediDto = new EDIGenerationDTO_Sec_B();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con
 					.prepareStatement(VS_BCPS_EXPORTACION_EDI_G);
@@ -276,7 +276,7 @@ public class EDIGenerationRepository {
 
 	public EDIGenerationDTO_Sec_B Exportacion_EDI_H(String VBELN) {
 		EDIGenerationDTO_Sec_B ediDto = new EDIGenerationDTO_Sec_B();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con
 					.prepareStatement(VS_BCPS_EXPORTACION_EDI_H);

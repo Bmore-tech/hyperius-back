@@ -77,7 +77,7 @@ public class HUsRepositoryOld {
 		items.setItem(itemList);
 		husDTO.setItems(items);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -143,7 +143,7 @@ public class HUsRepositoryOld {
 		items.setItem(itemList);
 		husDTO.setItems(items);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -203,7 +203,7 @@ public class HUsRepositoryOld {
 
 		ResultDTO resultDT = new ResultDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		ResultSet rs = null;
 
@@ -288,7 +288,7 @@ public class HUsRepositoryOld {
 		items.setItem(itemList);
 		husDTO.setItems(items);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -348,7 +348,7 @@ public class HUsRepositoryOld {
 		items.setItem(itemList);
 		husDTO.setItems(items);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -402,7 +402,7 @@ public class HUsRepositoryOld {
 
 		ResultDTO resultDT = new ResultDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		ResultSet rs = null;
 
@@ -489,7 +489,7 @@ public class HUsRepositoryOld {
 		items.setItem(itemList);
 		husDTO.setItems(items);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -545,7 +545,7 @@ public class HUsRepositoryOld {
 
 		ResultDTO result = new ResultDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -600,7 +600,7 @@ public class HUsRepositoryOld {
 		items.setItem(itemList);
 		husDTO.setItems(items);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -674,7 +674,7 @@ public class HUsRepositoryOld {
 		items.setItem(itemList);
 		husDTO.setItems(items);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;

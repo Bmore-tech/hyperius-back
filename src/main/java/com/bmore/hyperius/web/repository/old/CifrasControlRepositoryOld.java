@@ -98,7 +98,7 @@ public class CifrasControlRepositoryOld {
 	public DescargaInformacionDTO getDescargaInformacion() {
 		DescargaInformacionDTO descargaInformacionDTO = new DescargaInformacionDTO();
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		List<DescargaInformacionBodyDTO> descargaInformacionBodyDTOs = new ArrayList<DescargaInformacionBodyDTO>();
 		try {
 			PreparedStatement stm = con
@@ -148,7 +148,7 @@ public class CifrasControlRepositoryOld {
 	public CargaInformacionDTO getCargaInformacion() {
 		CargaInformacionDTO cargaInformacionDTO = new CargaInformacionDTO();
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		List<CargaInformacionBodyDTO> cargaInformacionBodyDTOs = new ArrayList<CargaInformacionBodyDTO>();
 		try {
 			PreparedStatement stm = con.prepareStatement(GET_CARGA_INFORMACION);
@@ -196,7 +196,7 @@ public class CifrasControlRepositoryOld {
 	public ReporteAvanceDTO getReporteOperaciones() {
 		ReporteAvanceDTO reporteAvanceDTO = new ReporteAvanceDTO();
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		List<ReporteAvanceBodyDTO> reporteAvanceBodyDTOs = new ArrayList<ReporteAvanceBodyDTO>();
 		try {
 			PreparedStatement stm = con
@@ -256,7 +256,7 @@ public class CifrasControlRepositoryOld {
 	public List<String> generateDataReport(
 			DescargaInformacionDTO descargaInformacionDTO) {
 		List<String> toReturn = new ArrayList<String>();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stm = null;
 		ResultSet rs = null;
 		try {
@@ -295,7 +295,7 @@ public class CifrasControlRepositoryOld {
 	}
 
 	public ResultDTO savePlaneacion(PlaneacionBodyDTO planeacionBodyDTO) {
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stm = null;
 		ResultDTO result = new ResultDTO();
 		try {

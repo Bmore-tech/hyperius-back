@@ -20,7 +20,7 @@ public class LoginDB {
 	static String RETRIVE_DATA= "SELECT * FROM HCMDB.dbo.zSession WHERE idRed= ?";
 	public static ResultDT login(String entry) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -59,7 +59,7 @@ public class LoginDB {
 	public static LoginDTO existeRegistroUsuario(String entry) throws ClassNotFoundException {
 		LoginDTO loginDTO = new LoginDTO();
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -100,7 +100,7 @@ public class LoginDB {
 	}
 	public static ResultDT ingresaRegistroUsuario(LoginDTO loginDTO) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		try {
 			LOCATION.error("Ingresar a ZSESSION");
@@ -139,7 +139,7 @@ public class LoginDB {
 	}
 	public static ResultDT actualizaHoraUltimaOperacion(String idRed) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		java.util.Date date = new java.util.Date();
 		long miliseconds = date.getTime();
@@ -173,7 +173,7 @@ public class LoginDB {
 	}
 	public static ResultDT actualizaRegistroUsuario(LoginDTO loginDTO) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		try {
 			stmn = con.prepareStatement(ACTUALIZA_REGISTRO_USUARIO);
@@ -213,7 +213,7 @@ public class LoginDB {
 	public static ResultDT logOut(String idRed) throws ClassNotFoundException {
 
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		try {
 			stmn = con.prepareStatement(LOG_OUT);
@@ -249,7 +249,7 @@ public class LoginDB {
 		LoginDTO data= new LoginDTO();
 		ResultSet rs= null;
 		PreparedStatement stmn = null;
-		Connection con= DBConnectionMob.createConnection();
+		Connection con= new DBConnectionMob().createConnection();
 		try {
 			stmn= con.prepareStatement(RETRIVE_DATA);
 			stmn.setString(1, idRed);

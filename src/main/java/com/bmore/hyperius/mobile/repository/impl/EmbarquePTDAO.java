@@ -31,7 +31,7 @@ public class EmbarquePTDAO {
 	public EntregaInput validarEntregaPickin(EntregaInput entregaInput) throws ClassNotFoundException {
 		EntregaInput entregaInputReturn = new EntregaInput();
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		HashMap<String, String> hashhMap = new HashMap<String, String>();
@@ -77,7 +77,7 @@ public class EmbarquePTDAO {
 	public EntregaInput reservaUbicaciones(EntregaInput entregaInput) throws ClassNotFoundException{
 		ResultDT result = new ResultDT();
 		result.setId(0);
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		CallableStatement callableStatement = null;
 		try {
 			// @WERKS, @USRMNT, @VBELN, @IDPR, @RETURN, @MATNR, @LGNUM, @LGTYP,
@@ -119,7 +119,7 @@ public class EmbarquePTDAO {
 		return entregaInput;
 	}
 	public ResultDT validaPickeoPrevioHU(EntregaInput entregaInput, String hu) throws ClassNotFoundException{
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		ResultDT resultDT = new ResultDT();
 		PreparedStatement stmn = null;
 		ResultSet resultado = null;
@@ -152,7 +152,7 @@ public class EmbarquePTDAO {
 	public EntregaDetalleDTO getDataHU(String hu, String werks, String lgtyp, String lgpla) throws ClassNotFoundException{
 		ResultDT result = new ResultDT();
 		EntregaDetalleDTO entrega = new EntregaDetalleDTO();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		PreparedStatement stmn2 = null;
@@ -215,7 +215,7 @@ public class EmbarquePTDAO {
 	public ResultDT confirmaHusEnCamionFurgon(EntregaInput entregaInput) throws ClassNotFoundException{
 		ResultDT result = new ResultDT();
 		result.setId(0);
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		CallableStatement callableStatement = null;
 		try {
 			LOCATION.info("CONSUME HUS");
@@ -269,7 +269,7 @@ public class EmbarquePTDAO {
 	}
 	public ResultDT limpiaPendientesXUsuario(String vbeln, String user) throws ClassNotFoundException{
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		try {
 			LOCATION.info("Limpia pendientes DAO :" + vbeln);
@@ -303,7 +303,7 @@ public class EmbarquePTDAO {
 	public String getWerks(String entrega) throws ClassNotFoundException{
 		LOCATION.info("getWerksDAO");
 		String werks=null;
-		Connection con= DBConnectionMob.createConnection();
+		Connection con= new DBConnectionMob().createConnection();
 		ResultSet rs;
 		PreparedStatement stmn;
 		try {

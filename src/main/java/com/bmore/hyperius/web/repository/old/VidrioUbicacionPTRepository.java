@@ -46,7 +46,7 @@ public class VidrioUbicacionPTRepository {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 
@@ -101,7 +101,7 @@ public class VidrioUbicacionPTRepository {
 		List<OrdenProduccionDetalleDTO> detalle = new ArrayList<OrdenProduccionDetalleDTO>();
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 
@@ -221,7 +221,7 @@ public class VidrioUbicacionPTRepository {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CallableStatement callableStatement = null;
 

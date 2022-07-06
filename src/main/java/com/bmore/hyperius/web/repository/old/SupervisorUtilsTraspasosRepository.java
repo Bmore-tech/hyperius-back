@@ -41,7 +41,7 @@ public class SupervisorUtilsTraspasosRepository {
 	public AlmacenesDTO lgortPermitidos(String werks) {
 
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt = null;
 		ResultSet rs = null;
 
@@ -99,7 +99,7 @@ public class SupervisorUtilsTraspasosRepository {
 	public AlmacenesDTO lgnumPermitidos(AlmacenDTO almacenDTO) {
 
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt = null;
 		ResultSet rs = null;
 
@@ -163,7 +163,7 @@ public class SupervisorUtilsTraspasosRepository {
 	public AlmacenesDTO lgtypPermitidos(AlmacenDTO almacenDTO) {
 
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt = null;
 		ResultSet rs = null;
 
@@ -228,7 +228,7 @@ public class SupervisorUtilsTraspasosRepository {
 	public AlmacenesDTO lgplaPermitidos(AlmacenDTO almacenDTO) {
 
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt = null;
 		ResultSet rs = null;
 
@@ -292,7 +292,7 @@ public class SupervisorUtilsTraspasosRepository {
 	public InventarioDTO lquaBusquedaTraspasos(AlmacenDTO almacenDTO, int opc) {
 
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt = null;
 		ResultSet rs = null;
 
@@ -381,7 +381,7 @@ public class SupervisorUtilsTraspasosRepository {
 			String user) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CallableStatement callableStatement = null;
 

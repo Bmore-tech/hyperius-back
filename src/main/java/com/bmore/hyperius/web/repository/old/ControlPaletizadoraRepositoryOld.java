@@ -110,7 +110,7 @@ public class ControlPaletizadoraRepositoryOld {
 		List<PaletizadoraDTO> listPaletizadoras = new ArrayList<PaletizadoraDTO>();
 		ResultDTO resultDT = new ResultDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -249,7 +249,7 @@ public class ControlPaletizadoraRepositoryOld {
 
 		ResultDTO resultDT = new ResultDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 
@@ -309,7 +309,7 @@ public class ControlPaletizadoraRepositoryOld {
 // 
 // 		ResultDTO resultDT = new ResultDTO();
 // 
-// 		Connection con = DBConnection.createConnection();
+// 		Connection con = new DBConnection().createConnection();
 // 
 // 		PreparedStatement stmn = null;
 // 
@@ -385,7 +385,7 @@ public class ControlPaletizadoraRepositoryOld {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -436,7 +436,7 @@ public class ControlPaletizadoraRepositoryOld {
 	public ResultDTO obtieneCantidadHUS(String aufnr) {
 
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -488,7 +488,7 @@ public class ControlPaletizadoraRepositoryOld {
 
 		ResultDTO resultDT = new ResultDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 
@@ -574,7 +574,7 @@ public class ControlPaletizadoraRepositoryOld {
 // 		List<NormaEmbalajeDTO> listNormaEmbalajeDTO = new ArrayList<NormaEmbalajeDTO>();
 // 		ResultDTO resultDT = new ResultDTO();
 // 
-// 		Connection con = DBConnection.createConnection();
+// 		Connection con = new DBConnection().createConnection();
 // 
 // 		PreparedStatement stmn = null;
 // 		ResultSet rs = null;
@@ -658,7 +658,7 @@ public class ControlPaletizadoraRepositoryOld {
 
 		ResultDTO resultDT = new ResultDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -818,7 +818,7 @@ public class ControlPaletizadoraRepositoryOld {
 // 
 // 		ResultDTO resultDT = new ResultDTO();
 // 
-// 		Connection con = DBConnection.createConnection();
+// 		Connection con = new DBConnection().createConnection();
 // 
 // 		PreparedStatement stmn = null;
 // 		ResultSet rs = null;
@@ -886,7 +886,7 @@ public class ControlPaletizadoraRepositoryOld {
 // 
 // 		ResultDTO resultDT = new ResultDTO();
 // 
-// 		Connection con = DBConnection.createConnection();
+// 		Connection con = new DBConnection().createConnection();
 // 
 // 		PreparedStatement stmn = null;
 // 		int count = 0;
@@ -962,7 +962,7 @@ public class ControlPaletizadoraRepositoryOld {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -1014,7 +1014,7 @@ public class ControlPaletizadoraRepositoryOld {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -1089,7 +1089,7 @@ public class ControlPaletizadoraRepositoryOld {
 
 		ResultDTO resultDT = new ResultDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;

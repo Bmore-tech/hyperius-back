@@ -49,7 +49,7 @@ public class RecepcionEnvaseDAO {
 	static String VALIDA_PICKEO_PREVIO_HU = "SELECT EXIDV FROM HCMDB.dbo.ZPickingEntregaEntrante WITH(NOLOCK) WHERE EXIDV = ? AND idProceso='1' AND Status='X'";
 	static String CONSUME_HUS = "exec sp_bcps_wm_consume_hus_recepcion ?,?,?,?,?,?,?,?,?,?,?,?";
 	public static String getWerks(String Hu) throws ClassNotFoundException{
-		Connection con= DBConnectionMob.createConnection();
+		Connection con= new DBConnectionMob().createConnection();
 		PreparedStatement stmn=null;
 		ResultSet rs=null;
 		String Werks="";
@@ -74,7 +74,7 @@ public class RecepcionEnvaseDAO {
 	public EntregaInput validarEntregaPickin(String entrega) throws ClassNotFoundException {
 		EntregaInput entregaInput = new EntregaInput();
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -118,7 +118,7 @@ public class RecepcionEnvaseDAO {
 		return entregaInput;
 	}
 	public int getFaltantes(String entrega) throws ClassNotFoundException{
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		int x = 999999;
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -151,7 +151,7 @@ public class RecepcionEnvaseDAO {
 		return x;
 	}
 	public ResultDT getVBELNFromHuSAP(String hu, String werks) throws ClassNotFoundException{
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		ResultDT resultDT = new ResultDT();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -187,7 +187,7 @@ public class RecepcionEnvaseDAO {
 	}
 	public ResultDT getVBELNFromHuBCPS(String hu, String werks) throws ClassNotFoundException {
 
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		ResultDT resultDT = new ResultDT();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -231,7 +231,7 @@ public class RecepcionEnvaseDAO {
 	}
 	public ResultDT reservarCarrilHU(String entrega, String hu, String matnr,String usuarioMontacargas) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -269,7 +269,7 @@ public class RecepcionEnvaseDAO {
 	}
 	public ResultDT reservarCarrilHU(String entrega, String hu, String matnr,String usuarioMontacargas, String lgtyp, String lgpla) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -309,7 +309,7 @@ public class RecepcionEnvaseDAO {
 	}
 	public CarrilUbicacionDTO consultReservaCarrilHu(String vbeln, String hu) throws ClassNotFoundException {
 
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 
 		CarrilUbicacionDTO carrilUbicacionDTO = new CarrilUbicacionDTO();
 		ResultDT resultDT = new ResultDT();
@@ -360,7 +360,7 @@ public class RecepcionEnvaseDAO {
 
 		ResultDT result = new ResultDT();
 		EntregaDetalleDTO entrega = new EntregaDetalleDTO();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -405,7 +405,7 @@ public class RecepcionEnvaseDAO {
 
 		ResultDT result = new ResultDT();
 		EntregaDetalleDTO entrega = new EntregaDetalleDTO();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -450,7 +450,7 @@ public class RecepcionEnvaseDAO {
 	public ResultDT confirmaHusEnCarrill(EntregaInput entregaEntranteInput) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
 		result.setId(0);
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		CallableStatement callableStatement = null;
 		try {
 			// "@HU1, @HU2, @USER, @VBELN, @MATNR, @WERKS, @LGORT, @LGNUM,
@@ -506,7 +506,7 @@ public class RecepcionEnvaseDAO {
 	}
 	public ResultDT limpiaPendientesXUsuario(String vbeln, String user) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -541,7 +541,7 @@ public class RecepcionEnvaseDAO {
 		return result;
 	}
 	public ResultDT validaPickeoPrevioHU(EntregaInput entregaInput, String hu) throws ClassNotFoundException {
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		ResultDT resultDT = new ResultDT();
 		PreparedStatement stmn = null;
 		ResultSet resultado = null;

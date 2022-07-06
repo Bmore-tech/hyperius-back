@@ -34,7 +34,7 @@ public class AlimentacionLineaDAO {
 	// "exec sp_bcps_wm_consume_hus_v2 ?,?,?,?,?,?,?,?,?,?,?,'','',?";
 	static String CONSUME_HUS = "exec sp_bcps_wm_consume_hus_alimentacion ?,?,?,?,?,?,?,?,?,?,?";
 	public static String getLGPLA(String hu) {
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -50,7 +50,7 @@ public class AlimentacionLineaDAO {
 	}
 	public ResultDT validaOrden(OrdenProduccionInput ordenProduccionInput) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		LOCATION.error("Orden: " + ordenProduccionInput.getOrdeProduccion());
@@ -93,7 +93,7 @@ public class AlimentacionLineaDAO {
 		ResultDT result = new ResultDT();
 		LOCATION.info("getDataHU");
 		OrdenProduccionDetalleDTO orden = new OrdenProduccionDetalleDTO();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		PreparedStatement stmn3 = null;
@@ -152,7 +152,7 @@ public class AlimentacionLineaDAO {
 		return orden;
 	}
 	public OrdenProduccionInput obtieneDepaletizadora(OrdenProduccionInput ordenProduccionInput) throws ClassNotFoundException {
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		OrdenProduccionInput ordenProduccionInputReturn = new OrdenProduccionInput();
 		ResultDT resultDT = new ResultDT();
 		PreparedStatement stmn = null;
@@ -188,7 +188,7 @@ public class AlimentacionLineaDAO {
 	public ResultDT confirmaHUsenDepa(OrdenProduccionInput ordenProduccionInput)throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
 		result.setId(0);
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		CallableStatement callableStatement = null;
 		try {
 			LOCATION.info("CONSUME HUS");
@@ -230,7 +230,7 @@ public class AlimentacionLineaDAO {
 		return result;
 	}
 	public ResultDT validaPickeoPrevioHU(OrdenProduccionInput ordenProduccionInput, String hu) throws ClassNotFoundException {
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		ResultDT resultDT = new ResultDT();
 		PreparedStatement stmn = null;
 		ResultSet resultado = null;
@@ -262,7 +262,7 @@ public class AlimentacionLineaDAO {
 	}
 	public ResultDT limpiaPendientesXUsuario(String vbeln, String user) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		try {
 			LOCATION.info("Limpia pendientes DAO :" + vbeln);
@@ -296,7 +296,7 @@ public class AlimentacionLineaDAO {
 	public OrdenProduccionInput reservaUbicaciones(OrdenProduccionInput ordenProduccionInput) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
 		result.setId(0);
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		CallableStatement callableStatement = null;
 		try {
 			// @WERKS, @USRMNT, @VBELN, @IDPR, @RETURN, @MATNR, @LGNUM, @LGTYP,
@@ -341,7 +341,7 @@ public class AlimentacionLineaDAO {
 	}
 	public static String getWerks(String ordProd) throws ClassNotFoundException{
 		String werks="";
-		Connection con= DBConnectionMob.createConnection();
+		Connection con= new DBConnectionMob().createConnection();
 		PreparedStatement stmn=null;
 		ResultSet rs=null;
 		try {

@@ -100,7 +100,7 @@ public class Utils {
 
 	public static ResultDTO actualizarInventarioCarriles(String LGNUM, String LGTYP, String LGPLA) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		try {
 			stmn = con.prepareStatement(LIMPIA_CARRIL);

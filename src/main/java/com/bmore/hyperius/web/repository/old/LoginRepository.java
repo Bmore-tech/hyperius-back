@@ -46,7 +46,7 @@ public class LoginRepository {
 
 	public static ResultDTO login(String entry) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 
@@ -95,7 +95,7 @@ public class LoginRepository {
 
 	public static ResultDTO newLogin(NewSecureLoginDTO entry) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		String fuenteDatos = null;
 		PreparedStatement stm1 = null;
 		ResultSet rs1 = null;
@@ -179,7 +179,7 @@ public class LoginRepository {
 
 	public static ResultDTO loginAppWeb(String entry) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 
@@ -237,7 +237,7 @@ public class LoginRepository {
 
 		LoginDTO loginDTO = new LoginDTO();
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 
@@ -286,7 +286,7 @@ public class LoginRepository {
 	public static ResultDTO ingresaRegistroUsuario(LoginDTO loginDTO) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -331,7 +331,7 @@ public class LoginRepository {
 	public static ResultDTO actualizaHoraUltimaOperacion(String idRed) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		java.util.Date date = new java.util.Date();
@@ -372,7 +372,7 @@ public class LoginRepository {
 	public static ResultDTO actualizaRegistroUsuario(LoginDTO loginDTO) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -420,7 +420,7 @@ public class LoginRepository {
 	public static ResultDTO logOut(String idRed) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {

@@ -24,7 +24,7 @@ public class HUsDAO {
 	public HuDTO validarHU(String hu) throws ClassNotFoundException{
 		ResultDT result = new ResultDT();
 		HuDTO huDTO = new HuDTO();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -75,7 +75,7 @@ public class HUsDAO {
 		List<HuDTO> itemList = new ArrayList<HuDTO>();
 		items.setItem(itemList);
 		husDTO.setItems(items);
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {

@@ -67,7 +67,7 @@ public class XMLCreateRepository {
 		XMLAddressDTO remisorExped = new XMLAddressDTO();
 		XMLAddressDTO remisorFiscal = new XMLAddressDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getDataRootBOMA);
 			stm.setString(1, VBELN);
@@ -215,7 +215,7 @@ public class XMLCreateRepository {
 
 	public XMLTotalDTO fillTotal(String VBELN) {
 		XMLTotalDTO totDTO = new XMLTotalDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			CallableStatement stm = con.prepareCall(getDataFactor);
 			stm.setString(1, VBELN);
@@ -241,7 +241,7 @@ public class XMLCreateRepository {
 
 	public List<XMLDetailsDTO> fillDetail(String VBELN) {
 		List<XMLDetailsDTO> listdetailDTO = new ArrayList<XMLDetailsDTO>();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getFillDetailPedido);
 			stm.setString(1, VBELN);
@@ -306,7 +306,7 @@ public class XMLCreateRepository {
 	public XMLCustomDTO fillCustom(XMLCreateDTO createDTO, String VBELN, String Werks) {
 		XMLCustomDTO custDTO = null;
 		custDTO = XMLCustomDTO.XMLCustomDTOEmpty(custDTO);
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getCustomAdua);
 			stm.setString(1, VBELN);
@@ -389,7 +389,7 @@ public class XMLCreateRepository {
 	}
 
 	private static String getFolioFact(String vBeln, String werks) {
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		String folio = "";
 		try {
 			CallableStatement cst = con.prepareCall(EXECFOLIO);
@@ -423,7 +423,7 @@ public class XMLCreateRepository {
 
 	public XMLFTPUserDTO userAccess() {
 		XMLFTPUserDTO xmlFTP = new XMLFTPUserDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(FTPACCESS);
 			ResultSet rs = stm.executeQuery();
@@ -455,7 +455,7 @@ public class XMLCreateRepository {
 	public static Integer insertValueXML(String vBeln, String UUID, String FolioExt,
 			String FolioInt) {
 		int retorno = 0;
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			CallableStatement cst = con.prepareCall(XMLZCONT);
 			cst.setString(1, vBeln);

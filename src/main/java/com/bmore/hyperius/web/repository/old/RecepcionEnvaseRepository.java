@@ -185,7 +185,7 @@ public class RecepcionEnvaseRepository {
 		EntregaDTO entrega = new EntregaDTO();
 		ResultDTO result = new ResultDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		PreparedStatement stmn4 = null;
@@ -305,7 +305,7 @@ public class RecepcionEnvaseRepository {
 
 		ResultDTO result = new ResultDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 
@@ -366,7 +366,7 @@ public class RecepcionEnvaseRepository {
 
 		ResultDTO result = new ResultDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 
@@ -428,7 +428,7 @@ public class RecepcionEnvaseRepository {
 
 		List<EntregaDetalleDTO> items = new ArrayList<EntregaDetalleDTO>();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		PreparedStatement stmn2 = null;
@@ -623,7 +623,7 @@ public class RecepcionEnvaseRepository {
 
 		List<EntregaDetalleDTO> items = new ArrayList<EntregaDetalleDTO>();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 
@@ -682,7 +682,7 @@ public class RecepcionEnvaseRepository {
 	public HashMap<String, String> getCarrilesBloqueados(String idProceso, String werks) {
 
 		HashMap<String, String> map = new HashMap<String, String>();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -722,7 +722,7 @@ public class RecepcionEnvaseRepository {
 
 		CarrilesUbicacionDTO carrilesDTO = new CarrilesUbicacionDTO();
 		List<CarrilUbicacionDTO> carrilList = new ArrayList<CarrilUbicacionDTO>();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
@@ -883,7 +883,7 @@ public class RecepcionEnvaseRepository {
 
 	public ResultDTO ingresaDetalleEnvase(String VBELN, CarrilesUbicacionDTO carrilesDTO, String user, String werks) {
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		ResultDTO resultDT = new ResultDTO();
 
 		PreparedStatement stmntX = null;
@@ -939,7 +939,7 @@ public class RecepcionEnvaseRepository {
 
 		EntregaInputDTO entrega = new EntregaInputDTO();
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -985,7 +985,7 @@ public class RecepcionEnvaseRepository {
 
 	public ResultDTO validarHU_(String entry, String HU) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 
@@ -1025,7 +1025,7 @@ public class RecepcionEnvaseRepository {
 
 	public ResultDTO VRPTVALUE(String entry, String HU) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -1065,7 +1065,7 @@ public class RecepcionEnvaseRepository {
 
 	public ResultDTO borrarZHU(String entry, String HU) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		try {
 			stmn = con.prepareStatement(CONSUMIRZHU2);
@@ -1098,7 +1098,7 @@ public class RecepcionEnvaseRepository {
 	public EntregaInputDTO getPositions(String entry, String HU) {
 		ResultDTO result = new ResultDTO();
 		EntregaInputDTO entrega = new EntregaInputDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -1135,7 +1135,7 @@ public class RecepcionEnvaseRepository {
 
 	public ResultDTO entryContabilizada(String entry) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -1169,7 +1169,7 @@ public class RecepcionEnvaseRepository {
 	}
 
 	public int getFaltantes(String entry) {
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		int x = 999999;
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -1204,7 +1204,7 @@ public class RecepcionEnvaseRepository {
 	}
 
 	public ResultDTO contabilizadoOK(String entry) {
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -1242,7 +1242,7 @@ public class RecepcionEnvaseRepository {
 
 	public ResultDTO getVBELNFromHuSAP(String hu, String werks) {
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -1285,7 +1285,7 @@ public class RecepcionEnvaseRepository {
 
 	public ResultDTO getVBELNFromHuBCPS(String hu, String werks) {
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -1329,7 +1329,7 @@ public class RecepcionEnvaseRepository {
 
 	public ResultDTO validarEntregaEnPicking(String VBELN) {
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement stmn = null;
@@ -1369,7 +1369,7 @@ public class RecepcionEnvaseRepository {
 
 	public ResultDTO reservarCarrilHU(String entrega, String hu, String matnr, String usuarioMontacargas) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -1407,7 +1407,7 @@ public class RecepcionEnvaseRepository {
 
 	public CarrilUbicacionDTO consultReservaCarrilHu(String vbeln, String hu) {
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CarrilUbicacionDTO carrilUbicacionDTO = new CarrilUbicacionDTO();
 		ResultDTO resultDT = new ResultDTO();
@@ -1458,7 +1458,7 @@ public class RecepcionEnvaseRepository {
 
 		ResultDTO result = new ResultDTO();
 		EntregaDetalleDTO entrega = new EntregaDetalleDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -1504,7 +1504,7 @@ public class RecepcionEnvaseRepository {
 
 		ResultDTO result = new ResultDTO();
 		EntregaDetalleDTO entrega = new EntregaDetalleDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -1548,7 +1548,7 @@ public class RecepcionEnvaseRepository {
 
 	public ResultDTO confirmaPickingHU(String VBELN, String hu) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -1587,7 +1587,7 @@ public class RecepcionEnvaseRepository {
 		List<CarrilUbicacionDTO> listaCarriles = new ArrayList<CarrilUbicacionDTO>();
 		ResultDTO result = new ResultDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -1632,7 +1632,7 @@ public class RecepcionEnvaseRepository {
 
 	public ResultDTO rollBackPickingHU(String VBELN, String hu) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -1668,7 +1668,7 @@ public class RecepcionEnvaseRepository {
 	public ResultDTO insertProcesoContingencia_3(EntregaInputDTO entrega, String hu) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -1714,7 +1714,7 @@ public class RecepcionEnvaseRepository {
 	public ResultDTO aumentaInventario(EntregaInputDTO entrega, String hu) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -1773,7 +1773,7 @@ public class RecepcionEnvaseRepository {
 
 	public ResultDTO insertProcesoContingencia_4_14_32(String werks, String VBELN, String lfart, String user) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -1821,7 +1821,7 @@ public class RecepcionEnvaseRepository {
 
 		EntregaInputDTO entregaInputReturn = new EntregaInputDTO();
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		HashMap<String, String> hashhMap = new HashMap<String, String>();

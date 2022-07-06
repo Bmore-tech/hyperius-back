@@ -96,7 +96,7 @@ public class UbicacionPTRepository {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 
@@ -153,7 +153,7 @@ public class UbicacionPTRepository {
 		List<OrdenProduccionDetalleDTO> detalle = new ArrayList<OrdenProduccionDetalleDTO>();
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 
@@ -280,7 +280,7 @@ public class UbicacionPTRepository {
 
 		CarrilesUbicacionDTO carrilesDTO = new CarrilesUbicacionDTO();
 		List<CarrilUbicacionDTO> carrilList = new ArrayList<CarrilUbicacionDTO>();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
@@ -420,7 +420,7 @@ public class UbicacionPTRepository {
 
 	public ResultDTO ingresaDetalleEnvase(String VBELN, CarrilesUbicacionDTO carrilesDTO, String user, String werks) {
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		ResultDTO resultDT = new ResultDTO();
 
@@ -476,7 +476,7 @@ public class UbicacionPTRepository {
 
 		ResultDTO result = new ResultDTO();
 		OrdenProduccionDetalleDTO orden = new OrdenProduccionDetalleDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -521,7 +521,7 @@ public class UbicacionPTRepository {
 
 	public CarrilUbicacionDTO consultReservaCarrilHu(String vbeln, String hu) {
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CarrilUbicacionDTO carrilUbicacionDTO = new CarrilUbicacionDTO();
 		ResultDTO resultDT = new ResultDTO();
@@ -572,7 +572,7 @@ public class UbicacionPTRepository {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 		result.setMsg("Error de conexion a BD");
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -607,7 +607,7 @@ public class UbicacionPTRepository {
 
 	public ResultDTO reservarCarrilHU(String entrega, String hu, String matnr) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -645,7 +645,7 @@ public class UbicacionPTRepository {
 	public ResultDTO aumentaInventario(OrdenProduccionInputDTO orden, String hu) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -712,7 +712,7 @@ public class UbicacionPTRepository {
 	public ResultDTO insertProcesoContingencia_7(OrdenProduccionInputDTO orden, String hu) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -753,7 +753,7 @@ public class UbicacionPTRepository {
 	}
 
 	public int getFaltantes(String entry) {
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		int x = 999999;
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -789,7 +789,7 @@ public class UbicacionPTRepository {
 
 	public ResultDTO getAUFNRFromHu(String hu, String werks) {
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -835,7 +835,7 @@ public class UbicacionPTRepository {
 
 		OrdenProduccionInputDTO orden = new OrdenProduccionInputDTO();
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -882,7 +882,7 @@ public class UbicacionPTRepository {
 // TODO Remove unused code found by UCDetector
 // 	public ResultDTO limpiaPendientesXUsuario(String vbeln, String user) {
 // 		ResultDTO result = new ResultDTO();
-// 		Connection con = DBConnection.createConnection();
+// 		Connection con = new DBConnection().createConnection();
 // 		PreparedStatement stmn = null;
 // 
 // 		try {
@@ -926,7 +926,7 @@ public class UbicacionPTRepository {
 		List<OrdenProduccionDetalleDTO> detalle = new ArrayList<OrdenProduccionDetalleDTO>();
 
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 
@@ -990,7 +990,7 @@ public class UbicacionPTRepository {
 	public HashMap<String, String> getCarrilesBloqueados(String idProceso, String werks) {
 
 		HashMap<String, String> map = new HashMap<String, String>();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;

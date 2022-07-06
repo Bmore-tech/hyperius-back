@@ -41,7 +41,7 @@ public class EmbarquePTIMDAO {
 
 		EntregaInput entregaInputReturn = new EntregaInput();
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		HashMap<String, String> hashhMap = new HashMap<String, String>();
@@ -94,7 +94,7 @@ public class EmbarquePTIMDAO {
 		ResultDT result = new ResultDT();
 		result.setId(0);
 
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -186,7 +186,7 @@ public class EmbarquePTIMDAO {
 	public ResultDT obtieneDescripcionMaterial(String matnr, String vblen) throws ClassNotFoundException{
 
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 
 		PreparedStatement stmn2 = null;
 		ResultSet rs2 = null;
@@ -235,7 +235,7 @@ public class EmbarquePTIMDAO {
 		ResultDT result = new ResultDT();
 		result.setId(0);
 
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -284,7 +284,7 @@ public class EmbarquePTIMDAO {
 
 	public ResultDT limpiaPendientesXUsuario(String vbeln, String user) throws ClassNotFoundException{
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 
 		try {

@@ -88,7 +88,7 @@ public class ZContingenciaRepository {
 		ResultDTO retorno = new ResultDTO();
 		int result = 0;
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement ZCon = null;
 		PreparedStatement ZRev = null;
 

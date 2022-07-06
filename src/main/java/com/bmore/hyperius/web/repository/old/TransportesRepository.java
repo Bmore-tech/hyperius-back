@@ -27,7 +27,7 @@ public class TransportesRepository {
 
 	public ResultDTO obtieneTransporte(String tknum, String werks, int idQuery) {
 		ResultDTO result = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
 		try {
@@ -72,7 +72,7 @@ public class TransportesRepository {
 		ResultDTO result = new ResultDTO();
 		TransportesDTO transporteDTO = new TransportesDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
 
@@ -141,7 +141,7 @@ public class TransportesRepository {
 
 		ResultDTO result = new ResultDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt2 = null;
 		int res2 = 0;
 
@@ -186,7 +186,7 @@ public class TransportesRepository {
 
 		ResultDTO result = new ResultDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		PreparedStatement stmnt2 = null;
 		int res2 = 0;
 

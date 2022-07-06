@@ -40,7 +40,7 @@ public class Export_DAO {
 
 	// getDataAduana step6
 	public Export_DTO getDataAduana(Export_DTO exp_DTO) {
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getDataAdua);
 			stm.setString(1, exp_DTO.getEntrega());
@@ -69,7 +69,7 @@ public class Export_DAO {
 	
 	// getDATAVTTK Step 5
 	public Export_DTO getDataVTTK(Export_DTO exp_DTO) {
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getDataVTTK);
 			stm.setString(1, exp_DTO.getEntrega());
@@ -99,7 +99,7 @@ public class Export_DAO {
 
 	// GetDATALIPS STEP 4
 	public Export_DTO getDataLIPS(Export_DTO exp_DTO) {
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		List<String> clave = new ArrayList<String>();
 		List<String> descripcion = new ArrayList<String>();
 		List<String> precioUnitario = new ArrayList<String>();
@@ -142,7 +142,7 @@ public class Export_DAO {
 
 	// GetDataKNA1 STEP 3
 	public Export_DTO getDataKNA1(Export_DTO exp_DTO, Integer typo) {
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getDataKNA1);
 			switch (typo) {
@@ -196,7 +196,7 @@ public class Export_DAO {
 	}
 
 	public static Export_DTO getDataT005T(String aDRNR, Export_DTO exp_DTO) {
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getDataADRC);
 			stm.setString(1, aDRNR);
@@ -229,7 +229,7 @@ public class Export_DAO {
 	}
 
 	public static Export_DTO getDataT005U(String bLand, Export_DTO exp_DTO) {
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getDataT005U);
 			stm.setString(1, bLand);
@@ -255,7 +255,7 @@ public class Export_DAO {
 
 	// GET DATA VBACK STEP 2
 	public Export_DTO getDataVBAK(Export_DTO exp_DTO) {
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getDataVBAK);
 			stm.setString(1, exp_DTO.getPedido());
@@ -283,7 +283,7 @@ public class Export_DAO {
 
 	// GET DATA VBFA STEP 1
 	public Export_DTO getDataVBFA(Export_DTO exp_DTO) {
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getDataVBFA);
 			stm.setString(1, exp_DTO.getEntrega());
@@ -309,7 +309,7 @@ public class Export_DAO {
 
 	public ResultDTO zContExport(Export_DTO exp_DTO) {
 		ResultDTO rDt = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			CallableStatement stm = con.prepareCall(ZCONTEXPORT);
 			stm.setString(1, Utils.zeroFill(exp_DTO.getEntrega(),10));
@@ -339,7 +339,7 @@ public class Export_DAO {
 
 	public ResultDTO zConRemExist(Export_DTO exDto) {
 		ResultDTO rDt = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(exportacionExist);
 			stm.setString(1, exDto.getEntrega());
@@ -364,7 +364,7 @@ public class Export_DAO {
 
 	public ResultDTO zConXmlExist(Export_DTO exDto) {
 		ResultDTO rDt = new ResultDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(exportacionXmlExist);
 			stm.setString(1, exDto.getEntrega());
@@ -387,7 +387,7 @@ public class Export_DAO {
 	}
 
 	public Export_DTO zConRemData(Export_DTO exDto) {
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(exportacionValues);
 			stm.setString(1, exDto.getEntrega());

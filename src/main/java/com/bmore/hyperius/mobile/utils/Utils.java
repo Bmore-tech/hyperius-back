@@ -35,7 +35,7 @@ public class Utils {
 	}
 	public static ResultDT actualizarInventarioCarriles(String LGNUM, String LGTYP, String LGPLA) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
-		Connection con = DBConnectionMob.createConnection();
+		Connection con = new DBConnectionMob().createConnection();
 		PreparedStatement stmn = null;
 		try {
 			stmn = con.prepareStatement(LIMPIA_CARRIL);

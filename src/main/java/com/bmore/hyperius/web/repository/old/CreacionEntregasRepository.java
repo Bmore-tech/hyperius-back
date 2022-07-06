@@ -55,7 +55,7 @@ public class CreacionEntregasRepository {
 
 	public CreacionEntregasDTO obtieneMaterialDAO() {
 		CreacionEntregasDTO materialesDTO = new CreacionEntregasDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		ResultDTO resultDT = new ResultDTO();
 		CreacionEntregaItemDTO materialItemDTO = new CreacionEntregaItemDTO();
 		List<CrecionEntregaDTO> listMaterialDTOs = new ArrayList<CrecionEntregaDTO>();
@@ -108,7 +108,7 @@ public class CreacionEntregasRepository {
 
 	public CreacionEntregasDTO obtieneTarimasDAO(CrecionEntregaDTO materialDTO) {
 		CreacionEntregasDTO materialesDTO = new CreacionEntregasDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		ResultDTO resultDT = new ResultDTO();
 		CreacionEntregaItemDTO materialItemDTO = new CreacionEntregaItemDTO();
 		List<CrecionEntregaDTO> listMaterialDTOs = new ArrayList<CrecionEntregaDTO>();
@@ -163,7 +163,7 @@ public class CreacionEntregasRepository {
 	public CreacionEntregasDTO obtieneCentrosDAO() {
 
 		CreacionEntregasDTO centrosDTO = new CreacionEntregasDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		ResultDTO resultDT = new ResultDTO();
 		CreacionEntregaItemDTO centrosItemDTO = new CreacionEntregaItemDTO();
 		List<CrecionEntregaDTO> listaCentrosDTO = new ArrayList<CrecionEntregaDTO>();
@@ -224,7 +224,7 @@ public class CreacionEntregasRepository {
 	public CreacionEntregasDTO obtieneAgenciasDAO() {
 		CreacionEntregasDTO agenciasDTO = new CreacionEntregasDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		ResultDTO resultDT = new ResultDTO();
 		CreacionEntregaItemDTO agenciasItemDTO = new CreacionEntregaItemDTO();
 		List<CrecionEntregaDTO> listAgenciasItemDTO = new ArrayList<CrecionEntregaDTO>();
@@ -286,7 +286,7 @@ public class CreacionEntregasRepository {
 	public CreacionEntregasDTO obtieneTransportesDAO(
 			CrecionEntregaDTO transporteDTO) {
 		CreacionEntregasDTO materialesDTO = new CreacionEntregasDTO();
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 		ResultDTO resultDT = new ResultDTO();
 		CreacionEntregaItemDTO materialItemDTO = new CreacionEntregaItemDTO();
 		List<CrecionEntregaDTO> listMaterialDTOs = new ArrayList<CrecionEntregaDTO>();
@@ -354,7 +354,7 @@ public class CreacionEntregasRepository {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -413,7 +413,7 @@ public class CreacionEntregasRepository {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -497,7 +497,7 @@ public class CreacionEntregasRepository {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -556,7 +556,7 @@ public class CreacionEntregasRepository {
 
 		CreacionEntregasDTO materialesDTO = new CreacionEntregasDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		List<CrecionEntregaDTO> entregasDTO = new ArrayList<CrecionEntregaDTO>();
 		CreacionEntregaItemDTO items = new CreacionEntregaItemDTO();
@@ -633,7 +633,7 @@ public class CreacionEntregasRepository {
 
 		CreacionEntregasDTO materialesDTO = new CreacionEntregasDTO();
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		List<CrecionEntregaDTO> entregasDTO = new ArrayList<CrecionEntregaDTO>();
 		CreacionEntregaItemDTO items = new CreacionEntregaItemDTO();
@@ -731,7 +731,7 @@ public class CreacionEntregasRepository {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = DBConnection.createConnection();
+		Connection con = new DBConnection().createConnection();
 
 		CallableStatement callableStatement = null;
 
