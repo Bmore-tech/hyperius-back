@@ -66,12 +66,12 @@ public class LoginJwtServiceImpl implements LoginJwtService {
 
 	@Override
 	public JwtLoginResponse updateJwt(String token) {
+		log.info("El token es:", token);
 		JwtLoginResponse response = new JwtLoginResponse();
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("usuario", Utils.getUsuarioFromToken(token));
 		claims.put("werks", Utils.getWerksFromJwt(token));
 		claims.put("admin", Utils.getAdminFromToken(token));
-		log.info("El token es:", token);
 		try {
 			if(!jwtTokenUtil.isTokenExpired(token)) {
 				response.setToken(TOKEN_PREFIX + jwtTokenUtil.updateToken(Utils.getUsuarioFromToken(token), claims));
