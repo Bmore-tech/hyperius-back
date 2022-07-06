@@ -48,6 +48,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     } else {
       log.info("No pasó el filtro sin autenticar");
       final String token = request.getHeader("Auth");
+      log.info("Toke en el filter:", token);
       String username = null;
       String jwtToken = null;
 
@@ -70,8 +71,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
       }
 
       //
-      if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
+      // if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+      if (username != null) {
         // Valída los roles del usuario.
         if (jwtUserDetailsService.hasRole(username)) {
           UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(username);
@@ -82,6 +83,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
               usernamePasswordAuthenticationToken
                   .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
               SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+              log.info("Todo sale bien, el token es:", request.getHeader("Auth"));
               chain.doFilter(request, response);
             }
           } catch (Exception e) {
