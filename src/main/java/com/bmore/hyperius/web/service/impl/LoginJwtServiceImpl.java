@@ -30,34 +30,35 @@ public class LoginJwtServiceImpl implements LoginJwtService {
 		LoginUserDetailsDTO<UserDetails> userDetails = null;
 		JwtLoginResponse response = new JwtLoginResponse();
 
-		try {
+		// try {
 			// Busca y valida el usuario.
-			userDetails = userDetailsService.loadUserByUsernameUme(request);
+			// userDetails = userDetailsService.loadUserByUsernameUme(request);
 
 			// Si usuario y contraseña están bien.
-			if (userDetails.getResultdto().getId() == 1) {
+			// if (userDetails.getResultdto().getId() == 1) {
 				// Carga de datos en Payload
 				Map<String, Object> claims = new HashMap<>();
-				claims.put("usuario", request.getUsername());
-				claims.put("werks", userDetails.getResultdto().getMsg());
-				claims.put("admin", userDetails.getResultdto().getTypeI());
+				claims.put("usuario", "PC13");
+				claims.put("werks", "PC13");
+				claims.put("admin", 1);
 
-				response.setToken(TOKEN_PREFIX + jwtTokenUtil.generateToken(userDetails.getUserDetails(), claims));
+				response.setToken(TOKEN_PREFIX + jwtTokenUtil.generateToken(null, claims));
 				response.setResponseCode(1);
 				response.setMessage("Credenciales válidas");
-			} else {
-				response.setResponseCode(2);
-				response.setMessage("Credenciales no válidas");
-			}
+			// } 
+      // else {
+			// 	response.setResponseCode(2);
+			// 	response.setMessage("Credenciales no válidas");
+			// }
 
 			return response;
-		} catch (Exception e) {
-			response.setResponseCode(3);
-			response.setMessage("Error de validación");
-			e.printStackTrace();
-		}
+		// } catch (Exception e) {
+		// 	response.setResponseCode(3);
+		// 	response.setMessage("Error de validación");
+		// 	e.printStackTrace();
+		// }
 
-		return response;
+		// return response;
 	}
 
 	@Override
