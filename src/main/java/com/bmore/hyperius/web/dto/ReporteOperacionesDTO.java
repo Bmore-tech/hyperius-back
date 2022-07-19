@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ReporteOperacionesDTO {
 	private String material;
@@ -90,6 +91,19 @@ public class ReporteOperacionesDTO {
 			}
 		} catch (SQLException e) {
 			operacionesDTOs = null;
+		}
+		return operacionesDTOs;
+	}
+
+  public static List<ReporteOperacionesDTO> ServletReporteOperacionesStockDTORS(List<Map<String, Object>> rows){
+		List<ReporteOperacionesDTO> operacionesDTOs = new ArrayList<>();
+		for(Map<String, Object> row : rows){
+			String matnr = (String)row.get("MATNR");
+			String stock_inicial = (String)row.get("STOCK_INICIAL");
+			String stock_final = (String)row.get("STOCK_FINAL");
+			String recepciones = (String)row.get("RECEPCIONES");
+			String embarques = (String)row.get("EMBARQUES");
+			operacionesDTOs.add(new ReporteOperacionesDTO(matnr, stock_inicial, stock_final, recepciones, embarques));
 		}
 		return operacionesDTOs;
 	}

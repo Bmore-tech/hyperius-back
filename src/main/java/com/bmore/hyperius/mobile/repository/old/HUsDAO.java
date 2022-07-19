@@ -1,4 +1,4 @@
-package com.bmore.hyperius.mobile.repository.impl;
+package com.bmore.hyperius.mobile.repository.old;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

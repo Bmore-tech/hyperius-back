@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bmore.hyperius.mobile.dto.EntregaInput;
-import com.bmore.hyperius.mobile.repository.impl.EmbarquePTIMDAO;
+import com.bmore.hyperius.mobile.repository.old.EmbarquePTIMDAO;
 import com.bmore.hyperius.mobile.utils.ResultDT;
 import com.bmore.hyperius.mobile.utils.Utils;
 

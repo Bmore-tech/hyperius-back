@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.bmore.hyperius.mobile.dto.CarrilUbicacionDTO;
 import com.bmore.hyperius.mobile.dto.EntregaDetalleDTO;
 import com.bmore.hyperius.mobile.dto.EntregaInput;
-import com.bmore.hyperius.mobile.repository.impl.RecepcionEnvaseDAO;
+import com.bmore.hyperius.mobile.repository.old.RecepcionEnvaseDAO;
 import com.bmore.hyperius.mobile.utils.ResultDT;
 import com.bmore.hyperius.mobile.utils.Utils;
 

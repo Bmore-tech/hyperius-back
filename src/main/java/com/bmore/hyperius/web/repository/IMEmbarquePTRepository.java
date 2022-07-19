@@ -8,35 +8,35 @@ import com.bmore.hyperius.web.dto.ResultDTO;
 
 public interface IMEmbarquePTRepository {
 
-	public ResultDTO confirmaHusEnCamionFurgon(EntregaInputDTO entregaInput, String hu);
+  ResultDTO confirmaHusEnCamionFurgon(EntregaInputDTO entregaInput, String hu);
 
-	public ResultDTO consumeHUs(EntregaInputDTO entregaInput);
+  ResultDTO consumeHUs(EntregaInputDTO entregaInput);
 
-	public ResultDTO contabilizadoOK(String entry);
+  ResultDTO contabilizadoOK(String entry);
 
-	public ResultDTO contabilizaEntrega(EmbarqueDTO embarqueDTO, String user);
+  ResultDTO contabilizaEntrega(EmbarqueDTO embarqueDTO, String user);
 
-	public EntregaDetalleDTO getDataHU(String hu, String werks, String lgtyp, String lgpla);
+  EntregaDetalleDTO getDataHU(String hu, String werks, String lgtyp, String lgpla);
 
-	public EmbarqueDTO getEmbarque(EmbarqueDTO embarqueDTOInput);
+  EmbarqueDTO getEmbarque(EmbarqueDTO embarqueDTOInput);
 
-	public EmbarqueDTO getEmbarqueDetalle(EmbarqueDTO embarqueDTO);
+  EmbarqueDTO getEmbarqueDetalle(EmbarqueDTO embarqueDTO);
 
-	public CarrilesUbicacionDTO getStock(String werks, String matnr);
+  CarrilesUbicacionDTO getStock(String werks, String matnr);
 
-	public ResultDTO ingresaDetalleEnvase(String VBELN, CarrilesUbicacionDTO carrilesDTO, String user, String werks);
+  ResultDTO ingresaDetalleEnvase(String VBELN, CarrilesUbicacionDTO carrilesDTO, String user, String werks);
 
-	public ResultDTO obtieneDescripcionMaterial(String matnr, String vblen);
+  ResultDTO obtieneDescripcionMaterial(String matnr, String vblen);
 
-	public ResultDTO obtieneEntregaDeTransporte(String tknum);
+  ResultDTO obtieneEntregaDeTransporte(String tknum);
 
-	public EntregaInputDTO obtieneReservaUbicacionHU1(EntregaInputDTO entregaInput);
+  EntregaInputDTO obtieneReservaUbicacionHU1(EntregaInputDTO entregaInput);
 
-	public ResultDTO reservaHus(EntregaInputDTO entregaInput);
+  ResultDTO reservaHus(EntregaInputDTO entregaInput);
 
-	public ResultDTO validaPickeoPrevioHU(EntregaInputDTO entregaInput, String hu);
+  ResultDTO validaPickeoPrevioHU(EntregaInputDTO entregaInput, String hu);
 
-	public EntregaInputDTO validarEntregaPickin(EntregaInputDTO entregaInput);
+  EntregaInputDTO validarEntregaPickin(EntregaInputDTO entregaInput);
 
-	public EntregaInputDTO validarEntregaPickinCompleto(EntregaInputDTO entregaInput);
+  EntregaInputDTO validarEntregaPickinCompleto(EntregaInputDTO entregaInput);
 }

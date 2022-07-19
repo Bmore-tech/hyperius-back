@@ -10,13 +10,13 @@ import com.bmore.hyperius.web.dto.ResultDTO;
 
 public interface CifrasControlRepository {
 
-	public List<String> generateDataReport(DescargaInformacionDTO descargaInformacionDTO);
+  List<String> generateDataReport(DescargaInformacionDTO descargaInformacionDTO);
 
-	public CargaInformacionDTO getCargaInformacion();
+  CargaInformacionDTO getCargaInformacion();
 
-	public DescargaInformacionDTO getDescargaInformacion();
+  DescargaInformacionDTO getDescargaInformacion();
 
-	public ReporteAvanceDTO getReporteOperaciones();
+  ReporteAvanceDTO getReporteOperaciones();
 
-	public ResultDTO savePlaneacion(PlaneacionBodyDTO planeacionBodyDTO);
+  ResultDTO savePlaneacion(PlaneacionBodyDTO planeacionBodyDTO);
 }

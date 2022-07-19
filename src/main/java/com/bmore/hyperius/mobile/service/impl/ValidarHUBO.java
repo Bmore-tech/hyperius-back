@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.bmore.hyperius.mobile.dto.HuDTO;
 import com.bmore.hyperius.mobile.dto.HusDTO;
-import com.bmore.hyperius.mobile.repository.impl.HUsDAO;
+import com.bmore.hyperius.mobile.repository.old.HUsDAO;
 import com.bmore.hyperius.mobile.utils.Utils;
 
 public class ValidarHUBO {
