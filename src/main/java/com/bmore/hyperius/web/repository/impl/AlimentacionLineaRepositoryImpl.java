@@ -68,7 +68,7 @@ public class AlimentacionLineaRepositoryImpl implements AlimentacionLineaReposit
     ResultDTO result = new ResultDTO();
     int contabilizado = 0;
 
-    detalle = jdbcTemplate.query(query1, args1, new RowMapper<OrdenProduccionDetalleDTO>() {
+    detalle = jdbcTemplate.query(query1, new RowMapper<OrdenProduccionDetalleDTO>() {
 
       @Override
       public OrdenProduccionDetalleDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -91,7 +91,7 @@ public class AlimentacionLineaRepositoryImpl implements AlimentacionLineaReposit
               + "RESB.AUFNR = ? group by RESB.MATNR";
           Object[] args2 = { item.getMaterial(), aufnr };
 
-          jdbcTemplate.queryForObject(query2, args2, new RowMapper<OrdenProduccionDTO>() {
+          jdbcTemplate.queryForObject(query2, new RowMapper<OrdenProduccionDTO>() {
 
             @Override
             public OrdenProduccionDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -101,14 +101,14 @@ public class AlimentacionLineaRepositoryImpl implements AlimentacionLineaReposit
               return null;
             }
 
-          });
+          }, args2);
 
           String query3 = "select sum(convert(DECIMAL(18, 3), VERME))as cantidad from HCMDB.dbo.LQUA WITH(NOLOCK) where LENUM "
               + "in(SELECT EXIDV FROM HCMDB.dbo.ZPickingEntregaEntrante WITH(NOLOCK) where vbeln =? and matnr=? and "
               + "status='2' and EXIDV is not null and idProceso='2')";
           Object[] args3 = { aufnr, item.getMaterial() };
 
-          jdbcTemplate.queryForObject(query3, args3, new RowMapper<String>() {
+          jdbcTemplate.queryForObject(query3, new RowMapper<String>() {
 
             @Override
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -121,7 +121,7 @@ public class AlimentacionLineaRepositoryImpl implements AlimentacionLineaReposit
 
               return null;
             }
-          });
+          }, args3);
         }
 
         if (cant != 0) {
@@ -134,7 +134,7 @@ public class AlimentacionLineaRepositoryImpl implements AlimentacionLineaReposit
 
         return item;
       }
-    });
+    }, args1);
 
     if (contabilizado == detalle.size()) {
       ordenProduccionDTO.setContabilizar("true");

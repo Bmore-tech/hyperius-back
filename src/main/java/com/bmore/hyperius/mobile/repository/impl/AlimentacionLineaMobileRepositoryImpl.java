@@ -28,7 +28,7 @@ public class AlimentacionLineaMobileRepositoryImpl implements AlimentacionLineaM
 
   // No testeado
   @Override
-  public String getLGPLA(String hu) {
+  public String getLGPLA(String hu) { 
 
     String query = "SELECT LGPLA FROM HCMDB.dbo.LQUA LQUA WITH(NOLOCK) WHERE LENUM = ?";
 
