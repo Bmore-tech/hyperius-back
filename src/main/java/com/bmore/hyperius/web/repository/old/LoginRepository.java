@@ -16,13 +16,19 @@ import javax.naming.directory.SearchResult;
 import org.apache.commons.net.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bmore.hyperius.config.DBConnection;
 import com.bmore.hyperius.web.dto.LoginDTO;
 import com.bmore.hyperius.web.dto.NewSecureLoginDTO;
 import com.bmore.hyperius.web.dto.ResultDTO;
 
+@Repository
 public class LoginRepository {
+
+  @Autowired
+  private DBConnection dbConnection;
 
 	private static final Logger LOCATION = LoggerFactory.getLogger(LoginRepository.class);
 
@@ -93,9 +99,9 @@ public class LoginRepository {
 
 	static String OBTIENE_FUENTE_DATOS = "SELECT IDRED, DataSource, zPassword, WERKS, ZADMIN, ZWebApp from zUsuario WITH(NOLOCK) WHERE IDRED = ?";
 
-	public static ResultDTO newLogin(NewSecureLoginDTO entry) {
+	public ResultDTO newLogin(NewSecureLoginDTO entry) {
 		ResultDTO result = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		String fuenteDatos = null;
 		PreparedStatement stm1 = null;
 		ResultSet rs1 = null;

@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -23,13 +24,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Autowired
   private UserDetailsService jwtUserDetailsService;
 
-  // @Autowired
-  // private JwtRequestFilter jwtRequestFilter;
+  @Autowired
+  private JwtRequestFilter jwtRequestFilter;
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    // configure AuthenticationManager so that it knows from where to load
-    // user for matching credentials
     // Use BCryptPasswordEncoder
     auth.userDetailsService(jwtUserDetailsService);
   }
@@ -48,23 +47,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     // Disable CORS and CSRF
-    http.cors().disable()
-        .csrf().disable()
+    http.cors()
+        .and()
+        .csrf()
+        .disable()
 
         // Endpoints permissions
         .authorizeRequests()
-        .antMatchers("/**")
-          // "/login/authenticate",
-          //   "/v2/api-docs",
-          //   "/configuration/ui",
-          //   "/swagger-resources/**",
-          //   "/configuration/security",
-          //   "/swagger-ui.html",
-          //   "/webjars/**",
-          //   "/mobile-api/**")
-        .permitAll();
-        // .anyRequest()
-        // .authenticated();
+        .antMatchers(
+            "/login/authenticate",
+            "/v2/api-docs",
+            "/configuration/ui",
+            "/swagger-resources/**",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            "/test")
+        // "/mobile-api/**")
+        .permitAll()
+        .anyRequest()
+        .authenticated();
 
     // Exception handling
     http.exceptionHandling()
@@ -75,6 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     // JWT Filter
-    // http.addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    http.addFilterAfter(jwtRequestFilter,
+        UsernamePasswordAuthenticationFilter.class);
   }
 }

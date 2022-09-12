@@ -13,6 +13,7 @@ import com.bmore.hyperius.mobile.rest.response.DefaultResponse;
 import com.bmore.hyperius.web.rest.response.JwtLoginResponse;
 import com.bmore.hyperius.web.rest.resquest.JwtLoginRequest;
 import com.bmore.hyperius.web.service.LoginJwtService;
+import com.google.common.net.HttpHeaders;
 
 /**
  * Controlador Rest para Login a través de JWT.
@@ -45,7 +46,7 @@ public class LoginJWTRest {
   }
 
   @PostMapping(value = "/login/check-token", produces = MediaType.APPLICATION_JSON_VALUE)
-  public JwtLoginResponse checkToken(@RequestHeader("Auth") String token) {
+  public JwtLoginResponse checkToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
     log.info("Checking token...", token);
     return loginJwtService.updateJwt(token);
   }

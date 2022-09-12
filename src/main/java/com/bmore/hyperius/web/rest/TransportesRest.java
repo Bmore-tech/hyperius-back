@@ -143,7 +143,7 @@ public class TransportesRest {
 			}
 
 		} else {
-			resultDT = LoginRepository.newLogin(newSecureLogin);
+			// resultDT = LoginRepository.newLogin(newSecureLogin);
 
 			if (resultDT.getId() == 1) {
 

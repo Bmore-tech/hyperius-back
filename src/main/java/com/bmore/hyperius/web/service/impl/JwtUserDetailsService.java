@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,12 +17,17 @@ import com.bmore.hyperius.web.dto.ResultDTO;
 import com.bmore.hyperius.web.repository.old.LoginRepository;
 import com.bmore.hyperius.web.rest.resquest.JwtLoginRequest;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 	
 	private int constante = -3;
 
-	private final Logger log = Logger.getLogger(this.getClass().getName());
+  @Autowired
+  private LoginRepository loginRepository;
+
 
 	public LoginUserDetailsDTO<UserDetails> loadUserByUsernameUme(JwtLoginRequest authenticationRequest)
 			throws Exception {
@@ -33,8 +39,11 @@ public class JwtUserDetailsService implements UserDetailsService {
 		
 		nsl.setUser(authenticationRequest.getUsername());
 		nsl.setPassword(authenticationRequest.getPassword());
+
+    log.info("Login con:" + nsl.toString());
 		
-		ResultDTO resultdto = LoginRepository.newLogin(nsl);
+		ResultDTO resultdto = loginRepository.newLogin(nsl);
+
 		
 		/*
 		try {
