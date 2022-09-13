@@ -9,6 +9,8 @@ import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bmore.hyperius.config.DBConnectionMob;
 import com.bmore.hyperius.mobile.dto.EntregaDetalleDTO;
@@ -16,7 +18,12 @@ import com.bmore.hyperius.mobile.dto.EntregaInput;
 import com.bmore.hyperius.mobile.utils.ResultDT;
 import com.bmore.hyperius.mobile.utils.Utils;
 
+@Repository
 public class EmbarquePTDAO {
+    
+  @Autowired
+  private DBConnectionMob connectionMob;
+
 	private static final Logger LOCATION = LoggerFactory.getLogger(EmbarquePTDAO.class);
 	static String VALIDA_PICK = "SELECT DISTINCT (VBELN),MATNR FROM HCMDB.dbo.ZPickingEntregaEntrante WITH(NOLOCK) WHERE VBELN = ? AND WERKS = ?";
 	static String VALIDA_PICKEO_PREVIO_HU = "SELECT EXIDV FROM HCMDB.dbo.ZPickingEntregaEntrante WITH(NOLOCK) WHERE EXIDV = ? AND idProceso='4'";
@@ -31,7 +38,7 @@ public class EmbarquePTDAO {
 	public EntregaInput validarEntregaPickin(EntregaInput entregaInput) throws ClassNotFoundException {
 		EntregaInput entregaInputReturn = new EntregaInput();
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		HashMap<String, String> hashhMap = new HashMap<String, String>();
@@ -77,7 +84,7 @@ public class EmbarquePTDAO {
 	public EntregaInput reservaUbicaciones(EntregaInput entregaInput) throws ClassNotFoundException{
 		ResultDT result = new ResultDT();
 		result.setId(0);
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		CallableStatement callableStatement = null;
 		try {
 			// @WERKS, @USRMNT, @VBELN, @IDPR, @RETURN, @MATNR, @LGNUM, @LGTYP,
@@ -119,7 +126,7 @@ public class EmbarquePTDAO {
 		return entregaInput;
 	}
 	public ResultDT validaPickeoPrevioHU(EntregaInput entregaInput, String hu) throws ClassNotFoundException{
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		ResultDT resultDT = new ResultDT();
 		PreparedStatement stmn = null;
 		ResultSet resultado = null;
@@ -152,7 +159,7 @@ public class EmbarquePTDAO {
 	public EntregaDetalleDTO getDataHU(String hu, String werks, String lgtyp, String lgpla) throws ClassNotFoundException{
 		ResultDT result = new ResultDT();
 		EntregaDetalleDTO entrega = new EntregaDetalleDTO();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		PreparedStatement stmn2 = null;
@@ -215,7 +222,7 @@ public class EmbarquePTDAO {
 	public ResultDT confirmaHusEnCamionFurgon(EntregaInput entregaInput) throws ClassNotFoundException{
 		ResultDT result = new ResultDT();
 		result.setId(0);
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		CallableStatement callableStatement = null;
 		try {
 			LOCATION.info("CONSUME HUS");
@@ -269,7 +276,7 @@ public class EmbarquePTDAO {
 	}
 	public ResultDT limpiaPendientesXUsuario(String vbeln, String user) throws ClassNotFoundException{
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		try {
 			LOCATION.info("Limpia pendientes DAO :" + vbeln);
@@ -303,7 +310,7 @@ public class EmbarquePTDAO {
 	public String getWerks(String entrega) throws ClassNotFoundException{
 		LOCATION.info("getWerksDAO");
 		String werks=null;
-		Connection con= new DBConnectionMob().createConnection();
+		Connection con= connectionMob.createConnection();
 		ResultSet rs;
 		PreparedStatement stmn;
 		try {

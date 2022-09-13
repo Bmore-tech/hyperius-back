@@ -9,6 +9,8 @@ import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bmore.hyperius.config.DBConnectionMob;
 import com.bmore.hyperius.mobile.dto.CarrilUbicacionDTO;
@@ -17,7 +19,12 @@ import com.bmore.hyperius.mobile.dto.OrdenProduccionInput;
 import com.bmore.hyperius.mobile.utils.ResultDT;
 import com.bmore.hyperius.mobile.utils.Utils;
 
+@Repository
 public class UbicacionPTDAO {
+    
+  @Autowired
+  private DBConnectionMob connectionMob;
+
 	private static final Logger LOCATION = LoggerFactory.getLogger(UbicacionPTDAO.class);
 	static String GET_DATA_HU = "select vepo.matnr as matnr, maktx as maktx, vepo.vemng as vemng, vepo.VEMEH as VEMEH,VHILM from "
 			+ "HCMDB.dbo.MAKT WITH(NOLOCK) inner join HCMDB.dbo.VEPO VEPO WITH(NOLOCK)on VEPO.matnr=MAKT.matnr inner join HCMDB.dbo.VEKP VEKP WITH(NOLOCK) on "
@@ -40,7 +47,7 @@ public class UbicacionPTDAO {
 	public OrdenProduccionDetalleDTO getDataHU(String hu) throws ClassNotFoundException{
 		ResultDT result = new ResultDT();
 		OrdenProduccionDetalleDTO orden = new OrdenProduccionDetalleDTO();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -79,7 +86,7 @@ public class UbicacionPTDAO {
 		return orden;
 	}
 	public CarrilUbicacionDTO consultReservaCarrilHu(String vbeln, String hu) throws ClassNotFoundException{
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		CarrilUbicacionDTO carrilUbicacionDTO = new CarrilUbicacionDTO();
 		ResultDT resultDT = new ResultDT();
 		PreparedStatement stmn = null;
@@ -125,7 +132,7 @@ public class UbicacionPTDAO {
 	}
 	public ResultDT reservarCarrilHU(String entrega, String hu, String matnr,String usuarioMontacarga) throws ClassNotFoundException{
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		try {
 			stmn = con.prepareStatement(RESERVAR_CARRIL_HU1);
@@ -161,7 +168,7 @@ public class UbicacionPTDAO {
 			String lgtyp, String lgpla,String usuarioMontacarga) throws ClassNotFoundException{
 		LOCATION.info("reservarCarrilHU2");
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		try {
 			stmn = con.prepareStatement(RESERVAR_CARRIL_HU2);
@@ -195,7 +202,7 @@ public class UbicacionPTDAO {
 		return result;
 	}
 	public int getFaltantes(String entry) throws ClassNotFoundException{
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		int x = 999999;
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -226,7 +233,7 @@ public class UbicacionPTDAO {
 		return x;
 	}
 	public ResultDT getAUFNRFromHu(String hu, String werks) throws ClassNotFoundException{
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		ResultDT resultDT = new ResultDT();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -264,7 +271,7 @@ public class UbicacionPTDAO {
 		LOCATION.info("entry: "+entry);
 		OrdenProduccionInput orden = new OrdenProduccionInput();
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -305,7 +312,7 @@ public class UbicacionPTDAO {
 	public ResultDT confirmaHusEnCarrill(OrdenProduccionInput ordenProduccionInput) throws ClassNotFoundException{
 		ResultDT result = new ResultDT();
 		result.setId(0);
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		CallableStatement callableStatement = null;
 		try {
 			// @IDPROC, @HU1, @HU2, @USER, @VBELN, @MATNR, @WERKS, @LGORT,
@@ -348,7 +355,7 @@ public class UbicacionPTDAO {
 	}
 	public ResultDT limpiaPendientesXUsuario(String vbeln, String user) throws ClassNotFoundException{
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		try {
 			LOCATION.error("Limpia pendientes DAO :" + vbeln +" usuario:"+user);
@@ -379,8 +386,8 @@ public class UbicacionPTDAO {
 		}
 		return result;
 	}
-	public static String getWerks(String Hu) throws ClassNotFoundException{
-		Connection con= new DBConnectionMob().createConnection();
+	public String getWerks(String Hu) throws ClassNotFoundException{
+		Connection con= connectionMob.createConnection();
 		PreparedStatement stmn=null;
 		ResultSet rs=null;
 		String werks="";

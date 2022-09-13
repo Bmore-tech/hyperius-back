@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bmore.hyperius.config.DBConnectionMob;
 import com.bmore.hyperius.mobile.dto.HuDTO;
@@ -16,7 +18,12 @@ import com.bmore.hyperius.mobile.dto.HuDTOItem;
 import com.bmore.hyperius.mobile.dto.HusDTO;
 import com.bmore.hyperius.mobile.utils.ResultDT;
 
+@Repository
 public class HUsDAO {
+    
+  @Autowired
+  private DBConnectionMob connectionMob;
+
 	private static final Logger LOCATION = LoggerFactory.getLogger(HUsDAO.class);
 	String VALIDAR_HU_LQUA = "select WERKS,BESTQ,LGORT,LGNUM,LGTYP,LGPLA,MATNR,VERME,MEINS,SKZUA  from HCMDB.dbo.lqua WITH(NOLOCK) where lenum=?";
 	String VALIDAR_HU_VKP = "select VEKP.werks, VEPO.BESTQ, VEPO.matnr, VEPO.vemng, VEPO.vemeh, VEKP.hu_lgort from HCMDB.dbo.VEPO with(nolock) "
@@ -24,7 +31,7 @@ public class HUsDAO {
 	public HuDTO validarHU(String hu) throws ClassNotFoundException{
 		ResultDT result = new ResultDT();
 		HuDTO huDTO = new HuDTO();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -75,7 +82,7 @@ public class HUsDAO {
 		List<HuDTO> itemList = new ArrayList<HuDTO>();
 		items.setItem(itemList);
 		husDTO.setItems(items);
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {

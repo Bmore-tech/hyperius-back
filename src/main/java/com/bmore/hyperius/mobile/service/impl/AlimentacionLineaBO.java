@@ -2,6 +2,8 @@ package com.bmore.hyperius.mobile.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bmore.hyperius.mobile.dto.OrdenProduccionDetalleDTO;
 import com.bmore.hyperius.mobile.dto.OrdenProduccionInput;
@@ -9,13 +11,18 @@ import com.bmore.hyperius.mobile.repository.impl.AlimentacionLineaDAO;
 import com.bmore.hyperius.mobile.utils.ResultDT;
 import com.bmore.hyperius.mobile.utils.Utils;
 
+@Service
 public class AlimentacionLineaBO {
 	private static final Logger LOCATION = LoggerFactory.getLogger(AlimentacionLineaBO.class);
-	public static OrdenProduccionInput validaOrdenProduccion(OrdenProduccionInput ordenProduccionInput) throws ClassNotFoundException {
-		AlimentacionLineaDAO alimentacionLineaDAO = new AlimentacionLineaDAO();
+
+  @Autowired
+  private AlimentacionLineaDAO alimentacionLineaDAO;
+
+	public OrdenProduccionInput validaOrdenProduccion(OrdenProduccionInput ordenProduccionInput) throws ClassNotFoundException {
+		// AlimentacionLineaDAO alimentacionLineaDAO = new AlimentacionLineaDAO();
 		ResultDT resultDT = new ResultDT();
 		ordenProduccionInput.setOrdeProduccion(Utils.zeroFill(ordenProduccionInput.getOrdeProduccion(), 12).trim());
-		ordenProduccionInput.setWerks(AlimentacionLineaDAO.getWerks(ordenProduccionInput.getOrdeProduccion().trim()));
+		ordenProduccionInput.setWerks(alimentacionLineaDAO.getWerks(ordenProduccionInput.getOrdeProduccion().trim()));
 		resultDT = alimentacionLineaDAO.validaOrden(ordenProduccionInput);
 		if (resultDT.getId() == 1) {
 			ordenProduccionInput.setMatnr(resultDT.getTypeS());
@@ -218,7 +225,7 @@ public class AlimentacionLineaBO {
 		AlimentacionLineaDAO alimentacionLineaDAO = new AlimentacionLineaDAO();
 		return alimentacionLineaDAO.limpiaPendientesXUsuario(vbeln, user);
 	}
-	public static String getLGPLA(String hu) {
-		return AlimentacionLineaDAO.getLGPLA(hu);
+	public String getLGPLA(String hu) {
+		return alimentacionLineaDAO.getLGPLA(hu);
 	}
 }

@@ -2,6 +2,8 @@ package com.bmore.hyperius.mobile.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bmore.hyperius.mobile.dto.CarrilUbicacionDTO;
 import com.bmore.hyperius.mobile.dto.EntregaDetalleDTO;
@@ -10,17 +12,22 @@ import com.bmore.hyperius.mobile.repository.impl.RecepcionEnvaseDAO;
 import com.bmore.hyperius.mobile.utils.ResultDT;
 import com.bmore.hyperius.mobile.utils.Utils;
 
+@Service
 public class RecepcionEnvaseBO {
+
+  @Autowired
+  private RecepcionEnvaseDAO recepcionEnvaseDAO;
+
 	@SuppressWarnings("unused")
-	private static final Logger LOCATION = LoggerFactory.getLogger(RecepcionEnvaseBO.class);
-	public static EntregaInput validaEntregaEntrante(EntregaInput entregaInput) throws ClassNotFoundException {
+	private final Logger LOCATION = LoggerFactory.getLogger(RecepcionEnvaseBO.class);
+	public  EntregaInput validaEntregaEntrante(EntregaInput entregaInput) throws ClassNotFoundException {
 		RecepcionEnvaseDAO recepcionEnvaseDAO = new RecepcionEnvaseDAO();
 		EntregaInput entrega =new EntregaInput();
 		entrega= recepcionEnvaseDAO.validarEntregaPickin(entregaInput.getEntrega());
 		return entrega;
 	}
-	public static EntregaInput pickearHU(EntregaInput entregaInput, int hu1oHu2) throws ClassNotFoundException {
-		RecepcionEnvaseDAO recepcionEnvaseDAO = new RecepcionEnvaseDAO();
+	public  EntregaInput pickearHU(EntregaInput entregaInput, int hu1oHu2) throws ClassNotFoundException {
+		// RecepcionEnvaseDAO recepcionEnvaseDAO = new RecepcionEnvaseDAO();
 		ResultDT resultDT = new ResultDT();
 		switch (hu1oHu2) {
 		case 1:
@@ -217,8 +224,8 @@ public class RecepcionEnvaseBO {
 		entregaInput.setResultDT(resultDT);
 		return entregaInput;
 	}
-	public static int getFaltantes(String entrega) throws ClassNotFoundException {
-		RecepcionEnvaseDAO recepcionEnvaseDAO = new RecepcionEnvaseDAO();
+	public int getFaltantes(String entrega) throws ClassNotFoundException {
+		// RecepcionEnvaseDAO recepcionEnvaseDAO = new RecepcionEnvaseDAO();
 		int codUbicacionesDisponibles = 0;
 		int ubicacionesDisponibles = recepcionEnvaseDAO.getFaltantes(entrega);
 
@@ -242,8 +249,8 @@ public class RecepcionEnvaseBO {
 		}
 		return codUbicacionesDisponibles;
 	}
-	public static EntregaInput confirmaPickingHU(EntregaInput entregaEntranteInput) throws ClassNotFoundException {
-		RecepcionEnvaseDAO recepcionEnvaseDAO = new RecepcionEnvaseDAO();
+	public EntregaInput confirmaPickingHU(EntregaInput entregaEntranteInput) throws ClassNotFoundException {
+		// RecepcionEnvaseDAO recepcionEnvaseDAO = new RecepcionEnvaseDAO();
 		ResultDT resultDT = new ResultDT();
 		if (entregaEntranteInput.getuDestino0().trim().equals("ML2")) {
 			entregaEntranteInput.setLgort("LV02");
@@ -283,11 +290,11 @@ public class RecepcionEnvaseBO {
 		entregaEntranteInput.setResultDT(resultDT);
 		return entregaEntranteInput;
 	}
-	public static ResultDT limpiarPendientesXUsuario(String vbeln, String user) throws ClassNotFoundException {
-		RecepcionEnvaseDAO recepcionEnvaseDAO = new RecepcionEnvaseDAO();
+	public ResultDT limpiarPendientesXUsuario(String vbeln, String user) throws ClassNotFoundException {
+		// RecepcionEnvaseDAO recepcionEnvaseDAO = new RecepcionEnvaseDAO();
 		return recepcionEnvaseDAO.limpiaPendientesXUsuario(vbeln, user);
 	}
-	public static String getWerks(String Hu) throws ClassNotFoundException{
-		return RecepcionEnvaseDAO.getWerks(Hu);
+	public  String getWerks(String Hu) throws ClassNotFoundException{
+		return recepcionEnvaseDAO.getWerks(Hu);
 	}
 }

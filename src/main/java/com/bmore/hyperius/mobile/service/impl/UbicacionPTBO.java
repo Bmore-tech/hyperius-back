@@ -1,7 +1,7 @@
 package com.bmore.hyperius.mobile.service.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bmore.hyperius.mobile.dto.CarrilUbicacionDTO;
 import com.bmore.hyperius.mobile.dto.OrdenProduccionDetalleDTO;
@@ -10,20 +10,27 @@ import com.bmore.hyperius.mobile.repository.impl.UbicacionPTDAO;
 import com.bmore.hyperius.mobile.utils.ResultDT;
 import com.bmore.hyperius.mobile.utils.Utils;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
 public class UbicacionPTBO {
-	private static final Logger LOCATION = LoggerFactory.getLogger(UbicacionPTBO.class);
-	public static OrdenProduccionInput validaOrdenProduccion(OrdenProduccionInput ordenProduccionInput) throws ClassNotFoundException{
-		UbicacionPTDAO UbicacionPTDAO = new UbicacionPTDAO();
-		OrdenProduccionInput orden = UbicacionPTDAO.validarOrdenEnPickin(ordenProduccionInput.getOrdeProduccion());
+
+  @Autowired
+  private UbicacionPTDAO ubicacionPTDAO;
+  
+	public OrdenProduccionInput validaOrdenProduccion(OrdenProduccionInput ordenProduccionInput) throws ClassNotFoundException{
+		// UbicacionPTDAO UbicacionPTDAO = new UbicacionPTDAO();
+		OrdenProduccionInput orden = ubicacionPTDAO.validarOrdenEnPickin(ordenProduccionInput.getOrdeProduccion());
 		return orden;
 	}
-	public static OrdenProduccionInput pickearHU(OrdenProduccionInput ordenProduccionInput, int hu1oHu2) throws ClassNotFoundException{
-		UbicacionPTDAO UbicacionPTDAO = new UbicacionPTDAO();
+	public OrdenProduccionInput pickearHU(OrdenProduccionInput ordenProduccionInput, int hu1oHu2) throws ClassNotFoundException{
+		// UbicacionPTDAO UbicacionPTDAO = new UbicacionPTDAO();
 		ResultDT resultDT = new ResultDT();
 		switch (hu1oHu2) {
 		case 1:
 			ordenProduccionInput.setHu2(null);
-			resultDT = UbicacionPTDAO.getAUFNRFromHu(ordenProduccionInput.getHu1(), ordenProduccionInput.getWerks());
+			resultDT = ubicacionPTDAO.getAUFNRFromHu(ordenProduccionInput.getHu1(), ordenProduccionInput.getWerks());
 			if (resultDT.getId() == 1) {// entrega encontrada
 				ordenProduccionInput.setOrdeProduccion(resultDT.getTypeS());
 				OrdenProduccionInput entregaReturn2 = new OrdenProduccionInput();
@@ -32,7 +39,7 @@ public class UbicacionPTBO {
 				if (resultDT.getId() == 1) {// Entrega en picking
 					// obtener info de hu
 					OrdenProduccionDetalleDTO infoMaterial = new OrdenProduccionDetalleDTO();
-					infoMaterial = UbicacionPTDAO.getDataHU(ordenProduccionInput.getHu1());
+					infoMaterial = ubicacionPTDAO.getDataHU(ordenProduccionInput.getHu1());
 					resultDT = infoMaterial.getResultDT();
 					if (resultDT.getId() == 1 && entregaReturn2.getMateriales().get(infoMaterial.getMaterial()) != null) {
 						ordenProduccionInput.setMaktx(infoMaterial.getDescripcion());
@@ -41,13 +48,13 @@ public class UbicacionPTBO {
 						ordenProduccionInput.setCantT(infoMaterial.getMe());
 						ordenProduccionInput.setTarima(infoMaterial.getTarima());
 						CarrilUbicacionDTO ubicacionCarril = new CarrilUbicacionDTO();
-						ubicacionCarril = UbicacionPTDAO.consultReservaCarrilHu(ordenProduccionInput.getOrdeProduccion(),ordenProduccionInput.getHu1());
+						ubicacionCarril = ubicacionPTDAO.consultReservaCarrilHu(ordenProduccionInput.getOrdeProduccion(),ordenProduccionInput.getHu1());
 						resultDT = ubicacionCarril.getResultDT();
 						if (resultDT.getId() == 0) {// consulta reserva carril
-							resultDT = UbicacionPTDAO.reservarCarrilHU(ordenProduccionInput.getOrdeProduccion(),ordenProduccionInput.getHu1(),ordenProduccionInput.getMatnr(),ordenProduccionInput.getUsuarioMontacarga());
+							resultDT = ubicacionPTDAO.reservarCarrilHU(ordenProduccionInput.getOrdeProduccion(),ordenProduccionInput.getHu1(),ordenProduccionInput.getMatnr(),ordenProduccionInput.getUsuarioMontacarga());
 							if (resultDT.getId() == 1) {
 								ubicacionCarril = new CarrilUbicacionDTO();
-								ubicacionCarril = UbicacionPTDAO.consultReservaCarrilHu(ordenProduccionInput.getOrdeProduccion(),ordenProduccionInput.getHu1());
+								ubicacionCarril = ubicacionPTDAO.consultReservaCarrilHu(ordenProduccionInput.getOrdeProduccion(),ordenProduccionInput.getHu1());
 								resultDT = ubicacionCarril.getResultDT();
 								if (resultDT.getId() == 1) {
 									ordenProduccionInput.setuDestino0(ubicacionCarril.getLGNUM());
@@ -91,23 +98,23 @@ public class UbicacionPTBO {
 				resultDT.setMsg("HU1 y HU2 son iguales, capture HUs diferentes");
 				ordenProduccionInput.setHu2(null);
 			} else {
-				resultDT = UbicacionPTDAO.getAUFNRFromHu(ordenProduccionInput.getHu2(), ordenProduccionInput.getWerks());
+				resultDT = ubicacionPTDAO.getAUFNRFromHu(ordenProduccionInput.getHu2(), ordenProduccionInput.getWerks());
 				if (resultDT.getId() == 1) {// entrega encontrada
 					// validar sean de la misma entrega
 					if (resultDT.getTypeS().equals(
 							ordenProduccionInput.getOrdeProduccion())) {
 						// obtener info de hu
 						OrdenProduccionDetalleDTO infoMaterial = new OrdenProduccionDetalleDTO();
-						infoMaterial = UbicacionPTDAO.getDataHU(ordenProduccionInput.getHu2());
+						infoMaterial = ubicacionPTDAO.getDataHU(ordenProduccionInput.getHu2());
 						resultDT = infoMaterial.getResultDT();
 						if (resultDT.getId() == 1) {// Existe material
 							if (ordenProduccionInput.getMatnr().equals(infoMaterial.getMaterial())) {
 								CarrilUbicacionDTO ubicacionCarril = new CarrilUbicacionDTO();
-								ubicacionCarril = UbicacionPTDAO.consultReservaCarrilHu(ordenProduccionInput.getOrdeProduccion(),ordenProduccionInput.getHu2());
+								ubicacionCarril = ubicacionPTDAO.consultReservaCarrilHu(ordenProduccionInput.getOrdeProduccion(),ordenProduccionInput.getHu2());
 								resultDT = ubicacionCarril.getResultDT();
 								if (resultDT.getId() == 0) {// consulta reserva
 									// carril
-									resultDT = UbicacionPTDAO.reservarCarrilHU(
+									resultDT = ubicacionPTDAO.reservarCarrilHU(
 													ordenProduccionInput.getOrdeProduccion(),
 													ordenProduccionInput.getHu2(),
 													ordenProduccionInput.getMatnr(),
@@ -116,7 +123,7 @@ public class UbicacionPTBO {
 													ordenProduccionInput.getUsuarioMontacarga());
 									if (resultDT.getId() == 1) {
 										ubicacionCarril = new CarrilUbicacionDTO();
-										ubicacionCarril = UbicacionPTDAO.consultReservaCarrilHu(ordenProduccionInput.getOrdeProduccion(),ordenProduccionInput.getHu2());
+										ubicacionCarril = ubicacionPTDAO.consultReservaCarrilHu(ordenProduccionInput.getOrdeProduccion(),ordenProduccionInput.getHu2());
 										resultDT = ubicacionCarril.getResultDT();
 										if (resultDT.getId() == 1) {
 											if (ordenProduccionInput.getuDestino1().equals(	ubicacionCarril.getLGTYP())	&& ordenProduccionInput.getuDestino2().equals(ubicacionCarril.getLGPLA())) {
@@ -177,8 +184,8 @@ public class UbicacionPTBO {
 		ordenProduccionInput.setResultDT(resultDT);
 		return ordenProduccionInput;
 	}
-	public static OrdenProduccionInput confirmaPickingHU(OrdenProduccionInput ordenProduccionInput) throws ClassNotFoundException{
-		UbicacionPTDAO ubicacionPTDAO = new UbicacionPTDAO();
+	public OrdenProduccionInput confirmaPickingHU(OrdenProduccionInput ordenProduccionInput) throws ClassNotFoundException{
+		// UbicacionPTDAO ubicacionPTDAO = new UbicacionPTDAO();
 		ResultDT resultDT = new ResultDT();
 		if (ordenProduccionInput.getHu2() == null || ordenProduccionInput.getHu2().equals("")) {
 			ordenProduccionInput.setHu2("");
@@ -213,8 +220,8 @@ public class UbicacionPTBO {
 		ordenProduccionInput.setResultDT(resultDT);
 		return ordenProduccionInput;
 	}
-	public static int getFaltantes(String entry) throws ClassNotFoundException{
-		UbicacionPTDAO ubicacionPTDAO = new UbicacionPTDAO();
+	public int getFaltantes(String entry) throws ClassNotFoundException{
+		// UbicacionPTDAO ubicacionPTDAO = new UbicacionPTDAO();
 		int codUbicacionesDisponibles = 0;
 		int ubicacionesDisponibles = ubicacionPTDAO.getFaltantes(entry);
 		// 999999. error
@@ -235,14 +242,14 @@ public class UbicacionPTBO {
 		}
 		return codUbicacionesDisponibles;
 	}
-	public static ResultDT limpiarPendientesXUsuario(String vbeln, String user) throws ClassNotFoundException{
-		UbicacionPTDAO ubicacionPTDAO = new UbicacionPTDAO();
+	public  ResultDT limpiarPendientesXUsuario(String vbeln, String user) throws ClassNotFoundException{
+		// UbicacionPTDAO ubicacionPTDAO = new UbicacionPTDAO();
 		return ubicacionPTDAO.limpiaPendientesXUsuario(vbeln, user);
 	}
-	public static String getWerks(String Hu) throws ClassNotFoundException{
-		LOCATION.info("Metodo getWerks UbiPTBO");
-		String werks=UbicacionPTDAO.getWerks(Hu);
-		LOCATION.info("Werks: "+werks);
+	public  String getWerks(String Hu) throws ClassNotFoundException{
+		log.info("Metodo getWerks UbiPTBO");
+		String werks=ubicacionPTDAO.getWerks(Hu);
+		log.info("Werks: "+werks);
 		return werks;
 	}
 }

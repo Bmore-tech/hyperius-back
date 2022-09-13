@@ -2,6 +2,7 @@ package com.bmore.hyperius.mobile.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +29,9 @@ import com.bmore.hyperius.mobile.utils.ResultDT;
 @RequestMapping("${mobile.uri}/recepcion")
 public class RecepcionMobileRest {
 
+  @Autowired
+  private RecepcionEnvaseBO recepcionEnvaseBO;
+
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	@PostMapping(value = "/pick-hu-recepcion", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,7 +56,7 @@ public class RecepcionMobileRest {
 
 		log.info("werks: " + entregaInput.getWerks() + " HU: " + request.getHu());
 
-		entregaInput = RecepcionEnvaseBO.pickearHU(entregaInput, request.getHu1OHu2());
+		entregaInput = recepcionEnvaseBO.pickearHU(entregaInput, request.getHu1OHu2());
 
 		response.setResponseCode(entregaInput.getResultDT().getId());
 		response.setMessage(entregaInput.getResultDT().getMsg());
@@ -85,7 +89,7 @@ public class RecepcionMobileRest {
 		entregaInput.setLfart(request.getLfart());
 		entregaInput.setWerks(request.getWerks());
 
-		entregaInput = RecepcionEnvaseBO.confirmaPickingHU(entregaInput);
+		entregaInput = recepcionEnvaseBO.confirmaPickingHU(entregaInput);
 
 		response.setResponseCode(entregaInput.getResultDT().getId());
 		response.setMessage(entregaInput.getResultDT().getMsg());
@@ -103,7 +107,7 @@ public class RecepcionMobileRest {
 		entregaInput.setUsuarioMontacarga(request.getIdRed());
 		entregaInput.setEntrega(request.getEntrega());
 
-		resultDT = RecepcionEnvaseBO.limpiarPendientesXUsuario(entregaInput.getEntrega(),
+		resultDT = recepcionEnvaseBO.limpiarPendientesXUsuario(entregaInput.getEntrega(),
 				entregaInput.getUsuarioMontacarga());
 
 		response.setResponseCode(resultDT.getId());

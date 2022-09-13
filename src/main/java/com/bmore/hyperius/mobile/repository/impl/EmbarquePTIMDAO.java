@@ -11,13 +11,19 @@ import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bmore.hyperius.config.DBConnectionMob;
 import com.bmore.hyperius.mobile.dto.EntregaInput;
 import com.bmore.hyperius.mobile.utils.ResultDT;
 import com.bmore.hyperius.mobile.utils.Utils;
 
+@Repository
 public class EmbarquePTIMDAO {
+  
+  @Autowired
+  private DBConnectionMob connectionMob;
 
 	private static final Logger LOCATION = LoggerFactory.getLogger(EmbarquePTIMDAO.class);
 
@@ -41,7 +47,7 @@ public class EmbarquePTIMDAO {
 
 		EntregaInput entregaInputReturn = new EntregaInput();
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		HashMap<String, String> hashhMap = new HashMap<String, String>();
@@ -94,7 +100,7 @@ public class EmbarquePTIMDAO {
 		ResultDT result = new ResultDT();
 		result.setId(0);
 
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -186,7 +192,7 @@ public class EmbarquePTIMDAO {
 	public ResultDT obtieneDescripcionMaterial(String matnr, String vblen) throws ClassNotFoundException{
 
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 
 		PreparedStatement stmn2 = null;
 		ResultSet rs2 = null;
@@ -235,7 +241,7 @@ public class EmbarquePTIMDAO {
 		ResultDT result = new ResultDT();
 		result.setId(0);
 
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -284,7 +290,7 @@ public class EmbarquePTIMDAO {
 
 	public ResultDT limpiaPendientesXUsuario(String vbeln, String user) throws ClassNotFoundException{
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 
 		try {

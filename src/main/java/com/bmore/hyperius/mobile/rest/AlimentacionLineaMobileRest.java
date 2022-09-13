@@ -2,6 +2,7 @@ package com.bmore.hyperius.mobile.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,11 +21,15 @@ import com.bmore.hyperius.mobile.rest.response.ValidaOrdenProduccionResponse;
 import com.bmore.hyperius.mobile.service.impl.AlimentacionLineaBO;
 import com.bmore.hyperius.mobile.utils.ResultDT;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping("${mobile.uri}/alimentacion-linea")
 public class AlimentacionLineaMobileRest {
 
-	private static final Logger LOCATION = LoggerFactory.getLogger(AlimentacionLineaMobileRest.class);
+  @Autowired
+  private AlimentacionLineaBO alimentacionLineaBO;
 
 	@PostMapping(value = "/valida-orden-produccion", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ValidaOrdenProduccionResponse validaOrdenProduccion(@RequestBody ValidaOrdenProduccionRequest request)
@@ -33,9 +38,9 @@ public class AlimentacionLineaMobileRest {
 		ordenProduccionInput.setOrdeProduccion(request.getOrdProd().trim());
 		ordenProduccionInput.setUsuarioMontacarga(request.getIdRed().trim());
 
-		ordenProduccionInput = AlimentacionLineaBO.validaOrdenProduccion(ordenProduccionInput);
+		ordenProduccionInput = alimentacionLineaBO.validaOrdenProduccion(ordenProduccionInput);
 
-		LOCATION.info(ordenProduccionInput.toString());
+		log.info(ordenProduccionInput.toString());
 
 		ValidaOrdenProduccionResponse response = new ValidaOrdenProduccionResponse();
 		response.setResponseCode(ordenProduccionInput.getResultDT().getId());
@@ -56,8 +61,8 @@ public class AlimentacionLineaMobileRest {
 			ordenProduccionInput.setHu2(request.getHu().substring(20));
 		}
 
-		LOCATION.info("hu1:" + ordenProduccionInput.getHu1());
-		LOCATION.info("hu2:" + ordenProduccionInput.getHu2());
+		log.info("hu1:" + ordenProduccionInput.getHu1());
+		log.info("hu2:" + ordenProduccionInput.getHu2());
 
 		ordenProduccionInput.setUsuarioMontacarga(request.getIdRed());
 		ordenProduccionInput.setuOrigen1(request.getOrigen1());
@@ -66,9 +71,9 @@ public class AlimentacionLineaMobileRest {
 		ordenProduccionInput.setOrdeProduccion(request.getOrdProd());
 		ordenProduccionInput.setMatnr(request.getMaterial());
 
-		ordenProduccionInput = AlimentacionLineaBO.pickearHU(ordenProduccionInput, request.getHu1OHu2());
+		ordenProduccionInput = alimentacionLineaBO.pickearHU(ordenProduccionInput, request.getHu1OHu2());
 
-		LOCATION.info("Orden al pickear :" + ordenProduccionInput.toString());
+		log.info("Orden al pickear :" + ordenProduccionInput.toString());
 
 		PickearHuResponse response = new PickearHuResponse();
 		response.setData(ordenProduccionInput);
@@ -98,7 +103,7 @@ public class AlimentacionLineaMobileRest {
 		ordenProduccionInput.setuOrigen1(request.getOrigen1());
 		ordenProduccionInput.setuOrigen2(request.getOrigen2());
 
-		ordenProduccionInput = AlimentacionLineaBO.confirmaHusEnDepa(ordenProduccionInput);
+		ordenProduccionInput = alimentacionLineaBO.confirmaHusEnDepa(ordenProduccionInput);
 
 		ConfirmaHusDepaResponse response = new ConfirmaHusDepaResponse();
 		response.setData(ordenProduccionInput);
@@ -115,9 +120,9 @@ public class AlimentacionLineaMobileRest {
 		OrdenProduccionInput ordenProduccionInput = new OrdenProduccionInput();
 		ordenProduccionInput.setUsuarioMontacarga(request.getIdRed());
 
-		LOCATION.error("OrdenProduccion:" + ordenProduccionInput.getUsuarioMontacarga());
+		log.error("OrdenProduccion:" + ordenProduccionInput.getUsuarioMontacarga());
 
-		resultDT = AlimentacionLineaBO.limpiarPendientesXUsuario(ordenProduccionInput.getOrdeProduccion(),
+		resultDT = alimentacionLineaBO.limpiarPendientesXUsuario(ordenProduccionInput.getOrdeProduccion(),
 				ordenProduccionInput.getUsuarioMontacarga());
 
 		LimpiarPendientesResponse response = new LimpiarPendientesResponse();

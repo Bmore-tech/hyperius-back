@@ -6,10 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.bmore.hyperius.config.DBConnectionMob;
 
+@Component
 public class LoginDB {
+
+  @Autowired
+  private DBConnectionMob connectionMob;
+  
 	private static final Logger LOCATION = LoggerFactory.getLogger(LoginDB.class);
 	static String EXISTE_USUARIO = "SELECT WERKS, ZADMIN FROM  HCMDB.dbo.zUsuario WHERE IDRED = ?";
 	static String EXISTE_REGITRO_USUARIO = "SELECT * FROM HCMDB.dbo.zSession WHERE idRed = ?";
@@ -18,9 +25,10 @@ public class LoginDB {
 	static String ACTUALIZA_HORA_ULTIMA_OPERACION = "UPDATE  HCMDB.dbo.zSession SET lastOperation = ? WHERE idRed = ?";
 	static String LOG_OUT = "UPDATE  HCMDB.dbo.zSession SET logOut = '1' WHERE idRed = ?";
 	static String RETRIVE_DATA= "SELECT * FROM HCMDB.dbo.zSession WHERE idRed= ?";
-	public static ResultDT login(String entry) throws ClassNotFoundException {
+
+	public  ResultDT login(String entry) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -56,10 +64,10 @@ public class LoginDB {
 		}
 		return result;
 	}
-	public static LoginDTO existeRegistroUsuario(String entry) throws ClassNotFoundException {
+	public  LoginDTO existeRegistroUsuario(String entry) throws ClassNotFoundException {
 		LoginDTO loginDTO = new LoginDTO();
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -98,9 +106,9 @@ public class LoginDB {
 		loginDTO.setResult(result);
 		return loginDTO;
 	}
-	public static ResultDT ingresaRegistroUsuario(LoginDTO loginDTO) throws ClassNotFoundException {
+	public  ResultDT ingresaRegistroUsuario(LoginDTO loginDTO) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		try {
 			LOCATION.error("Ingresar a ZSESSION");
@@ -137,9 +145,9 @@ public class LoginDB {
 		}
 		return result;
 	}
-	public static ResultDT actualizaHoraUltimaOperacion(String idRed) throws ClassNotFoundException {
+	public ResultDT actualizaHoraUltimaOperacion(String idRed) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		java.util.Date date = new java.util.Date();
 		long miliseconds = date.getTime();
@@ -171,9 +179,9 @@ public class LoginDB {
 		}
 		return result;
 	}
-	public static ResultDT actualizaRegistroUsuario(LoginDTO loginDTO) throws ClassNotFoundException {
+	public ResultDT actualizaRegistroUsuario(LoginDTO loginDTO) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		try {
 			stmn = con.prepareStatement(ACTUALIZA_REGISTRO_USUARIO);
@@ -210,10 +218,10 @@ public class LoginDB {
 		}
 		return result;
 	}
-	public static ResultDT logOut(String idRed) throws ClassNotFoundException {
+	public  ResultDT logOut(String idRed) throws ClassNotFoundException {
 
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		try {
 			stmn = con.prepareStatement(LOG_OUT);
@@ -245,11 +253,11 @@ public class LoginDB {
 		}
 		return result;
 	}
-	public static LoginDTO retriveData(String idRed) throws ClassNotFoundException {
+	public LoginDTO retriveData(String idRed) throws ClassNotFoundException {
 		LoginDTO data= new LoginDTO();
 		ResultSet rs= null;
 		PreparedStatement stmn = null;
-		Connection con= new DBConnectionMob().createConnection();
+		Connection con= connectionMob.createConnection();
 		try {
 			stmn= con.prepareStatement(RETRIVE_DATA);
 			stmn.setString(1, idRed);

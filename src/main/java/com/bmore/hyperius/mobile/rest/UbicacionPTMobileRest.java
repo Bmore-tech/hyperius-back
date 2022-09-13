@@ -2,6 +2,7 @@ package com.bmore.hyperius.mobile.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,12 @@ import com.bmore.hyperius.mobile.utils.ResultDT;
 @RestController
 @RequestMapping("${mobile.uri}/ubicacion-pt")
 public class UbicacionPTMobileRest {
+
+  @Autowired
+  private LoginBO loginBO;
+
+  @Autowired
+  private UbicacionPTBO ubicacionPTBO;
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -46,7 +53,7 @@ public class UbicacionPTMobileRest {
 			log.info("hu.trim().substring(20): " + request.getHu().trim().substring(20));
 			log.info("Hu1: " + ordenProduccionInput.getHu1() + "\nHu2: " + ordenProduccionInput.getHu2());
 		}
-		ordenProduccionInput = UbicacionPTBO.pickearHU(ordenProduccionInput, request.getHu1OHu2());
+		ordenProduccionInput = ubicacionPTBO.pickearHU(ordenProduccionInput, request.getHu1OHu2());
 
 		response.setData(ordenProduccionInput);
 		response.setResponseCode(ordenProduccionInput.getResultDT().getId());
@@ -76,7 +83,7 @@ public class UbicacionPTMobileRest {
 		ordenProduccionInput.setuOrigen1(request.getOrigen1());
 		ordenProduccionInput.setuOrigen2(request.getOrigen2());
 
-		ordenProduccionInput = UbicacionPTBO.confirmaPickingHU(ordenProduccionInput);
+		ordenProduccionInput = ubicacionPTBO.confirmaPickingHU(ordenProduccionInput);
 
 		response.setData(ordenProduccionInput);
 		response.setResponseCode(ordenProduccionInput.getResultDT().getId());
@@ -89,10 +96,10 @@ public class UbicacionPTMobileRest {
 	public DefaultResponse limpiarPendientesUbicacion(@RequestBody LimpiarPendientesUbicacionRequest request)
 			throws ClassNotFoundException {
 		ResultDT resultDT = new ResultDT();
-		resultDT = LoginBO.checkValidSession(request.getUsuarioMontacarga(), request.getSessionId());
+		resultDT = loginBO.checkValidSession(request.getUsuarioMontacarga(), request.getSessionId());
 		DefaultResponse response = new DefaultResponse();
 
-		resultDT = UbicacionPTBO.limpiarPendientesXUsuario(request.getOrdeProduccion(), request.getUsuarioMontacarga());
+		resultDT = ubicacionPTBO.limpiarPendientesXUsuario(request.getOrdeProduccion(), request.getUsuarioMontacarga());
 
 		response.setResponseCode(resultDT.getId());
 		response.setMessage(resultDT.getMsg());

@@ -8,6 +8,8 @@ import java.sql.SQLException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bmore.hyperius.config.DBConnectionMob;
 import com.bmore.hyperius.mobile.dto.OrdenProduccionDetalleDTO;
@@ -15,7 +17,12 @@ import com.bmore.hyperius.mobile.dto.OrdenProduccionInput;
 import com.bmore.hyperius.mobile.utils.ResultDT;
 import com.bmore.hyperius.mobile.utils.Utils;
 
+@Repository
 public class AlimentacionLineaDAO {
+  
+  @Autowired
+  private DBConnectionMob connectionMob;
+
 	private static final Logger LOCATION = LoggerFactory.getLogger(AlimentacionLineaDAO.class);
 	static String GET_DATA_HU = "select LQUA.MATNR as matnr, LQUA.VERME as vemng, LQUA.MEINS as meins, MAKT.MAKTX as maktx,BESTQ as BESTQ "
 			+ " from HCMDB.dbo.LQUA LQUA WITH(NOLOCK) INNER JOIN HCMDB.dbo.MAKT MAKT WITH(NOLOCK) on LQUA.MATNR = MAKT.MATNR "
@@ -33,8 +40,8 @@ public class AlimentacionLineaDAO {
 	// static String CONSUME_HUS =
 	// "exec sp_bcps_wm_consume_hus_v2 ?,?,?,?,?,?,?,?,?,?,?,'','',?";
 	static String CONSUME_HUS = "exec sp_bcps_wm_consume_hus_alimentacion ?,?,?,?,?,?,?,?,?,?,?";
-	public static String getLGPLA(String hu) {
-		Connection con = new DBConnectionMob().createConnection();
+	public  String getLGPLA(String hu) {
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		try {
@@ -50,7 +57,7 @@ public class AlimentacionLineaDAO {
 	}
 	public ResultDT validaOrden(OrdenProduccionInput ordenProduccionInput) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		LOCATION.error("Orden: " + ordenProduccionInput.getOrdeProduccion());
@@ -93,7 +100,7 @@ public class AlimentacionLineaDAO {
 		ResultDT result = new ResultDT();
 		LOCATION.info("getDataHU");
 		OrdenProduccionDetalleDTO orden = new OrdenProduccionDetalleDTO();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		PreparedStatement stmn3 = null;
@@ -152,7 +159,7 @@ public class AlimentacionLineaDAO {
 		return orden;
 	}
 	public OrdenProduccionInput obtieneDepaletizadora(OrdenProduccionInput ordenProduccionInput) throws ClassNotFoundException {
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		OrdenProduccionInput ordenProduccionInputReturn = new OrdenProduccionInput();
 		ResultDT resultDT = new ResultDT();
 		PreparedStatement stmn = null;
@@ -188,7 +195,7 @@ public class AlimentacionLineaDAO {
 	public ResultDT confirmaHUsenDepa(OrdenProduccionInput ordenProduccionInput)throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
 		result.setId(0);
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		CallableStatement callableStatement = null;
 		try {
 			LOCATION.info("CONSUME HUS");
@@ -230,7 +237,7 @@ public class AlimentacionLineaDAO {
 		return result;
 	}
 	public ResultDT validaPickeoPrevioHU(OrdenProduccionInput ordenProduccionInput, String hu) throws ClassNotFoundException {
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		ResultDT resultDT = new ResultDT();
 		PreparedStatement stmn = null;
 		ResultSet resultado = null;
@@ -262,7 +269,7 @@ public class AlimentacionLineaDAO {
 	}
 	public ResultDT limpiaPendientesXUsuario(String vbeln, String user) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		PreparedStatement stmn = null;
 		try {
 			LOCATION.info("Limpia pendientes DAO :" + vbeln);
@@ -296,7 +303,7 @@ public class AlimentacionLineaDAO {
 	public OrdenProduccionInput reservaUbicaciones(OrdenProduccionInput ordenProduccionInput) throws ClassNotFoundException {
 		ResultDT result = new ResultDT();
 		result.setId(0);
-		Connection con = new DBConnectionMob().createConnection();
+		Connection con = connectionMob.createConnection();
 		CallableStatement callableStatement = null;
 		try {
 			// @WERKS, @USRMNT, @VBELN, @IDPR, @RETURN, @MATNR, @LGNUM, @LGTYP,
@@ -339,9 +346,9 @@ public class AlimentacionLineaDAO {
 		ordenProduccionInput.setResultDT(result);
 		return ordenProduccionInput;
 	}
-	public static String getWerks(String ordProd) throws ClassNotFoundException{
+	public  String getWerks(String ordProd) throws ClassNotFoundException{
 		String werks="";
-		Connection con= new DBConnectionMob().createConnection();
+		Connection con= connectionMob.createConnection();
 		PreparedStatement stmn=null;
 		ResultSet rs=null;
 		try {
