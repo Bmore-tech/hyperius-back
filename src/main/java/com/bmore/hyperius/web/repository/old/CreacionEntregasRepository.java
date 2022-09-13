@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bmore.hyperius.config.DBConnection;
 import com.bmore.hyperius.web.dto.CreacionEntregaItemDTO;
@@ -18,7 +20,11 @@ import com.bmore.hyperius.web.dto.CrecionEntregaDTO;
 import com.bmore.hyperius.web.dto.ResultDTO;
 import com.bmore.hyperius.web.utils.Utils;
 
+@Repository
 public class CreacionEntregasRepository {
+  
+  @Autowired
+  private DBConnection dbConnection;
 
 	private static final String getDataMateriales = "SELECT MATNR, MAKTX FROM VS_BCPS_ENTREGAS_MATERIALES WITH(NOLOCK)";
 	private static final String getDataTarimas = "SELECT TARIMA, MAKTX FROM  VS_BCPS_ENTREGAS_NORMA_EMBALAJE WITH(NOLOCK) WHERE MATERIAL = ?";
@@ -55,7 +61,7 @@ public class CreacionEntregasRepository {
 
 	public CreacionEntregasDTO obtieneMaterialDAO() {
 		CreacionEntregasDTO materialesDTO = new CreacionEntregasDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		ResultDTO resultDT = new ResultDTO();
 		CreacionEntregaItemDTO materialItemDTO = new CreacionEntregaItemDTO();
 		List<CrecionEntregaDTO> listMaterialDTOs = new ArrayList<CrecionEntregaDTO>();
@@ -108,7 +114,7 @@ public class CreacionEntregasRepository {
 
 	public CreacionEntregasDTO obtieneTarimasDAO(CrecionEntregaDTO materialDTO) {
 		CreacionEntregasDTO materialesDTO = new CreacionEntregasDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		ResultDTO resultDT = new ResultDTO();
 		CreacionEntregaItemDTO materialItemDTO = new CreacionEntregaItemDTO();
 		List<CrecionEntregaDTO> listMaterialDTOs = new ArrayList<CrecionEntregaDTO>();
@@ -163,7 +169,7 @@ public class CreacionEntregasRepository {
 	public CreacionEntregasDTO obtieneCentrosDAO() {
 
 		CreacionEntregasDTO centrosDTO = new CreacionEntregasDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		ResultDTO resultDT = new ResultDTO();
 		CreacionEntregaItemDTO centrosItemDTO = new CreacionEntregaItemDTO();
 		List<CrecionEntregaDTO> listaCentrosDTO = new ArrayList<CrecionEntregaDTO>();
@@ -224,7 +230,7 @@ public class CreacionEntregasRepository {
 	public CreacionEntregasDTO obtieneAgenciasDAO() {
 		CreacionEntregasDTO agenciasDTO = new CreacionEntregasDTO();
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		ResultDTO resultDT = new ResultDTO();
 		CreacionEntregaItemDTO agenciasItemDTO = new CreacionEntregaItemDTO();
 		List<CrecionEntregaDTO> listAgenciasItemDTO = new ArrayList<CrecionEntregaDTO>();
@@ -286,7 +292,7 @@ public class CreacionEntregasRepository {
 	public CreacionEntregasDTO obtieneTransportesDAO(
 			CrecionEntregaDTO transporteDTO) {
 		CreacionEntregasDTO materialesDTO = new CreacionEntregasDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		ResultDTO resultDT = new ResultDTO();
 		CreacionEntregaItemDTO materialItemDTO = new CreacionEntregaItemDTO();
 		List<CrecionEntregaDTO> listMaterialDTOs = new ArrayList<CrecionEntregaDTO>();
@@ -354,7 +360,7 @@ public class CreacionEntregasRepository {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -413,7 +419,7 @@ public class CreacionEntregasRepository {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -497,7 +503,7 @@ public class CreacionEntregasRepository {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -556,7 +562,7 @@ public class CreacionEntregasRepository {
 
 		CreacionEntregasDTO materialesDTO = new CreacionEntregasDTO();
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		List<CrecionEntregaDTO> entregasDTO = new ArrayList<CrecionEntregaDTO>();
 		CreacionEntregaItemDTO items = new CreacionEntregaItemDTO();
@@ -633,7 +639,7 @@ public class CreacionEntregasRepository {
 
 		CreacionEntregasDTO materialesDTO = new CreacionEntregasDTO();
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		List<CrecionEntregaDTO> entregasDTO = new ArrayList<CrecionEntregaDTO>();
 		CreacionEntregaItemDTO items = new CreacionEntregaItemDTO();
@@ -731,7 +737,7 @@ public class CreacionEntregasRepository {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		CallableStatement callableStatement = null;
 

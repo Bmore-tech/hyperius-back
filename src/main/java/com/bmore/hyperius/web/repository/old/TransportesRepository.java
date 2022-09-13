@@ -5,11 +5,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.bmore.hyperius.config.DBConnection;
 import com.bmore.hyperius.web.dto.ResultDTO;
 import com.bmore.hyperius.web.dto.TransportesDTO;
 
+@Repository
 public class TransportesRepository {
+  
+  @Autowired
+  private DBConnection dbConnection;
 
 	static String EXISTE_FIN_TRANSPORTE = "select tknum from HCMDB.dbo.VTTP WITH(NOLOCK) where tknum = ? ";
 			//+ "and vbeln in (select vbeln from HCMDB.dbo.likp where KUNNR = (select kunnr from HCMDB.dbo.zCentrosBCPS where werks=?))"; se quita,sap no mando entregas
@@ -27,7 +34,7 @@ public class TransportesRepository {
 
 	public ResultDTO obtieneTransporte(String tknum, String werks, int idQuery) {
 		ResultDTO result = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
 		try {
@@ -72,7 +79,7 @@ public class TransportesRepository {
 		ResultDTO result = new ResultDTO();
 		TransportesDTO transporteDTO = new TransportesDTO();
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
 
@@ -141,7 +148,7 @@ public class TransportesRepository {
 
 		ResultDTO result = new ResultDTO();
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmnt2 = null;
 		int res2 = 0;
 
@@ -186,7 +193,7 @@ public class TransportesRepository {
 
 		ResultDTO result = new ResultDTO();
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmnt2 = null;
 		int res2 = 0;
 

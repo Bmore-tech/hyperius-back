@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bmore.hyperius.config.DBConnection;
 import com.bmore.hyperius.web.utils.Utils;
@@ -22,7 +24,11 @@ import com.bmore.hyperius.web.utils.export.xmlgeneration.XMLFTPUserDTO;
 import com.bmore.hyperius.web.utils.export.xmlgeneration.XMLRootDTO;
 import com.bmore.hyperius.web.utils.export.xmlgeneration.XMLTotalDTO;
 
+@Repository
 public class XMLCreateRepository {
+  
+  @Autowired
+  private DBConnection dbConnection;
 
 	private static String getDataRootBOMA = "SELECT BKDES, FIIDT FROM VS_BCPS_GET_APROV WHERE VBELN = ?";
 	private static String getDataRootVBAK = "SELECT BSTNK, AUDAT, CONVERT(VARCHAR(10),DATEADD(DAY, ?, CONVERT(DATE, VDATU, 112)), 112) AS VDATU FROM VS_BCPS_XML_ORDEN_COMPRA WITH(NOLOCK) WHERE VBELN = ?";
@@ -67,7 +73,7 @@ public class XMLCreateRepository {
 		XMLAddressDTO remisorExped = new XMLAddressDTO();
 		XMLAddressDTO remisorFiscal = new XMLAddressDTO();
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getDataRootBOMA);
 			stm.setString(1, VBELN);
@@ -215,7 +221,7 @@ public class XMLCreateRepository {
 
 	public XMLTotalDTO fillTotal(String VBELN) {
 		XMLTotalDTO totDTO = new XMLTotalDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			CallableStatement stm = con.prepareCall(getDataFactor);
 			stm.setString(1, VBELN);
@@ -241,7 +247,7 @@ public class XMLCreateRepository {
 
 	public List<XMLDetailsDTO> fillDetail(String VBELN) {
 		List<XMLDetailsDTO> listdetailDTO = new ArrayList<XMLDetailsDTO>();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getFillDetailPedido);
 			stm.setString(1, VBELN);
@@ -306,7 +312,7 @@ public class XMLCreateRepository {
 	public XMLCustomDTO fillCustom(XMLCreateDTO createDTO, String VBELN, String Werks) {
 		XMLCustomDTO custDTO = null;
 		custDTO = XMLCustomDTO.XMLCustomDTOEmpty(custDTO);
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getCustomAdua);
 			stm.setString(1, VBELN);
@@ -388,8 +394,8 @@ public class XMLCreateRepository {
 		return custDTO;
 	}
 
-	private static String getFolioFact(String vBeln, String werks) {
-		Connection con = new DBConnection().createConnection();
+	private String getFolioFact(String vBeln, String werks) {
+		Connection con = dbConnection.createConnection();
 		String folio = "";
 		try {
 			CallableStatement cst = con.prepareCall(EXECFOLIO);
@@ -423,7 +429,7 @@ public class XMLCreateRepository {
 
 	public XMLFTPUserDTO userAccess() {
 		XMLFTPUserDTO xmlFTP = new XMLFTPUserDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(FTPACCESS);
 			ResultSet rs = stm.executeQuery();
@@ -452,10 +458,10 @@ public class XMLCreateRepository {
 	// sp_bcps_wm_contabilizar_entrega_salida_factura @ENTREGA, @FOLINT, @FOLEXT
 	// , @UUID, @RETURN
 
-	public static Integer insertValueXML(String vBeln, String UUID, String FolioExt,
+	public Integer insertValueXML(String vBeln, String UUID, String FolioExt,
 			String FolioInt) {
 		int retorno = 0;
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			CallableStatement cst = con.prepareCall(XMLZCONT);
 			cst.setString(1, vBeln);

@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bmore.hyperius.config.DBConnection;
 import com.bmore.hyperius.web.dto.CargaInformacionBodyDTO;
@@ -20,7 +22,11 @@ import com.bmore.hyperius.web.dto.ReporteAvanceBodyDTO;
 import com.bmore.hyperius.web.dto.ReporteAvanceDTO;
 import com.bmore.hyperius.web.dto.ResultDTO;
 
+@Repository
 public class CifrasControlRepositoryOld {
+    
+  @Autowired
+  private DBConnection dbConnection;
 
 	private final Logger LOCATION = LoggerFactory.getLogger(getClass());
 
@@ -98,7 +104,7 @@ public class CifrasControlRepositoryOld {
 	public DescargaInformacionDTO getDescargaInformacion() {
 		DescargaInformacionDTO descargaInformacionDTO = new DescargaInformacionDTO();
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		List<DescargaInformacionBodyDTO> descargaInformacionBodyDTOs = new ArrayList<DescargaInformacionBodyDTO>();
 		try {
 			PreparedStatement stm = con
@@ -148,7 +154,7 @@ public class CifrasControlRepositoryOld {
 	public CargaInformacionDTO getCargaInformacion() {
 		CargaInformacionDTO cargaInformacionDTO = new CargaInformacionDTO();
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		List<CargaInformacionBodyDTO> cargaInformacionBodyDTOs = new ArrayList<CargaInformacionBodyDTO>();
 		try {
 			PreparedStatement stm = con.prepareStatement(GET_CARGA_INFORMACION);
@@ -196,7 +202,7 @@ public class CifrasControlRepositoryOld {
 	public ReporteAvanceDTO getReporteOperaciones() {
 		ReporteAvanceDTO reporteAvanceDTO = new ReporteAvanceDTO();
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		List<ReporteAvanceBodyDTO> reporteAvanceBodyDTOs = new ArrayList<ReporteAvanceBodyDTO>();
 		try {
 			PreparedStatement stm = con
@@ -256,7 +262,7 @@ public class CifrasControlRepositoryOld {
 	public List<String> generateDataReport(
 			DescargaInformacionDTO descargaInformacionDTO) {
 		List<String> toReturn = new ArrayList<String>();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stm = null;
 		ResultSet rs = null;
 		try {
@@ -295,7 +301,7 @@ public class CifrasControlRepositoryOld {
 	}
 
 	public ResultDTO savePlaneacion(PlaneacionBodyDTO planeacionBodyDTO) {
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stm = null;
 		ResultDTO result = new ResultDTO();
 		try {

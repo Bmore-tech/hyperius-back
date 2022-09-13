@@ -11,6 +11,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bmore.hyperius.config.DBConnection;
 import com.bmore.hyperius.web.dto.CarrilUbicacionDTO;
@@ -22,7 +24,14 @@ import com.bmore.hyperius.web.dto.OrdenProduccionInputDTO;
 import com.bmore.hyperius.web.dto.ResultDTO;
 import com.bmore.hyperius.web.utils.Utils;
 
+@Repository
 public class AlimentacionLineaRepositoryOld {
+
+  @Autowired
+  private Utils utils;
+  
+  @Autowired
+  private DBConnection dbConnection;
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -103,7 +112,7 @@ public class AlimentacionLineaRepositoryOld {
 		OrdenProduccionDTO orden = new OrdenProduccionDTO();
 		ResultDTO result = new ResultDTO();
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		PreparedStatement stmn = null;
 
@@ -163,7 +172,7 @@ public class AlimentacionLineaRepositoryOld {
 		List<OrdenProduccionDetalleDTO> detalle = new ArrayList<OrdenProduccionDetalleDTO>();
 
 		ResultDTO result = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 
@@ -295,7 +304,7 @@ public class AlimentacionLineaRepositoryOld {
 
 		CarrilesUbicacionDTO carrilesDTO = new CarrilesUbicacionDTO();
 		List<CarrilUbicacionDTO> carrilList = new ArrayList<CarrilUbicacionDTO>();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmnt2 = null;
 		PreparedStatement stmnt4 = null;
 		ResultSet rs2 = null;
@@ -444,7 +453,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public ResultDTO ingresaDetalleEnvase(String aufnr, CarrilesUbicacionDTO carrilesDTO, String user, String werks) {
 		logger.error("ingresaDetalleEnvase DAO AlimentacionLinea");
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		ResultDTO resultDT = new ResultDTO();
 
@@ -502,7 +511,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public ResultDTO validarEntregaPickin(OrdenProduccionInputDTO ordenProduccionInput) {
 		ResultDTO result = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 
@@ -544,7 +553,7 @@ public class AlimentacionLineaRepositoryOld {
 
 		ResultDTO result = new ResultDTO();
 		OrdenProduccionDetalleDTO orden = new OrdenProduccionDetalleDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 
@@ -611,7 +620,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public ResultDTO reservaUbicacionHU1(OrdenProduccionInputDTO ordenProduccionInput) {
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement stmn = null;
@@ -653,7 +662,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public ResultDTO reservaUbicacionHU2(OrdenProduccionInputDTO ordenProduccionInput) {
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement stmn = null;
@@ -701,7 +710,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public OrdenProduccionInputDTO obtieneReservaUbicacionHU1(OrdenProduccionInputDTO ordenProduccionInput) {
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		OrdenProduccionInputDTO ordenProduccionInputReturn = new OrdenProduccionInputDTO();
 		ResultDTO resultDT = new ResultDTO();
@@ -751,7 +760,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public OrdenProduccionInputDTO obtieneDepaletizadora(OrdenProduccionInputDTO ordenProduccionInput) {
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		OrdenProduccionInputDTO ordenProduccionInputReturn = new OrdenProduccionInputDTO();
 		ResultDTO resultDT = new ResultDTO();
@@ -798,7 +807,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public ResultDTO confirmaHUenDepa(OrdenProduccionInputDTO ordenProduccionInput, String hu) {
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement stmn = null;
@@ -846,7 +855,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public ResultDTO validaPickeoPrevioHU(OrdenProduccionInputDTO ordenProduccionInput, String hu) {
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement stmn = null;
@@ -893,7 +902,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public ResultDTO insertProcesoContingencia_5(OrdenProduccionInputDTO ordenProduccionInput, String hu) {
 		ResultDTO result = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -934,7 +943,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public int limpiaPendientes(String vbeln) {
 		ResultDTO result = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -969,7 +978,7 @@ public class AlimentacionLineaRepositoryOld {
 
 	public ResultDTO limpiaPendientesXUsuario(String vbeln, String user) {
 		ResultDTO result = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -1006,7 +1015,7 @@ public class AlimentacionLineaRepositoryOld {
 	public ResultDTO consumeInventario(String hu, OrdenProduccionInputDTO ordenProduccionInput) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -1022,7 +1031,7 @@ public class AlimentacionLineaRepositoryOld {
 				logger.error("Alimentacion LGNUM: " + ordenProduccionInput.getuOrigen0() + " LGTYP: "
 						+ ordenProduccionInput.getuOrigen1() + " LGPLA:" + ordenProduccionInput.getuOrigen2());
 
-				Utils.actualizarInventarioCarriles(ordenProduccionInput.getuOrigen0(),
+				utils.actualizarInventarioCarriles(ordenProduccionInput.getuOrigen0(),
 						ordenProduccionInput.getuOrigen1(), ordenProduccionInput.getuOrigen2());
 
 			} else {
@@ -1050,7 +1059,7 @@ public class AlimentacionLineaRepositoryOld {
 	public HashMap<String, String> getCarrilesBloqueados(String idProceso, String werks) {
 
 		HashMap<String, String> map = new HashMap<String, String>();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -1088,7 +1097,7 @@ public class AlimentacionLineaRepositoryOld {
 	public HashMap<String, String> getCarrilesMaterialBloqueado(String matnr, String werks) {
 
 		HashMap<String, String> map = new HashMap<String, String>();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;

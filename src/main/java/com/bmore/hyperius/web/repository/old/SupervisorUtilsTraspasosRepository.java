@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bmore.hyperius.config.DBConnection;
 import com.bmore.hyperius.web.dto.AlmacenDTO;
@@ -20,7 +22,11 @@ import com.bmore.hyperius.web.dto.InventarioDetalleDTO;
 import com.bmore.hyperius.web.dto.InventarioDetalleDTOItem;
 import com.bmore.hyperius.web.dto.ResultDTO;
 
+@Repository
 public class SupervisorUtilsTraspasosRepository {
+  
+  @Autowired
+  private DBConnection dbConnection;
 
 	private String LGORT = "select distinct(almacen) from centrosAlmacenesPermitidos where centro = ?";
 
@@ -41,7 +47,7 @@ public class SupervisorUtilsTraspasosRepository {
 	public AlmacenesDTO lgortPermitidos(String werks) {
 
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmnt = null;
 		ResultSet rs = null;
 
@@ -99,7 +105,7 @@ public class SupervisorUtilsTraspasosRepository {
 	public AlmacenesDTO lgnumPermitidos(AlmacenDTO almacenDTO) {
 
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmnt = null;
 		ResultSet rs = null;
 
@@ -163,7 +169,7 @@ public class SupervisorUtilsTraspasosRepository {
 	public AlmacenesDTO lgtypPermitidos(AlmacenDTO almacenDTO) {
 
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmnt = null;
 		ResultSet rs = null;
 
@@ -228,7 +234,7 @@ public class SupervisorUtilsTraspasosRepository {
 	public AlmacenesDTO lgplaPermitidos(AlmacenDTO almacenDTO) {
 
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmnt = null;
 		ResultSet rs = null;
 
@@ -292,7 +298,7 @@ public class SupervisorUtilsTraspasosRepository {
 	public InventarioDTO lquaBusquedaTraspasos(AlmacenDTO almacenDTO, int opc) {
 
 		ResultDTO resultDT = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmnt = null;
 		ResultSet rs = null;
 
@@ -381,7 +387,7 @@ public class SupervisorUtilsTraspasosRepository {
 			String user) {
 
 		ResultDTO result = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		CallableStatement callableStatement = null;
 

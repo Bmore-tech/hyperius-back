@@ -18,12 +18,17 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.bmore.hyperius.config.DBConnection;
 import com.bmore.hyperius.config.JwtTokenUtil;
 import com.bmore.hyperius.web.dto.ResultDTO;
 
+@Component
 public class Utils {
+    
+  @Autowired
+  private DBConnection dbConnection;
 
 	private static final Logger LOCATION = LoggerFactory.getLogger(Utils.class);
 
@@ -98,9 +103,9 @@ public class Utils {
 		return toreturn;
 	}
 
-	public static ResultDTO actualizarInventarioCarriles(String LGNUM, String LGTYP, String LGPLA) {
+	public ResultDTO actualizarInventarioCarriles(String LGNUM, String LGTYP, String LGPLA) {
 		ResultDTO result = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmn = null;
 		try {
 			stmn = con.prepareStatement(LIMPIA_CARRIL);

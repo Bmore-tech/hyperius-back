@@ -12,12 +12,18 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.bmore.hyperius.config.DBConnection;
 import com.bmore.hyperius.web.dto.ResultDTO;
 import com.bmore.hyperius.web.utils.Utils;
 
+@Component
 public class Export_DAO {
+    
+  @Autowired
+  private DBConnection dbConnection;
 
 	private static final String getDataT005U = "SELECT SPRAS, LAND1, BLAND, BEZEI from T005U WITH(NOLOCK) WHERE BLAND = ?";
 	private static final String getDataT005T = "SELECT SPRAS, LAND1, LANDX FROM T005T WITH(NOLOCK) WHERE LAND1 = ?";
@@ -40,7 +46,7 @@ public class Export_DAO {
 
 	// getDataAduana step6
 	public Export_DTO getDataAduana(Export_DTO exp_DTO) {
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getDataAdua);
 			stm.setString(1, exp_DTO.getEntrega());
@@ -69,7 +75,7 @@ public class Export_DAO {
 	
 	// getDATAVTTK Step 5
 	public Export_DTO getDataVTTK(Export_DTO exp_DTO) {
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getDataVTTK);
 			stm.setString(1, exp_DTO.getEntrega());
@@ -99,7 +105,7 @@ public class Export_DAO {
 
 	// GetDATALIPS STEP 4
 	public Export_DTO getDataLIPS(Export_DTO exp_DTO) {
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		List<String> clave = new ArrayList<String>();
 		List<String> descripcion = new ArrayList<String>();
 		List<String> precioUnitario = new ArrayList<String>();
@@ -142,7 +148,7 @@ public class Export_DAO {
 
 	// GetDataKNA1 STEP 3
 	public Export_DTO getDataKNA1(Export_DTO exp_DTO, Integer typo) {
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getDataKNA1);
 			switch (typo) {
@@ -195,8 +201,8 @@ public class Export_DAO {
 		return exp_DTO;
 	}
 
-	public static Export_DTO getDataT005T(String aDRNR, Export_DTO exp_DTO) {
-		Connection con = new DBConnection().createConnection();
+	public Export_DTO getDataT005T(String aDRNR, Export_DTO exp_DTO) {
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getDataADRC);
 			stm.setString(1, aDRNR);
@@ -228,8 +234,8 @@ public class Export_DAO {
 		return exp_DTO;
 	}
 
-	public static Export_DTO getDataT005U(String bLand, Export_DTO exp_DTO) {
-		Connection con = new DBConnection().createConnection();
+	public Export_DTO getDataT005U(String bLand, Export_DTO exp_DTO) {
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getDataT005U);
 			stm.setString(1, bLand);
@@ -255,7 +261,7 @@ public class Export_DAO {
 
 	// GET DATA VBACK STEP 2
 	public Export_DTO getDataVBAK(Export_DTO exp_DTO) {
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getDataVBAK);
 			stm.setString(1, exp_DTO.getPedido());
@@ -283,7 +289,7 @@ public class Export_DAO {
 
 	// GET DATA VBFA STEP 1
 	public Export_DTO getDataVBFA(Export_DTO exp_DTO) {
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getDataVBFA);
 			stm.setString(1, exp_DTO.getEntrega());
@@ -309,7 +315,7 @@ public class Export_DAO {
 
 	public ResultDTO zContExport(Export_DTO exp_DTO) {
 		ResultDTO rDt = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			CallableStatement stm = con.prepareCall(ZCONTEXPORT);
 			stm.setString(1, Utils.zeroFill(exp_DTO.getEntrega(),10));
@@ -339,7 +345,7 @@ public class Export_DAO {
 
 	public ResultDTO zConRemExist(Export_DTO exDto) {
 		ResultDTO rDt = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(exportacionExist);
 			stm.setString(1, exDto.getEntrega());
@@ -364,7 +370,7 @@ public class Export_DAO {
 
 	public ResultDTO zConXmlExist(Export_DTO exDto) {
 		ResultDTO rDt = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(exportacionXmlExist);
 			stm.setString(1, exDto.getEntrega());
@@ -387,7 +393,7 @@ public class Export_DAO {
 	}
 
 	public Export_DTO zConRemData(Export_DTO exDto) {
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(exportacionValues);
 			stm.setString(1, exDto.getEntrega());

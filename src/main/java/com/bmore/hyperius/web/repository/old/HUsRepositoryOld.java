@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bmore.hyperius.config.DBConnection;
 import com.bmore.hyperius.web.dto.HuDTO;
@@ -20,7 +22,11 @@ import com.bmore.hyperius.web.utils.Utils;
 import com.bmore.hyperius.web.utils.print.Etiqueta;
 import com.bmore.hyperius.web.utils.print.Etiquetas;
 
+@Repository
 public class HUsRepositoryOld {
+  
+  @Autowired
+  private DBConnection dbConnection;
 
 	private final Logger LOCATION = LoggerFactory.getLogger(getClass());
 
@@ -77,7 +83,7 @@ public class HUsRepositoryOld {
 		items.setItem(itemList);
 		husDTO.setItems(items);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -143,7 +149,7 @@ public class HUsRepositoryOld {
 		items.setItem(itemList);
 		husDTO.setItems(items);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -203,7 +209,7 @@ public class HUsRepositoryOld {
 
 		ResultDTO resultDT = new ResultDTO();
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		ResultSet rs = null;
 
@@ -288,7 +294,7 @@ public class HUsRepositoryOld {
 		items.setItem(itemList);
 		husDTO.setItems(items);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -348,7 +354,7 @@ public class HUsRepositoryOld {
 		items.setItem(itemList);
 		husDTO.setItems(items);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -402,7 +408,7 @@ public class HUsRepositoryOld {
 
 		ResultDTO resultDT = new ResultDTO();
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		ResultSet rs = null;
 
@@ -489,7 +495,7 @@ public class HUsRepositoryOld {
 		items.setItem(itemList);
 		husDTO.setItems(items);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -545,7 +551,7 @@ public class HUsRepositoryOld {
 
 		ResultDTO result = new ResultDTO();
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -600,7 +606,7 @@ public class HUsRepositoryOld {
 		items.setItem(itemList);
 		husDTO.setItems(items);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -674,7 +680,7 @@ public class HUsRepositoryOld {
 		items.setItem(itemList);
 		husDTO.setItems(items);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;

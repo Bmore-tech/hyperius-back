@@ -16,6 +16,8 @@ import java.util.GregorianCalendar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bmore.hyperius.config.DBConnection;
 import com.bmore.hyperius.web.dto.ResultDTO;
@@ -25,7 +27,11 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
+@Repository
 public class ZContingenciaRepository {
+  
+  @Autowired
+  private DBConnection dbConnection;
 
 	private String DIR = "C:\\ZContingencia\\";
 
@@ -88,7 +94,7 @@ public class ZContingenciaRepository {
 		ResultDTO retorno = new ResultDTO();
 		int result = 0;
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement ZCon = null;
 		PreparedStatement ZRev = null;
 

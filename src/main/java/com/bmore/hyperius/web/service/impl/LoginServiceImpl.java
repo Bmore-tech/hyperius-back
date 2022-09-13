@@ -4,8 +4,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bmore.hyperius.web.dto.LoginDTO;
@@ -13,10 +12,14 @@ import com.bmore.hyperius.web.dto.ResultDTO;
 import com.bmore.hyperius.web.repository.old.LoginRepository;
 import com.bmore.hyperius.web.service.LoginService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class LoginServiceImpl implements LoginService {
 
-	private static final Logger LOCATION = LoggerFactory.getLogger(LoginServiceImpl.class);
+  @Autowired
+  private LoginRepository loginRepository;
 
 	@Override
 	public ResultDTO Login(String idRed, String password, HttpSession session, int opc) {
@@ -43,16 +46,16 @@ public class LoginServiceImpl implements LoginService {
 
 		if (isValidUMEUser) {
 
-			resultDt = LoginRepository.login(idRed);
+			resultDt = loginRepository.login(idRed);
 
 			if (resultDt.getId() == 1) {
 
 				werks = resultDt.getMsg();
 				admin = resultDt.getTypeI();
 
-				LOCATION.error("Usuario: " + idRed);
+				log.error("Usuario: " + idRed);
 
-				loginDTO = LoginRepository.existeRegistroUsuario(idRed);
+				loginDTO = loginRepository.existeRegistroUsuario(idRed);
 
 				if (loginDTO.getResult().getId() == 1) {// Existe un registro
 					// previo
@@ -74,13 +77,13 @@ public class LoginServiceImpl implements LoginService {
 
 					lastOperation = miliseconds - lastOperation;
 
-					LOCATION.error("logout:." + loginDTO.getLogOut() + ".");
+					log.error("logout:." + loginDTO.getLogOut() + ".");
 
 					// Session valida 0
 					if ((lastOperation > 900000 || session.getId().equals(loginDTO.getSessionId())
 							|| loginDTO.getLogOut().equals("1"))) {// Planchar
 
-						LOCATION.error("logout OK");
+						log.error("logout OK");
 						date = new java.util.Date();
 						miliseconds = date.getTime();
 
@@ -89,7 +92,7 @@ public class LoginServiceImpl implements LoginService {
 						loginDTO.setLastOperation(miliseconds + "");
 						loginDTO.setLastLogin(miliseconds + "");
 
-						resultDt = LoginRepository.actualizaRegistroUsuario(loginDTO);
+						resultDt = loginRepository.actualizaRegistroUsuario(loginDTO);
 
 					} else {// avisar que se requiere el planchado de session
 						resultDt.setId(998);
@@ -110,7 +113,7 @@ public class LoginServiceImpl implements LoginService {
 					loginDTO.setLastLogin(miliseconds + "");
 					loginDTO.setLastOperation(miliseconds + "");
 
-					resultDt = LoginRepository.ingresaRegistroUsuario(loginDTO);
+					resultDt = loginRepository.ingresaRegistroUsuario(loginDTO);
 
 				} else {
 					loginDTO.getResult().setId(2);// error
@@ -138,16 +141,16 @@ public class LoginServiceImpl implements LoginService {
 		int admin = 0;
 		if (isValidUMEUser) {
 
-			resultDt = LoginRepository.login(idRed);
+			resultDt = loginRepository.login(idRed);
 
 			if (resultDt.getId() == 1) {
 
 				werks = resultDt.getMsg();
 				admin = resultDt.getTypeI();
 
-				LOCATION.error("Usuario: " + idRed);
+				log.error("Usuario: " + idRed);
 
-				loginDTO = LoginRepository.existeRegistroUsuario(idRed);
+				loginDTO = loginRepository.existeRegistroUsuario(idRed);
 
 				if (loginDTO.getResult().getId() == 1) {// Existe un registro
 					// previo
@@ -169,13 +172,13 @@ public class LoginServiceImpl implements LoginService {
 
 					lastOperation = miliseconds - lastOperation;
 
-					LOCATION.error("logout:." + loginDTO.getLogOut() + ".");
+					log.error("logout:." + loginDTO.getLogOut() + ".");
 
 					// Session valida 0
 					if ((lastOperation > 900000 || session.getId().equals(loginDTO.getSessionId())
 							|| loginDTO.getLogOut().equals("1"))) {// Planchar
 
-						LOCATION.error("logout OK");
+						log.error("logout OK");
 						date = new java.util.Date();
 						miliseconds = date.getTime();
 
@@ -184,7 +187,7 @@ public class LoginServiceImpl implements LoginService {
 						loginDTO.setLastOperation(miliseconds + "");
 						loginDTO.setLastLogin(miliseconds + "");
 
-						resultDt = LoginRepository.actualizaRegistroUsuario(loginDTO);
+						resultDt = loginRepository.actualizaRegistroUsuario(loginDTO);
 
 					} else {// avisar que se requiere el planchado de session
 						resultDt.setId(998);
@@ -205,7 +208,7 @@ public class LoginServiceImpl implements LoginService {
 					loginDTO.setLastLogin(miliseconds + "");
 					loginDTO.setLastOperation(miliseconds + "");
 
-					resultDt = LoginRepository.ingresaRegistroUsuario(loginDTO);
+					resultDt = loginRepository.ingresaRegistroUsuario(loginDTO);
 
 				} else {
 					loginDTO.getResult().setId(2);// error
@@ -233,7 +236,7 @@ public class LoginServiceImpl implements LoginService {
 		loginDTO.setLogOut("");
 		loginDTO.setLastOperation(miliseconds + "");
 
-		return LoginRepository.actualizaHoraUltimaOperacion(idRed);
+		return loginRepository.actualizaHoraUltimaOperacion(idRed);
 
 	}
 
@@ -250,7 +253,7 @@ public class LoginServiceImpl implements LoginService {
 		loginDTO.setLastLogin(miliseconds + "");
 		loginDTO.setLastOperation(miliseconds + "");
 
-		return LoginRepository.actualizaRegistroUsuario(loginDTO);
+		return loginRepository.actualizaRegistroUsuario(loginDTO);
 
 	}
 
@@ -260,7 +263,7 @@ public class LoginServiceImpl implements LoginService {
 		ResultDTO resultDt = new ResultDTO();
 		LoginDTO loginDTO = new LoginDTO();
 
-		loginDTO = LoginRepository.existeRegistroUsuario((String) session.getAttribute("user"));
+		loginDTO = loginRepository.existeRegistroUsuario((String) session.getAttribute("user"));
 
 		if (loginDTO.getResult().getId() == 1) {// Existe un registro previo
 
@@ -320,7 +323,7 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public ResultDTO loginWebApp(String IdRed) {
 		ResultDTO resultDt = new ResultDTO();
-		resultDt = LoginRepository.loginAppWeb(IdRed);
+		resultDt = loginRepository.loginAppWeb(IdRed);
 		return resultDt;
 	}
 }

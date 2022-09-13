@@ -14,6 +14,8 @@ import java.util.List;
 import org.apache.commons.net.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bmore.hyperius.config.DBConnection;
 import com.bmore.hyperius.web.dto.CarrilUbicacionDTO;
@@ -31,7 +33,11 @@ import com.bmore.hyperius.web.utils.export.ExportacionDatasource;
 import com.bmore.hyperius.web.utils.remission.Remision;
 import com.bmore.hyperius.web.utils.remission.RemisionDatasource;
 
+@Repository
 public class EmbarquePTRepositoryOld {
+  
+  @Autowired
+  private DBConnection dbConnection;
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -143,7 +149,7 @@ public class EmbarquePTRepositoryOld {
 		EmbarqueDTO embarque = new EmbarqueDTO();
 		ResultDTO result = new ResultDTO();
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		PreparedStatement stmn = null;
 		PreparedStatement stmn4 = null;
@@ -214,7 +220,7 @@ public class EmbarquePTRepositoryOld {
 
 		List<EmbarqueDetalleDTO> items = new ArrayList<EmbarqueDetalleDTO>();
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		PreparedStatement stmn = null;
 		PreparedStatement stmn2 = null;
@@ -351,7 +357,7 @@ public class EmbarquePTRepositoryOld {
 
 		CarrilesUbicacionDTO carrilesDTO = new CarrilesUbicacionDTO();
 		List<CarrilUbicacionDTO> carrilList = new ArrayList<CarrilUbicacionDTO>();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmnt2 = null;
 		ResultSet rs2 = null;
 
@@ -489,7 +495,7 @@ public class EmbarquePTRepositoryOld {
 	}
 
 	public ResultDTO contabilizadoOK(String entry) {
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -524,7 +530,7 @@ public class EmbarquePTRepositoryOld {
 
 	public ResultDTO ingresaDetalleEnvase(String VBELN, CarrilesUbicacionDTO carrilesDTO, String user, String werks) {
 		logger.error("ingresaDetalleEnvase DAO Embarque");
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement ps = null;
 
@@ -578,7 +584,7 @@ public class EmbarquePTRepositoryOld {
 
 		EntregaInputDTO entregaInputReturn = new EntregaInputDTO();
 		ResultDTO result = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		HashMap<String, String> hashhMap = new HashMap<String, String>();
@@ -628,7 +634,7 @@ public class EmbarquePTRepositoryOld {
 
 		EntregaInputDTO entregaInputReturn = new EntregaInputDTO();
 		ResultDTO result = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 		HashMap<String, String> hashhMap = new HashMap<String, String>();
@@ -682,7 +688,7 @@ public class EmbarquePTRepositoryOld {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -735,7 +741,7 @@ public class EmbarquePTRepositoryOld {
 
 	public ResultDTO validaPickeoPrevioHU(EntregaInputDTO entregaInput, String hu) {
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		ResultDTO resultDT = new ResultDTO();
 		PreparedStatement stmn = null;
@@ -780,7 +786,7 @@ public class EmbarquePTRepositoryOld {
 
 		ResultDTO result = new ResultDTO();
 		EntregaDetalleDTO entrega = new EntregaDetalleDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 
@@ -858,7 +864,7 @@ public class EmbarquePTRepositoryOld {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -917,7 +923,7 @@ public class EmbarquePTRepositoryOld {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		CallableStatement callableStatement = null;
 		try {
@@ -962,7 +968,7 @@ public class EmbarquePTRepositoryOld {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -1009,7 +1015,7 @@ public class EmbarquePTRepositoryOld {
 
 	public ResultDTO limpiaPendientesXUsuario(String vbeln, String user) {
 		ResultDTO result = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -1047,7 +1053,7 @@ public class EmbarquePTRepositoryOld {
 
 	public ResultDTO limpiaPendientes(String vbeln) {
 		ResultDTO result = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmn = null;
 
 		try {
@@ -1086,7 +1092,7 @@ public class EmbarquePTRepositoryOld {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		String queryResult = "VACIO";
-		con = new DBConnection().createConnection();
+		con = dbConnection.createConnection();
 		try {
 			pst = con.prepareStatement(FECHA);
 			rs = pst.executeQuery();
@@ -1114,7 +1120,7 @@ public class EmbarquePTRepositoryOld {
 		ResultSet rs = null;
 		int count = 0;
 		try {
-			con = new DBConnection().createConnection();
+			con = dbConnection.createConnection();
 			stm = con.prepareStatement(REST_ALLOWED);
 			stm.setString(1, Base64.encodeBase64String(
 					(HUsRepository.RST_VALUE + huDTO.getWerks() + "_" + huDTO.getLfart()).getBytes()));
@@ -1138,7 +1144,7 @@ public class EmbarquePTRepositoryOld {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		String queryResult = "VACIO";
-		con = new DBConnection().createConnection();
+		con = dbConnection.createConnection();
 		try {
 			pst = con.prepareStatement(CLIENTE);
 			pst.setString(1, noEntrega);
@@ -1171,7 +1177,7 @@ public class EmbarquePTRepositoryOld {
 		String queryResult = "VACIO";
 		String queryResult1 = "VACIO";
 		String queryResult2 = "VACIO";
-		con = new DBConnection().createConnection();
+		con = dbConnection.createConnection();
 		try {
 			pst = con.prepareStatement(PLANTA);
 			pst.setString(1, noEntrega);
@@ -1208,7 +1214,7 @@ public class EmbarquePTRepositoryOld {
 		String queryResult5 = "VACIO";
 		String queryResult6 = "VACIO";
 		String queryResult7 = "VACIO";
-		con = new DBConnection().createConnection();
+		con = dbConnection.createConnection();
 		try {
 			pst = con.prepareStatement(DATOSCLIENTE);
 			pst.setString(1, noEntrega);
@@ -1251,7 +1257,7 @@ public class EmbarquePTRepositoryOld {
 		String queryResult4 = "VACIO";
 		String queryResult5 = "VACIO";
 
-		con = new DBConnection().createConnection();
+		con = dbConnection.createConnection();
 		try {
 			pst = con.prepareStatement(DIRPLANTA);
 			pst.setString(1, noEntrega);
@@ -1287,7 +1293,7 @@ public class EmbarquePTRepositoryOld {
 		ResultSet rs = null;
 		RemisionDatasource datasource = new RemisionDatasource();
 		Remision r;
-		con = new DBConnection().createConnection();
+		con = dbConnection.createConnection();
 		try {
 			pst = con.prepareStatement(TABLA);
 			pst.setString(1, noEntrega);
@@ -1329,7 +1335,7 @@ public class EmbarquePTRepositoryOld {
 		ResultSet rs = null;
 		ExportacionDatasource datasource = new ExportacionDatasource();
 		Remision r;
-		con = new DBConnection().createConnection();
+		con = dbConnection.createConnection();
 		try {
 			pst = con.prepareStatement(getDataLIPS);
 			pst.setString(1, noEntrega);
@@ -1368,7 +1374,7 @@ public class EmbarquePTRepositoryOld {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		CallableStatement callableStatement = null;
 
@@ -1428,7 +1434,7 @@ public class EmbarquePTRepositoryOld {
 	public HashMap<String, String> getCarrilesBloqueados(String idProceso, String werks) {
 
 		HashMap<String, String> map = new HashMap<String, String>();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
@@ -1464,7 +1470,7 @@ public class EmbarquePTRepositoryOld {
 	public HashMap<String, String> getCarrilesMaterialBloqueado(String matnr, String werks) {
 
 		HashMap<String, String> map = new HashMap<String, String>();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		PreparedStatement stmn = null;
 		ResultSet rs = null;

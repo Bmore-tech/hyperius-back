@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bmore.hyperius.config.DBConnection;
 import com.bmore.hyperius.web.dto.ReporteOperacionesDTO;
@@ -16,7 +18,11 @@ import com.bmore.hyperius.web.dto.ReporteShippingDTO;
 import com.bmore.hyperius.web.dto.ServletReporteProformaDTO;
 import com.bmore.hyperius.web.utils.Utils;
 
+@Repository
 public class ServletReporteRepository {
+  
+  @Autowired
+  private DBConnection dbConnection;
 
 	private final Logger LOCATION = LoggerFactory.getLogger(getClass());
 
@@ -34,7 +40,7 @@ public class ServletReporteRepository {
 
 	public List<ServletReporteProformaDTO> getDatosProforma() {
 		List<ServletReporteProformaDTO> proformaList = new ArrayList<ServletReporteProformaDTO>();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement("");
 			ResultSet rs = stm.executeQuery();
@@ -61,7 +67,7 @@ public class ServletReporteRepository {
 	public List<ReporteOperacionesDTO> getReporteOperacionesDAO(
 			String werks) {
 		List<ReporteOperacionesDTO> proformaList = new ArrayList<ReporteOperacionesDTO>();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con
 					.prepareStatement(GET_REPORTE_OPERACIONES);
@@ -87,7 +93,7 @@ public class ServletReporteRepository {
 	public List<ReporteOperacionesDTO> getReporteOperacionesInitialStockDAO(
 			String werks) {
 		List<ReporteOperacionesDTO> stock = new ArrayList<ReporteOperacionesDTO>();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(GET_INITIAL_STOCK);
 			stm.setString(1, werks);
@@ -111,7 +117,7 @@ public class ServletReporteRepository {
 	}
 
 	public String getTknum(String Vbeln) {
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		String tknum = "";
 		try {
 			PreparedStatement stm = con.prepareStatement(getTknum);
@@ -139,7 +145,7 @@ public class ServletReporteRepository {
 
 	public List<ReporteShippingDTO> getDatosShipping(String werks) {
 		List<ReporteShippingDTO> shippingList = new ArrayList<ReporteShippingDTO>();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		try {
 			PreparedStatement stm = con.prepareStatement(getShipping);
 			stm.setString(1, werks);

@@ -12,6 +12,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bmore.hyperius.config.DBConnection;
 import com.bmore.hyperius.web.dto.OrdenProduccionDTO;
@@ -21,8 +23,12 @@ import com.bmore.hyperius.web.dto.OrdenProduccionInputDTO;
 import com.bmore.hyperius.web.dto.ResultDTO;
 import com.bmore.hyperius.web.utils.Utils;
 
+@Repository
 public class VidrioUbicacionPTRepository {
-
+  
+  @Autowired
+  private DBConnection dbConnection;
+  
 	private final Logger LOCATION = LoggerFactory.getLogger(getClass());
 
 	private static String VALIDA_ORDEN_PRODUCCION = "select AUFK.AUFNR,  dbo.conFec(AUFK.ERDAT) as ERDAT, AUFK.WERKS, zCentrosBCPS.descripcion "
@@ -46,7 +52,7 @@ public class VidrioUbicacionPTRepository {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		PreparedStatement stmn = null;
 
@@ -101,7 +107,7 @@ public class VidrioUbicacionPTRepository {
 		List<OrdenProduccionDetalleDTO> detalle = new ArrayList<OrdenProduccionDetalleDTO>();
 
 		ResultDTO result = new ResultDTO();
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 		PreparedStatement stmn = null;
 		ResultSet rs = null;
 
@@ -221,7 +227,7 @@ public class VidrioUbicacionPTRepository {
 		ResultDTO result = new ResultDTO();
 		result.setId(0);
 
-		Connection con = new DBConnection().createConnection();
+		Connection con = dbConnection.createConnection();
 
 		CallableStatement callableStatement = null;
 
