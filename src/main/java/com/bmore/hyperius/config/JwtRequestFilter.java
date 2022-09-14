@@ -51,7 +51,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
       log.info("Paso el filtro sin autenticar");
     } else {
       log.info("No paso el filtro sin autenticar");
-      final String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+      final String token = request.getHeader("Auth");
       log.info("Toke en el filter:", token);
       String username = null;
       String jwtToken = null;
