@@ -17,7 +17,7 @@ import com.bmore.hyperius.mobile.dto.CarrilUbicacionDTO;
 import com.bmore.hyperius.mobile.dto.OrdenProduccionDetalleDTO;
 import com.bmore.hyperius.mobile.dto.OrdenProduccionInput;
 import com.bmore.hyperius.mobile.utils.ResultDT;
-import com.bmore.hyperius.mobile.utils.Utils;
+import com.bmore.hyperius.mobile.utils.UtilsMob;
 
 @Repository
 public class UbicacionPTDAO {
@@ -322,8 +322,8 @@ public class UbicacionPTDAO {
 			callableStatement.setString(1, ordenProduccionInput.getHu1());
 			callableStatement.setString(2, ordenProduccionInput.getHu2());
 			callableStatement.setString(3, ordenProduccionInput.getUsuarioMontacarga());
-			callableStatement.setString(4, Utils.zeroFill(ordenProduccionInput.getOrdeProduccion(), 12));
-			callableStatement.setString(5, Utils.zeroFill(ordenProduccionInput.getMatnr(), 18));
+			callableStatement.setString(4, UtilsMob.zeroFill(ordenProduccionInput.getOrdeProduccion(), 12));
+			callableStatement.setString(5, UtilsMob.zeroFill(ordenProduccionInput.getMatnr(), 18));
 			callableStatement.setString(6, ordenProduccionInput.getWerks());
 			callableStatement.setString(7, "LV01");
 			callableStatement.setString(8, ordenProduccionInput.getuDestino0());

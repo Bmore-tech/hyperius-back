@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 import com.bmore.hyperius.config.DBConnectionMob;
 import com.bmore.hyperius.mobile.dto.EntregaInput;
 import com.bmore.hyperius.mobile.utils.ResultDT;
-import com.bmore.hyperius.mobile.utils.Utils;
+import com.bmore.hyperius.mobile.utils.UtilsMob;
 
 @Repository
 public class EmbarquePTIMDAO {
@@ -54,7 +54,7 @@ public class EmbarquePTIMDAO {
 		try {
 			stmn = con.prepareStatement(VALIDA_PICK);
 
-			stmn.setString(1, Utils.zeroFill(entregaInput.getEntrega(), 10));
+			stmn.setString(1, UtilsMob.zeroFill(entregaInput.getEntrega(), 10));
 			stmn.setString(2, entregaInput.getWerks());
 			rs = stmn.executeQuery();
 			int cont = 0;
@@ -254,7 +254,7 @@ public class EmbarquePTIMDAO {
 
 			callableStatement.setString(1, entregaInput.getHu1());
 			callableStatement.setString(2, entregaInput.getWerks());
-			callableStatement.setString(3, Utils.zeroFill(entregaInput.getMatnr(), 18));
+			callableStatement.setString(3, UtilsMob.zeroFill(entregaInput.getMatnr(), 18));
 			callableStatement.setString(4, entregaInput.getCant());
 			callableStatement.setString(5, entregaInput.getHu2());
 			callableStatement.setString(6, entregaInput.getUsuarioMontacarga());

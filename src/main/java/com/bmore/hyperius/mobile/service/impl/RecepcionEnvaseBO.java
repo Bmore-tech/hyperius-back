@@ -10,7 +10,7 @@ import com.bmore.hyperius.mobile.dto.EntregaDetalleDTO;
 import com.bmore.hyperius.mobile.dto.EntregaInput;
 import com.bmore.hyperius.mobile.repository.impl.RecepcionEnvaseDAO;
 import com.bmore.hyperius.mobile.utils.ResultDT;
-import com.bmore.hyperius.mobile.utils.Utils;
+import com.bmore.hyperius.mobile.utils.UtilsMob;
 
 @Service
 public class RecepcionEnvaseBO {
@@ -264,12 +264,12 @@ public class RecepcionEnvaseBO {
 		switch (resultDT.getId()) {
 		case 1:
 			resultDT.setMsg("Las Hus fueron consumidas");
-			resultDT.setTypeI(getFaltantes(Utils.zeroFill(entregaEntranteInput.getEntrega(), 10)));
+			resultDT.setTypeI(getFaltantes(UtilsMob.zeroFill(entregaEntranteInput.getEntrega(), 10)));
 			break;
 		case 2:
 			resultDT.setId(1);
 			resultDT.setMsg("Las Hus fueron consumidas");
-			resultDT.setTypeI(getFaltantes(Utils.zeroFill(entregaEntranteInput.getEntrega(), 10)));
+			resultDT.setTypeI(getFaltantes(UtilsMob.zeroFill(entregaEntranteInput.getEntrega(), 10)));
 			break;
 		case 3:
 			resultDT.setMsg("Error al ingresar hu a Zcontingencia, registro repetido");

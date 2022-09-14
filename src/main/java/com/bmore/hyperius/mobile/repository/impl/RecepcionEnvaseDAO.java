@@ -17,7 +17,7 @@ import com.bmore.hyperius.mobile.dto.CarrilUbicacionDTO;
 import com.bmore.hyperius.mobile.dto.EntregaDetalleDTO;
 import com.bmore.hyperius.mobile.dto.EntregaInput;
 import com.bmore.hyperius.mobile.utils.ResultDT;
-import com.bmore.hyperius.mobile.utils.Utils;
+import com.bmore.hyperius.mobile.utils.UtilsMob;
 
 @Repository
 public class RecepcionEnvaseDAO {
@@ -477,7 +477,7 @@ public class RecepcionEnvaseDAO {
 			callableStatement.setString(1, entregaEntranteInput.getHu1());
 			callableStatement.setString(2, entregaEntranteInput.getHu2());
 			callableStatement.setString(3, entregaEntranteInput.getUsuarioMontacarga());
-			callableStatement.setString(4, Utils.zeroFill(entregaEntranteInput.getEntrega(), 10));
+			callableStatement.setString(4, UtilsMob.zeroFill(entregaEntranteInput.getEntrega(), 10));
 			callableStatement.setString(5, entregaEntranteInput.getMatnr());
 			callableStatement.setString(6, entregaEntranteInput.getWerks());
 			callableStatement.setString(7, entregaEntranteInput.getLgort());

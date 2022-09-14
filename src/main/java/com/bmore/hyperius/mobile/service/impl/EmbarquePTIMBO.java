@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.bmore.hyperius.mobile.dto.EntregaInput;
 import com.bmore.hyperius.mobile.repository.impl.EmbarquePTIMDAO;
 import com.bmore.hyperius.mobile.utils.ResultDT;
-import com.bmore.hyperius.mobile.utils.Utils;
+import com.bmore.hyperius.mobile.utils.UtilsMob;
 
 public class EmbarquePTIMBO {
 
@@ -14,7 +14,7 @@ public class EmbarquePTIMBO {
 
 	public static EntregaInput validarEntrega(EntregaInput entregaInput) throws ClassNotFoundException{
 
-		entregaInput.setEntrega(Utils.zeroFill(entregaInput.getEntrega(), 10));
+		entregaInput.setEntrega(UtilsMob.zeroFill(entregaInput.getEntrega(), 10));
 
 		// Limpiar para evitar errores con boton next de navegador
 		entregaInput.setHu1(null);
@@ -47,7 +47,7 @@ public class EmbarquePTIMBO {
 
 			case 1:
 
-				entregaInput.setMatnr(Utils.zeroClean(resultDT.getTypeS()));// Cantidad
+				entregaInput.setMatnr(UtilsMob.zeroClean(resultDT.getTypeS()));// Cantidad
 				// Material
 				entregaInput.setCant("" + resultDT.getTypeF());// Cantidad
 				// embalaje
@@ -79,7 +79,7 @@ public class EmbarquePTIMBO {
 
 	public static EntregaInput consumirHU(EntregaInput entregaInput) throws ClassNotFoundException{
 
-		entregaInput.setEntrega(Utils.zeroFill(entregaInput.getEntrega(), 10));
+		entregaInput.setEntrega(UtilsMob.zeroFill(entregaInput.getEntrega(), 10));
 
 		// Limpiar para evitar errores con boton next de navegador
 
@@ -87,7 +87,7 @@ public class EmbarquePTIMBO {
 
 		EmbarquePTIMDAO embarquePTDAO = new EmbarquePTIMDAO();
 
-		entregaInput.setEntrega(Utils.zeroFill(entregaInput.getEntrega(), 10));
+		entregaInput.setEntrega(UtilsMob.zeroFill(entregaInput.getEntrega(), 10));
 
 		resultDT = embarquePTDAO.consumeHUs(entregaInput);
 

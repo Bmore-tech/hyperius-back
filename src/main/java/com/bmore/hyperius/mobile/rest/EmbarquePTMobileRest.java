@@ -21,7 +21,7 @@ import com.bmore.hyperius.mobile.rest.response.PickearHuEmbarqueResponse;
 import com.bmore.hyperius.mobile.rest.response.ValidaEntregaEmbarqueResponse;
 import com.bmore.hyperius.mobile.service.impl.EmbarquePTBO;
 import com.bmore.hyperius.mobile.utils.ResultDT;
-import com.bmore.hyperius.mobile.utils.Utils;
+import com.bmore.hyperius.mobile.utils.UtilsMob;
 
 @RestController
 @RequestMapping("${mobile.uri}/embarque-pt")
@@ -69,7 +69,7 @@ public class EmbarquePTMobileRest {
 		entregaInput.setMatnr(request.getMaterial());
 		entregaInput.setuOrigen1(request.getOrigen1());
 		entregaInput.setuOrigen2(request.getOrigen2());
-		hashhMap.put(Utils.zeroFill(entregaInput.getMatnr(), 18), Utils.zeroFill(entregaInput.getMatnr(), 18));
+		hashhMap.put(UtilsMob.zeroFill(entregaInput.getMatnr(), 18), UtilsMob.zeroFill(entregaInput.getMatnr(), 18));
 		entregaInput.setMateriales(hashhMap);
 		
 		EmbarquePTBO embarquePTBO = new EmbarquePTBO();

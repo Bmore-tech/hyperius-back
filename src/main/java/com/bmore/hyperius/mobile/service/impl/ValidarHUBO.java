@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.bmore.hyperius.mobile.dto.HuDTO;
 import com.bmore.hyperius.mobile.dto.HusDTO;
 import com.bmore.hyperius.mobile.repository.impl.HUsDAO;
-import com.bmore.hyperius.mobile.utils.Utils;
+import com.bmore.hyperius.mobile.utils.UtilsMob;
 
 public class ValidarHUBO {
 	private static final Logger LOCATION = LoggerFactory.getLogger(ValidarHUBO.class);	
@@ -34,7 +34,7 @@ public class ValidarHUBO {
 				huDTO.setSkzua("No, HU Bloqueado");
 			}
 			try {
-				huDTO.setMatnr(Utils.zeroClean(huDTO.getMatnr()));
+				huDTO.setMatnr(UtilsMob.zeroClean(huDTO.getMatnr()));
 			} catch (Exception e) {
 				LOCATION.error(e.toString());
 			}
@@ -64,7 +64,7 @@ public class ValidarHUBO {
 				husDTO.getItems().getItem().get(0).setSkzua("No, HU Bloqueado");
 			}
 			try {
-				husDTO.getItems().getItem().get(0).setMatnr(Utils.zeroClean(husDTO.getItems().getItem().get(0).getMatnr()));
+				husDTO.getItems().getItem().get(0).setMatnr(UtilsMob.zeroClean(husDTO.getItems().getItem().get(0).getMatnr()));
 			} catch (Exception e) {
 				LOCATION.error(e.toString());
 			}

@@ -7,14 +7,14 @@ import com.bmore.hyperius.mobile.dto.EntregaDetalleDTO;
 import com.bmore.hyperius.mobile.dto.EntregaInput;
 import com.bmore.hyperius.mobile.repository.impl.EmbarquePTDAO;
 import com.bmore.hyperius.mobile.utils.ResultDT;
-import com.bmore.hyperius.mobile.utils.Utils;
+import com.bmore.hyperius.mobile.utils.UtilsMob;
 
 public class EmbarquePTBO {
 	private static final Logger LOCATION = LoggerFactory.getLogger(EmbarquePTBO.class);
 	public EntregaInput validarEntrega(EntregaInput entregaInput) throws ClassNotFoundException{
 		EntregaInput entregaInput2 = new EntregaInput();
 		EmbarquePTDAO embarquePTDAO = new EmbarquePTDAO();
-		entregaInput.setEntrega(Utils.zeroFill(entregaInput.getEntrega(), 10));
+		entregaInput.setEntrega(UtilsMob.zeroFill(entregaInput.getEntrega(), 10));
 		entregaInput2 = embarquePTDAO.validarEntregaPickin(entregaInput);
 		ResultDT resultDT = entregaInput2.getResultDT();
 		entregaInput.setResultDT(resultDT);
@@ -83,9 +83,9 @@ public class EmbarquePTBO {
 						// Tomara un material valido del zpicking
 						LOCATION.info("InfoMaterial.getMaterial="+infoMaterial.getMaterial());
 						if (entregaInput.getMateriales().get(infoMaterial.getMaterial()) != null) {
-							if (Utils.zeroFill(entregaInput.getMatnr().trim(),18).equals(infoMaterial.getMaterial())) {
+							if (UtilsMob.zeroFill(entregaInput.getMatnr().trim(),18).equals(infoMaterial.getMaterial())) {
 								entregaInput.setMaktx(infoMaterial.getDescripcion());
-								entregaInput.setMatnr(Utils.zeroClean(infoMaterial.getMaterial()));
+								entregaInput.setMatnr(UtilsMob.zeroClean(infoMaterial.getMaterial()));
 								entregaInput.setCant(infoMaterial.getCajas());
 								entregaInput.setCantT(infoMaterial.getMe());
 							} else {
@@ -135,7 +135,7 @@ public class EmbarquePTBO {
 					if (infoMaterial.getBestq() == null
 							|| infoMaterial.getBestq().trim().equals("")) {
 						// Libre
-						if (infoMaterial.getMaterial().equals(Utils.zeroFill(entregaInput.getMatnr(), 18))) {
+						if (infoMaterial.getMaterial().equals(UtilsMob.zeroFill(entregaInput.getMatnr(), 18))) {
 							// evitar doble pickeo
 							resultDT = embarquePTDAO.validaPickeoPrevioHU(entregaInput, entregaInput.getHu2());
 							if (resultDT.getId() != 1) {

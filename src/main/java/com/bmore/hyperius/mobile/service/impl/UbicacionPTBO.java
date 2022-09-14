@@ -8,7 +8,7 @@ import com.bmore.hyperius.mobile.dto.OrdenProduccionDetalleDTO;
 import com.bmore.hyperius.mobile.dto.OrdenProduccionInput;
 import com.bmore.hyperius.mobile.repository.impl.UbicacionPTDAO;
 import com.bmore.hyperius.mobile.utils.ResultDT;
-import com.bmore.hyperius.mobile.utils.Utils;
+import com.bmore.hyperius.mobile.utils.UtilsMob;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -194,12 +194,12 @@ public class UbicacionPTBO {
 		switch (resultDT.getId()) {
 		case 1:
 			resultDT.setMsg("Las Hus fueron consumidas");
-			resultDT.setTypeI(getFaltantes(Utils.zeroFill(ordenProduccionInput.getOrdeProduccion(), 12)));
+			resultDT.setTypeI(getFaltantes(UtilsMob.zeroFill(ordenProduccionInput.getOrdeProduccion(), 12)));
 			break;
 		case 2:
 			resultDT.setId(1);
 			resultDT.setMsg("Las Hus fueron consumidas");
-			resultDT.setTypeI(getFaltantes(Utils.zeroFill(ordenProduccionInput.getOrdeProduccion(), 12)));
+			resultDT.setTypeI(getFaltantes(UtilsMob.zeroFill(ordenProduccionInput.getOrdeProduccion(), 12)));
 			break;
 		case 3:
 			resultDT.setMsg("Error al ingresar hu a Zcontingencia, registro repetido");

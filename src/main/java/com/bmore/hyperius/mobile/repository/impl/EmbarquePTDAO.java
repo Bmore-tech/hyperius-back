@@ -16,7 +16,7 @@ import com.bmore.hyperius.config.DBConnectionMob;
 import com.bmore.hyperius.mobile.dto.EntregaDetalleDTO;
 import com.bmore.hyperius.mobile.dto.EntregaInput;
 import com.bmore.hyperius.mobile.utils.ResultDT;
-import com.bmore.hyperius.mobile.utils.Utils;
+import com.bmore.hyperius.mobile.utils.UtilsMob;
 
 @Repository
 public class EmbarquePTDAO {
@@ -44,7 +44,7 @@ public class EmbarquePTDAO {
 		HashMap<String, String> hashhMap = new HashMap<String, String>();
 		try {
 			stmn = con.prepareStatement(VALIDA_PICK);
-			stmn.setString(1, Utils.zeroFill(entregaInput.getEntrega(), 10));
+			stmn.setString(1, UtilsMob.zeroFill(entregaInput.getEntrega(), 10));
 			stmn.setString(2, entregaInput.getWerks());
 			LOCATION.info("Werks: "+entregaInput.getWerks()+"\n"+
 							"entrega: "+entregaInput.getEntrega());
@@ -103,7 +103,7 @@ public class EmbarquePTDAO {
 			int id = 0;
 			id = callableStatement.getInt(5);
 			result.setId(id);
-			entregaInput.setMatnr(Utils.zeroClean(callableStatement.getString(6)));
+			entregaInput.setMatnr(UtilsMob.zeroClean(callableStatement.getString(6)));
 			entregaInput.setuOrigen0(callableStatement.getString(7));
 			entregaInput.setuOrigen1(callableStatement.getString(8));
 			entregaInput.setuOrigen2(callableStatement.getString(9));
@@ -243,8 +243,8 @@ public class EmbarquePTDAO {
 			callableStatement.setString(1, entregaInput.getHu1());
 			callableStatement.setString(2, entregaInput.getHu2());
 			callableStatement.setString(3, entregaInput.getUsuarioMontacarga());
-			callableStatement.setString(4, Utils.zeroFill(entregaInput.getEntrega(), 10));
-			callableStatement.setString(5, Utils.zeroFill(entregaInput.getMatnr(), 18));
+			callableStatement.setString(4, UtilsMob.zeroFill(entregaInput.getEntrega(), 10));
+			callableStatement.setString(5, UtilsMob.zeroFill(entregaInput.getMatnr(), 18));
 			callableStatement.setString(6, entregaInput.getWerks());
 			callableStatement.setString(7, "");
 			callableStatement.setString(8, entregaInput.getuOrigen0());
@@ -315,8 +315,8 @@ public class EmbarquePTDAO {
 		PreparedStatement stmn;
 		try {
 			stmn= con.prepareStatement(GET_WERKS);
-			stmn.setString(1, Utils.zeroFill(entrega, 10));
-			LOCATION.info("entrega: "+Utils.zeroFill(entrega, 10));
+			stmn.setString(1, UtilsMob.zeroFill(entrega, 10));
+			LOCATION.info("entrega: "+UtilsMob.zeroFill(entrega, 10));
 			rs=stmn.executeQuery();
 			if(rs.next()) {
 				werks=rs.getString("WERKS");

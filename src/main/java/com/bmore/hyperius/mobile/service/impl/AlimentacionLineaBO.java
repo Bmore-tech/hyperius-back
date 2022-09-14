@@ -9,7 +9,7 @@ import com.bmore.hyperius.mobile.dto.OrdenProduccionDetalleDTO;
 import com.bmore.hyperius.mobile.dto.OrdenProduccionInput;
 import com.bmore.hyperius.mobile.repository.impl.AlimentacionLineaDAO;
 import com.bmore.hyperius.mobile.utils.ResultDT;
-import com.bmore.hyperius.mobile.utils.Utils;
+import com.bmore.hyperius.mobile.utils.UtilsMob;
 
 @Service
 public class AlimentacionLineaBO {
@@ -21,7 +21,7 @@ public class AlimentacionLineaBO {
 	public OrdenProduccionInput validaOrdenProduccion(OrdenProduccionInput ordenProduccionInput) throws ClassNotFoundException {
 		// AlimentacionLineaDAO alimentacionLineaDAO = new AlimentacionLineaDAO();
 		ResultDT resultDT = new ResultDT();
-		ordenProduccionInput.setOrdeProduccion(Utils.zeroFill(ordenProduccionInput.getOrdeProduccion(), 12).trim());
+		ordenProduccionInput.setOrdeProduccion(UtilsMob.zeroFill(ordenProduccionInput.getOrdeProduccion(), 12).trim());
 		ordenProduccionInput.setWerks(alimentacionLineaDAO.getWerks(ordenProduccionInput.getOrdeProduccion().trim()));
 		resultDT = alimentacionLineaDAO.validaOrden(ordenProduccionInput);
 		if (resultDT.getId() == 1) {
@@ -87,12 +87,12 @@ public class AlimentacionLineaBO {
 				if (resultDT.getId() == 1) {
 					// Verificar caldidad o bloqueo
 				//LOCATION.error("HU1: " + infoMaterial.toString());
-					if (infoMaterial.getMaterial().equals(Utils.zeroFill(ordenProduccionInput.getMatnr(), 18))) {
+					if (infoMaterial.getMaterial().equals(UtilsMob.zeroFill(ordenProduccionInput.getMatnr(), 18))) {
 						ordenProduccionInput.setMaktx(infoMaterial.getDescripcion());
 						ordenProduccionInput.setMatnr(infoMaterial.getMaterial());
 						ordenProduccionInput.setCant(infoMaterial.getCajas());
 						ordenProduccionInput.setCantT(infoMaterial.getMe());
-						ordenProduccionInput.setOrdeProduccion(Utils.zeroFill(ordenProduccionInput.getOrdeProduccion(), 12));
+						ordenProduccionInput.setOrdeProduccion(UtilsMob.zeroFill(ordenProduccionInput.getOrdeProduccion(), 12));
 						// trata de obtener depa
 						OrdenProduccionInput ordenProduccionInput2 = new OrdenProduccionInput();
 						ordenProduccionInput2 = alimentacionEnvaseDAO.obtieneDepaletizadora(ordenProduccionInput);
@@ -143,7 +143,7 @@ public class AlimentacionLineaBO {
 					resultDT = infoMaterial.getResultDT();
 					LOCATION.info("HU2: " + infoMaterial.toString());
 					if (resultDT.getId() == 1) {
-						if (infoMaterial.getMaterial().equals(Utils.zeroFill(ordenProduccionInput.getMatnr(),18))) {
+						if (infoMaterial.getMaterial().equals(UtilsMob.zeroFill(ordenProduccionInput.getMatnr(),18))) {
 							// evitar doble pickeo
 							resultDT = alimentacionEnvaseDAO.validaPickeoPrevioHU(ordenProduccionInput,ordenProduccionInput.getHu2());
 							if (resultDT.getId() != 1) {
