@@ -65,7 +65,7 @@ public class LoginJwtServiceImpl implements LoginJwtService {
 
   @Override
   public JwtLoginResponse updateJwt(String token) {
-    log.info("El token es:", token);
+    log.info("El token es:" + token);
     JwtLoginResponse response = new JwtLoginResponse();
     Map<String, Object> claims = new HashMap<>();
     claims.put("usuario", "PC13");

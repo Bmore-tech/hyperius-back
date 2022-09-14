@@ -47,7 +47,7 @@ public class LoginJWTRest {
 
   @PostMapping(value = "/login/check-token", produces = MediaType.APPLICATION_JSON_VALUE)
   public JwtLoginResponse checkToken(@RequestHeader("Auth") String token) {
-    log.info("Checking token...", token);
+    log.info("Checking token..." + token);
     return loginJwtService.updateJwt(token);
   }
 }
