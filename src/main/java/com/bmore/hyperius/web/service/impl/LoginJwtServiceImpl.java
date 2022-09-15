@@ -41,11 +41,13 @@ public class LoginJwtServiceImpl implements LoginJwtService {
       if (userDetails.getResultdto().getId() == 1) {
         // Carga de datos en Payload
         Map<String, Object> claims = new HashMap<>();
+        log.info("User details:" + userDetails.toString());
+        log.info("Request:" + request.toString());
         claims.put("usuario", request.getUsername());
-        claims.put("werks", request.getPassword());
-        claims.put("admin", 1);
+        claims.put("werks", userDetails.getResultdto().getMsg());
+        claims.put("admin", userDetails.getResultdto().getTypeI());
 
-        response.setToken(TOKEN_PREFIX + jwtTokenUtil.generateToken(null, claims));
+        response.setToken(TOKEN_PREFIX + jwtTokenUtil.generateToken(userDetails, claims));
         response.setResponseCode(1);
         response.setMessage("Credenciales válidas");
       } else {
@@ -65,19 +67,16 @@ public class LoginJwtServiceImpl implements LoginJwtService {
 
   @Override
   public JwtLoginResponse updateJwt(String token) {
-    log.info("El token es:" + token);
+    log.info("UpdateJwtService: " + token);
     JwtLoginResponse response = new JwtLoginResponse();
-    Map<String, Object> claims = new HashMap<>();
-    claims.put("usuario", "PC13");
-    claims.put("werks", "PC13");
-    claims.put("admin", "admin");
 
-    // response.setToken(TOKEN_PREFIX + jwtTokenUtil.updateToken(Utils.getUsuarioFromToken(token), claims));
-    // response.setResponseCode(1);
-    // response.setMessage("Token válido");
     try {
-      log.info("Expiración: " + jwtTokenUtil.isTokenExpired(token));
-      if (!jwtTokenUtil.isTokenExpired(token)) {
+      if (!jwtTokenUtil.isTokenExpired(token.substring(7))) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("usuario", "PC13");
+        claims.put("werks", "PC13");
+        claims.put("admin", "admin");
+
         response.setToken(TOKEN_PREFIX + jwtTokenUtil.updateToken(Utils.getUsuarioFromToken(token), claims));
         response.setResponseCode(1);
         response.setMessage("Token válido");
@@ -85,10 +84,9 @@ public class LoginJwtServiceImpl implements LoginJwtService {
     } catch (Exception e) {
       response.setResponseCode(2);
       response.setMessage("Token no válido");
-      e.printStackTrace();
+      log.error("Error al validar el token", e);
     }
 
     return response;
   }
-
 }

@@ -14,8 +14,6 @@ import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 
 import org.apache.commons.net.util.Base64;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,13 +22,14 @@ import com.bmore.hyperius.web.dto.LoginDTO;
 import com.bmore.hyperius.web.dto.NewSecureLoginDTO;
 import com.bmore.hyperius.web.dto.ResultDTO;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Repository
 public class LoginRepository {
 
   @Autowired
   private DBConnection dbConnection;
-
-  private static final Logger LOCATION = LoggerFactory.getLogger(LoginRepository.class);
 
   private static final String LOCAL = "local";
   private static final String ACTIVEDIRECTORY = "LDAP";
@@ -63,10 +62,10 @@ public class LoginRepository {
       if (rs.next()) {
 
         result.setMsg(rs.getString("WERKS"));
-        LOCATION.error("ENTERO: " + rs.getInt("ZADMIN"));
+        log.error("ENTERO: " + rs.getInt("ZADMIN"));
 
         result.setTypeI(rs.getInt("ZADMIN"));
-        LOCATION.error("ENTERO: " + result.getTypeI());
+        log.error("ENTERO: " + result.getTypeI());
         result.setId(1);
 
       } else {
@@ -80,18 +79,18 @@ public class LoginRepository {
     } catch (SQLException e) {
       result.setId(2);
       result.setMsg(e.getMessage());
-      LOCATION.error("Error: " + e.toString());
+      log.error("Error: " + e.toString());
     } catch (Exception en) {
       result.setId(2);
       result.setMsg(en.getMessage());
-      LOCATION.error("Error: " + en.toString());
+      log.error("Error: " + en.toString());
     } finally {
       try {
         DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
-        LOCATION.error("Error: " + e.toString());
+        log.error("Error: " + e.toString());
       }
     }
     return result;
@@ -109,7 +108,7 @@ public class LoginRepository {
       stm1 = con.prepareStatement(OBTIENE_FUENTE_DATOS);
       stm1.setString(1, entry.getUser());
       rs1 = stm1.executeQuery();
-      LOCATION.info("entry.getUser()" + entry.getUser());
+      log.info("entry.getUser()" + entry.getUser());
       if (rs1.next()) {
         fuenteDatos = rs1.getString("DataSource");
         if (fuenteDatos.equalsIgnoreCase(LOCAL)) {
@@ -166,18 +165,18 @@ public class LoginRepository {
     } catch (SQLException e) {
       result.setId(2);
       result.setMsg(e.getMessage());
-      LOCATION.error("Error: " + e.toString());
+      log.error("Error: " + e.toString());
     } catch (Exception en) {
       result.setId(2);
       result.setMsg(en.getMessage());
-      LOCATION.error("Error: " + en.toString());
+      log.error("Error: " + en.toString());
     } finally {
       try {
         DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
-        LOCATION.error("Error: " + e.toString());
+        log.error("Error: " + e.toString());
       }
     }
     return result;
@@ -204,10 +203,10 @@ public class LoginRepository {
         } else {
 
           result.setMsg(rs.getString("WERKS"));
-          LOCATION.error("ENTERO: " + rs.getInt("ZADMIN"));
+          log.error("ENTERO: " + rs.getInt("ZADMIN"));
 
           result.setTypeI(rs.getInt("ZADMIN"));
-          LOCATION.error("ENTERO: " + result.getTypeI());
+          log.error("ENTERO: " + result.getTypeI());
           result.setId(1);
 
         }
@@ -222,18 +221,18 @@ public class LoginRepository {
     } catch (SQLException e) {
       result.setId(2);
       result.setMsg(e.getMessage());
-      LOCATION.error("Error: " + e.toString());
+      log.error("Error: " + e.toString());
     } catch (Exception en) {
       result.setId(2);
       result.setMsg(en.getMessage());
-      LOCATION.error("Error: " + en.toString());
+      log.error("Error: " + en.toString());
     } finally {
       try {
         DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
-        LOCATION.error("Error: " + e.toString());
+        log.error("Error: " + e.toString());
       }
     }
     return result;
@@ -270,21 +269,21 @@ public class LoginRepository {
     } catch (SQLException e) {
       result.setId(2);
       result.setMsg(e.getMessage());
-      LOCATION.error("Error: " + e.toString());
+      log.error("Error: " + e.toString());
     } catch (Exception en) {
       result.setId(2);
       result.setMsg(en.getMessage());
-      LOCATION.error("Error: " + en.toString());
+      log.error("Error: " + en.toString());
     } finally {
       try {
         DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
-        LOCATION.error("Error: " + e.toString());
+        log.error("Error: " + e.toString());
       }
     }
-    LOCATION.error("ID: " + result.getId());
+    log.error("ID: " + result.getId());
     loginDTO.setResult(result);
     return loginDTO;
   }
@@ -317,18 +316,18 @@ public class LoginRepository {
     } catch (SQLException e) {
       result.setId(2);
       result.setMsg(e.getMessage());
-      LOCATION.error("Error: " + e.toString());
+      log.error("Error: " + e.toString());
     } catch (Exception en) {
       result.setId(2);
       result.setMsg(en.getMessage());
-      LOCATION.error("Error: " + en.toString());
+      log.error("Error: " + en.toString());
     } finally {
       try {
         DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
-        LOCATION.error("Error: " + e.toString());
+        log.error("Error: " + e.toString());
       }
     }
     return result;
@@ -352,24 +351,24 @@ public class LoginRepository {
       res = stmn.executeUpdate();
 
       if (res > 0) {
-        LOCATION.error("Se ingreso usuario en tabla de logueo");
+        log.error("Se ingreso usuario en tabla de logueo");
       }
 
     } catch (SQLException e) {
       result.setId(2);
       result.setMsg(e.getMessage());
-      LOCATION.error("Error: " + e.toString());
+      log.error("Error: " + e.toString());
     } catch (Exception en) {
       result.setId(2);
       result.setMsg(en.getMessage());
-      LOCATION.error("Error: " + en.toString());
+      log.error("Error: " + en.toString());
     } finally {
       try {
         DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
-        LOCATION.error("Error: " + e.toString());
+        log.error("Error: " + e.toString());
       }
     }
     return result;
@@ -393,10 +392,10 @@ public class LoginRepository {
       res = stmn.executeUpdate();
 
       if (res > 0) {
-        LOCATION.error("Se actualizo el usuario en tabla de logueo");
+        log.error("Se actualizo el usuario en tabla de logueo");
         result.setId(1);
       } else {
-        LOCATION
+        log
             .error("No fue posible actualizar el usuario en tabla de logueo");
         result.setId(2);
         result
@@ -406,18 +405,18 @@ public class LoginRepository {
     } catch (SQLException e) {
       result.setId(2);
       result.setMsg(e.getMessage());
-      LOCATION.error("Error: " + e.toString());
+      log.error("Error: " + e.toString());
     } catch (Exception en) {
       result.setId(2);
       result.setMsg(en.getMessage());
-      LOCATION.error("Error: " + en.toString());
+      log.error("Error: " + en.toString());
     } finally {
       try {
         DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
-        LOCATION.error("Error: " + e.toString());
+        log.error("Error: " + e.toString());
       }
     }
     return result;
@@ -439,26 +438,26 @@ public class LoginRepository {
       res = stmn.executeUpdate();
 
       if (res > 0) {
-        LOCATION.error("LogOut con exito");
+        log.error("LogOut con exito");
       } else {
-        LOCATION.error("Error en logOut");
+        log.error("Error en logOut");
       }
 
     } catch (SQLException e) {
       result.setId(2);
       result.setMsg(e.getMessage());
-      LOCATION.error("Error: " + e.toString());
+      log.error("Error: " + e.toString());
     } catch (Exception en) {
       result.setId(2);
       result.setMsg(en.getMessage());
-      LOCATION.error("Error: " + en.toString());
+      log.error("Error: " + en.toString());
     } finally {
       try {
         DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
-        LOCATION.error("Error: " + e.toString());
+        log.error("Error: " + e.toString());
       }
     }
     return result;

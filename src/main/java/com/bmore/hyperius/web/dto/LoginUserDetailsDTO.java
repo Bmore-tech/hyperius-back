@@ -1,5 +1,8 @@
 package com.bmore.hyperius.web.dto;
 
+import lombok.ToString;
+
+@ToString
 public class LoginUserDetailsDTO<E> {
 
 	private ResultDTO resultdto;

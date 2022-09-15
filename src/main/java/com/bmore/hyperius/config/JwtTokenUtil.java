@@ -8,6 +8,8 @@ import java.util.function.Function;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.bmore.hyperius.web.dto.LoginUserDetailsDTO;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -77,25 +79,26 @@ public class JwtTokenUtil implements Serializable {
 		}
 	}
 
-	public String generateToken(UserDetails userDetails, Map<String, Object> claims) {
-		return doGenerateToken(claims, "PC13");
+	public String generateToken(LoginUserDetailsDTO<UserDetails> userDetails, Map<String, Object> claims) {
+		return doGenerateToken(claims, userDetails.getUserDetails().getUsername());
 	}
 	
 	public String updateToken(String username, Map<String, Object> claims) {
+
 		return doGenerateToken(claims, username);
 	}
 
 	private String doGenerateToken(Map<String, Object> claims, String subject) {
 		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000)).setId("")
-				.setAudience("PC13").signWith(SignatureAlgorithm.HS512, secret)
+				.setAudience(subject).signWith(SignatureAlgorithm.HS512, secret)
 				.compact();
 	}
 
 	public Boolean validateToken(String token, UserDetails userDetails) throws Exception {
 		try {
 			final String username = getUsernameFromToken(token);
-			return (username.equals("PC13") && !isTokenExpired(token));
+			return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 		} catch (Exception e) {
 			throw e;
 		}
