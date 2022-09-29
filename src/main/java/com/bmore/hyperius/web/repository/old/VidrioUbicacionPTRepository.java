@@ -89,7 +89,7 @@ public class VidrioUbicacionPTRepository {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -208,7 +208,7 @@ public class VidrioUbicacionPTRepository {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -261,7 +261,7 @@ public class VidrioUbicacionPTRepository {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());

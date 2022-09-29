@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -42,13 +40,14 @@ import com.bmore.hyperius.web.dto.UsuarioItemDTO;
 import com.bmore.hyperius.web.dto.UsuariosDTO;
 import com.bmore.hyperius.web.utils.Utils;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Repository
 public class SupervisorUtilsRepository {
   
   @Autowired
   private DBConnection dbConnection;
-
-	private final Logger log = LoggerFactory.getLogger(getClass());
 	
 	private String pathOut = "E:" + File.separator + "RepoSentinel" + File.separator + "final";
 
@@ -187,7 +186,7 @@ public class SupervisorUtilsRepository {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -244,7 +243,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        DBConnection.closeConnection(con);
+        // DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -305,7 +304,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -366,7 +365,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -435,7 +434,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -499,7 +498,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -552,7 +551,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(800);
 				result.setMsg(e.getMessage());
@@ -618,7 +617,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -687,7 +686,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -757,7 +756,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			log.error("Exception: " + en.toString());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(2);
 			}
@@ -799,7 +798,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			log.error("Exception1 : " + e.toString());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				log.error("Exception2 : " + e.toString());
 				resultDT.setId(0);
@@ -859,7 +858,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				log.error("Exception2 : " + e.toString());
 				resultDT.setId(0);
@@ -939,7 +938,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 					+ e.toString());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				log.error("Exception2 : " + e.toString());
 				resultDT.setId(0);
@@ -1082,7 +1081,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 					resultDT.setMsg(en.getMessage());
 				} finally {
 					try {
-						DBConnection.closeConnection(con);
+						// DBConnection.closeConnection(con);
 					} catch (Exception e) {
 						log.error("ERROR BULK ->Exception: "
 								+ e.toString());
@@ -1107,7 +1106,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 					+ e.toString());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				log.error("Exception2 : " + e.toString());
 
@@ -1129,7 +1128,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			log.error(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				log.error(e.getMessage());
 			}
@@ -1159,7 +1158,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(800);
 				result.setMsg(e.getMessage());
@@ -1204,7 +1203,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -1264,7 +1263,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				log.error("Error buscarUsuario :" + e.toString());
 				result.setId(2);
@@ -1315,7 +1314,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				log.error("Error buscarUsuario :" + e.toString());
 				result.setId(2);
@@ -1362,7 +1361,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				log.error("Error buscarUsuario :" + e.toString());
 				result.setId(2);
@@ -1409,7 +1408,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				log.error("Error buscarUsuario :" + e.toString());
 				result.setId(2);
@@ -1451,7 +1450,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				log.error("Error buscarUsuario :" + e.toString());
 
@@ -1507,7 +1506,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -1573,7 +1572,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -1684,7 +1683,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				log.error("SQLException: " + e.toString());
 				result.setId(2);
@@ -1724,7 +1723,7 @@ public EntregasTransportesDTO obtieneEntregas(String werks) {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(800);
 				result.setMsg(e.getMessage());

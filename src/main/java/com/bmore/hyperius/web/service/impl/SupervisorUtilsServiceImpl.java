@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bmore.hyperius.web.dto.CarrilUbicacionDTO;
@@ -52,6 +53,12 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
+  @Autowired
+  private SupervisorUtilsRepository supervisorUtilsRepository;
+
+  @Autowired
+  private ZContingenciaRepository contingenciaRepository;
+
 	private String pathIn = "E:" + File.separator + "RepoSentinel" + File.separator;
 	private String pathOut = "E:" + File.separator + "RepoSentinel" + File.separator + "final";
 
@@ -59,9 +66,8 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 	public EntregasTransportesDTO obtieneEntrega(String tknum, String werks) {
 
 		EntregasTransportesDTO entregasTransportes = new EntregasTransportesDTO();
-		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
 
-		entregasTransportes = supervisorUtilsDAO.obtieneEntrega(tknum, werks);
+		entregasTransportes = supervisorUtilsRepository.obtieneEntrega(tknum, werks);
 
 		log.error("TKNUM: " + tknum + " WERKs" + werks);
 
@@ -97,11 +103,10 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 	@Override
 	public EntregasTransportesDTO obtieneEntregas(String werks) {
 		EntregasTransportesDTO entregasTransportes = new EntregasTransportesDTO();
-		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
     log.info("WERK RECIBIDO:" + werks);
 
     try {
-      entregasTransportes = supervisorUtilsDAO.obtieneEntregas(werks);
+      entregasTransportes = supervisorUtilsRepository.obtieneEntregas(werks);
     } catch (Exception e) {
       log.error("Error al consultar", e);
     }
@@ -139,7 +144,6 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 	public InventarioDTO obtieneInventario(String werks, String opc) {
 
 		InventarioDTO inventarioDTO = new InventarioDTO();
-		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
 
 		int intOpc = 0;
 
@@ -163,10 +167,10 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 		switch (intOpc) {
 
 		case 1:
-			inventarioDTO = supervisorUtilsDAO.obtieneInventario(werks);
+			inventarioDTO = supervisorUtilsRepository.obtieneInventario(werks);
 			break;
 		case 2:
-			inventarioDTO = supervisorUtilsDAO.obtieneInventarioLotes(werks);
+			inventarioDTO = supervisorUtilsRepository.obtieneInventarioLotes(werks);
 			break;
 
 		}
@@ -191,7 +195,6 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 			String werks) {
 
 		HusEnTransporteDTO husEnTransporteDTO = new HusEnTransporteDTO();
-		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
 
 		if (husEnTransporteDetalleDTO.getIdProceso().equals("1") || husEnTransporteDetalleDTO.getIdProceso().equals("4")
 				|| husEnTransporteDetalleDTO.getIdProceso().equals("6")) {
@@ -214,13 +217,13 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 
 		if (husEnTransporteDetalleDTO.getTipoAlmacen().equals("im")) {
 			// IM
-			husEnTransporteDTO = supervisorUtilsDAO.obtieneMaterialesBloqueados(
+			husEnTransporteDTO = supervisorUtilsRepository.obtieneMaterialesBloqueados(
 					husEnTransporteDetalleDTO.getIdProceso(), husEnTransporteDetalleDTO.getVbeln(), werks);
 
 		} else if (husEnTransporteDetalleDTO.getTipoAlmacen().equals("wm")) {
 			// WM
 
-			husEnTransporteDTO = supervisorUtilsDAO.obtieneCarrilesBloqueados(husEnTransporteDetalleDTO.getIdProceso(),
+			husEnTransporteDTO = supervisorUtilsRepository.obtieneCarrilesBloqueados(husEnTransporteDetalleDTO.getIdProceso(),
 					husEnTransporteDetalleDTO.getVbeln(), werks);
 		}
 
@@ -248,7 +251,6 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 	public ResultDTO desbloquearCarril(CarrilesUbicacionDTO carriles, String werks) {
 
 		ResultDTO resultDT = new ResultDTO();
-		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
 
 		String msg = "";
 
@@ -286,7 +288,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 			log.error("MATERIAL: " + carril.getMaterial());
 			log.error("Tipo Almacen: " + carril.getTipoAlmacen());
 
-			resultDT = supervisorUtilsDAO.limpiaCarril(carril);
+			resultDT = supervisorUtilsRepository.limpiaCarril(carril);
 
 			// --6, al liberar carrill no es posible porque tiene pendientes
 			// --2, no fue posible liberar el carril
@@ -333,7 +335,6 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 	public HusEnTransporteDTO obtieneHusBloqueados(HUsEnTransporteDetalleDTO husEnTransporteDetalleDTO, String werks) {
 
 		HusEnTransporteDTO husEnTransporteDTO = new HusEnTransporteDTO();
-		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
 
 		if (husEnTransporteDetalleDTO.getIdProceso().equals("2")) {
 			// Orden de produccion
@@ -354,12 +355,12 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 
 			// IM
 			husEnTransporteDetalleDTO.setMatnr(Utils.zeroFill(husEnTransporteDetalleDTO.getMatnr(), 18));
-			husEnTransporteDTO = supervisorUtilsDAO.obtieneHusIMBloqueados(husEnTransporteDetalleDTO, werks);
+			husEnTransporteDTO = supervisorUtilsRepository.obtieneHusIMBloqueados(husEnTransporteDetalleDTO, werks);
 
 		} else if (husEnTransporteDetalleDTO.getTipoAlmacen().equals("wm")) {
 			// WM
 
-			husEnTransporteDTO = supervisorUtilsDAO.obtieneHusBloqueados(husEnTransporteDetalleDTO, werks);
+			husEnTransporteDTO = supervisorUtilsRepository.obtieneHusBloqueados(husEnTransporteDetalleDTO, werks);
 		}
 
 		if (husEnTransporteDTO.getResultDT().getId() == 1) {
@@ -418,7 +419,6 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 	public ResultDTO liberarHusEnTransporte(CarrilesUbicacionDTO carriles, String werks) {
 
 		ResultDTO resultDT = new ResultDTO();
-		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
 
 		for (int x = 0; x < carriles.getItem().size(); x++) {
 
@@ -447,7 +447,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 				carril.setMaterial(Utils.zeroFill(carril.getMaterial(), 18));
 			}
 
-			resultDT = supervisorUtilsDAO.limpiaCarril(carril);
+			resultDT = supervisorUtilsRepository.limpiaCarril(carril);
 
 			// --6, al liberar carrill no es posible porque tiene pendientes
 			// --2, no fue posible liberar el carril
@@ -493,16 +493,14 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 	@Override
 	public ResultDTO validaCarril(CarrilUbicacionDTO carril) {
 
-		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
 
-		return supervisorUtilsDAO.validarCarril(carril);
+		return supervisorUtilsRepository.validarCarril(carril);
 	}
 
 	@Override
 	public TablasSqlDTO cargaBCPS(String werks, String user) {
 
 		TablasSqlDTO tablasSqlDTO = new TablasSqlDTO();
-		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
 		TablasSqlItemDTO tablasSqlItemDTO = new TablasSqlItemDTO();
 		List<TablaSqlDTO> listTablasSqlItemDTO = new ArrayList<TablaSqlDTO>();
 
@@ -511,7 +509,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 
 		tablasSqlItemDTO.setItem(listTablasSqlItemDTO);
 
-		resultDT = supervisorUtilsDAO.validaInicioBCPS(werks);
+		resultDT = supervisorUtilsRepository.validaInicioBCPS(werks);
 
 		tablasSqlDTO.setItems(tablasSqlItemDTO);
 		tablasSqlDTO.setResultDT(resultDT);
@@ -523,14 +521,14 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 
 		if (resultDT.getId() == 1) {
 
-			ftpConf = supervisorUtilsDAO.getFTPConf();
+			ftpConf = supervisorUtilsRepository.getFTPConf();
 			resultDT = ftpConf.getResultDT();
 
 			if (resultDT.getId() == 1) {// OK datos FTP
 
 				ListaDTO listaTablas = new ListaDTO();
 
-				listaTablas = supervisorUtilsDAO.getTablas(werks);
+				listaTablas = supervisorUtilsRepository.getTablas(werks);
 				resultDT = listaTablas.getResultDT();
 
 				// Cambio temporal para carga de archivos "1"
@@ -697,7 +695,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 			/** Las tablas ya se encuentran en servidor BCPS **/
 			if (!errorGetTable) {
 
-				resultDT = supervisorUtilsDAO.limpiaTablasCentro(werks);
+				resultDT = supervisorUtilsRepository.limpiaTablasCentro(werks);
 
 				if (resultDT.getId() == 1) {
 
@@ -707,7 +705,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 
 						if (listTablasSqlItemDTO.get(x).getId() == 1) {
 
-							resultDT = supervisorUtilsDAO.bulk(listTablasSqlItemDTO.get(x).getIdTablaSQL(), werks);
+							resultDT = supervisorUtilsRepository.bulk(listTablasSqlItemDTO.get(x).getIdTablaSQL(), werks);
 
 							if (resultDT.getId() == 1) {
 
@@ -741,7 +739,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 						resultDT.setId(2);
 						resultDT.setTypeS("img/error.png");
 
-						if (supervisorUtilsDAO.eliminaDuplicados().getId() == 1) {
+						if (supervisorUtilsRepository.eliminaDuplicados().getId() == 1) {
 
 							resultDT.setId(2);
 							resultDT.setMsg(resultDT.getMsg()
@@ -756,7 +754,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 						resultDT.setTypeS("img/ok.png");
 
 						// Cambio temporal para carga de archivos "1"
-						int fallo = supervisorUtilsDAO.eliminaDuplicados().getId();
+						int fallo = supervisorUtilsRepository.eliminaDuplicados().getId();
 						if (fallo == -1) {
 
 							// AGREGAR PROCESO BLOQUEO DE CALIDAD
@@ -766,7 +764,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 									+ "El proceso de eliminación de duplicados se ejecuto correctamente");
 
 							// Borrar archivos BCPs
-							// supervisorUtilsDAO.removeQuality(); ELIMINA
+							// supervisorUtilsRepository.removeQuality(); ELIMINA
 							// CALIDAD
 
 							JSch jsch = new JSch();
@@ -843,7 +841,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 
 							// ////////////////////////////////////////////////////////////////////////////////////////
 							// DE ULTIMO MIN, INVENTARIO INICIAL
-							supervisorUtilsDAO.initialSnapshot(werks);
+							supervisorUtilsRepository.initialSnapshot(werks);
 
 							// ///////////////
 
@@ -877,15 +875,10 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 
 	@Override
 	public ResultDTO cargaSAP(String werks, String user) {
-
-		ZContingenciaRepository zContingencia = new ZContingenciaRepository();
-
 		ResultDTO resultDT = new ResultDTO();
-
-		resultDT = zContingencia.zContingencia(user, werks);
+		resultDT = contingenciaRepository.zContingencia(user, werks);
 
 		return resultDT;
-
 	}
 
 	@Override
@@ -939,9 +932,8 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 	@Override
 	public UsuarioItemDTO buscarUsuario(String user) {
 
-		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
 
-		UsuarioItemDTO result = supervisorUtilsDAO.buscarUsuario(user);
+		UsuarioItemDTO result = supervisorUtilsRepository.buscarUsuario(user);
 
 		return result;
 	}
@@ -949,9 +941,8 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 	@Override
 	public ResultDTO eliminarUsuario(UsuarioDTO user, String werksAdmin) {
 
-		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
 
-		ResultDTO result = supervisorUtilsDAO.eliminarUsuario(user.getIdUsuario());
+		ResultDTO result = supervisorUtilsRepository.eliminarUsuario(user.getIdUsuario());
 
 		if (werksAdmin.equals(user.getWerks())) {
 			if (result.getId() == 3) {
@@ -974,12 +965,11 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 	@Override
 	public ResultDTO crearUsuario(UsuarioDTO user, String werksAdmin) {
 
-		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
 
 		ResultDTO result = new ResultDTO();
 		UsuarioItemDTO usuarioItemDTO = new UsuarioItemDTO();
 
-		usuarioItemDTO = supervisorUtilsDAO.buscarUsuario(user.getIdUsuario());
+		usuarioItemDTO = supervisorUtilsRepository.buscarUsuario(user.getIdUsuario());
 
 		if (usuarioItemDTO.getResult().getId() == 1) {
 
@@ -987,7 +977,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 			result.setMsg("El usuario que intenta crear ya existe");
 
 		} else if (usuarioItemDTO.getResult().getId() == 2) {
-			result = supervisorUtilsDAO.crearUsuario(user);
+			result = supervisorUtilsRepository.crearUsuario(user);
 
 			log.error("idUsuario: " + user.getIdUsuario());
 			log.error("name: " + user.getName());
@@ -1013,9 +1003,8 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 	@Override
 	public ResultDTO modificarUsuario(UsuarioDTO user, String werksAdmin) {
 
-		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
 
-		ResultDTO result = supervisorUtilsDAO.crearUsuario(user);
+		ResultDTO result = supervisorUtilsRepository.crearUsuario(user);
 
 		log.error("idUsuario: " + user.getIdUsuario());
 		log.error("name: " + user.getName());
@@ -1042,9 +1031,8 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 	public EntregasTransportesDTO obtieneEntregasAgencias(UsuarioDTO usuario) {
 
 		EntregasTransportesDTO entregasTransportes = new EntregasTransportesDTO();
-		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
 
-		entregasTransportes = supervisorUtilsDAO.obtieneEntregasAgencias(usuario);
+		entregasTransportes = supervisorUtilsRepository.obtieneEntregasAgencias(usuario);
 
 		if (entregasTransportes.getResultDT().getId() == 1) {
 
@@ -1071,9 +1059,8 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 	public CarrilesBloqueadosDTO obtieneCarrilBloqueado(UsuarioDTO usuario) {
 
 		CarrilesBloqueadosDTO carrilBloqueado = new CarrilesBloqueadosDTO();
-		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
 
-		carrilBloqueado = supervisorUtilsDAO.obtieneCarrilesBloqueados(usuario);
+		carrilBloqueado = supervisorUtilsRepository.obtieneCarrilesBloqueados(usuario);
 
 		if (carrilBloqueado.getResultDT().getId() == 1) {
 
@@ -1092,14 +1079,13 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 	@Override
 	public EmbarqueDTO obtieneEntregasAgenciasDetalle(String vbeln) {
 
-		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
 
 		EmbarqueDTO embarqueReturn = new EmbarqueDTO();
 		ResultDTO resultDT = new ResultDTO();
 
 		vbeln = vbeln.replaceAll("[^0-9]+", "");
 		vbeln = Utils.zeroFill(vbeln, 10);
-		embarqueReturn = supervisorUtilsDAO.obtieneEntregasAgenciasDetalle(vbeln);
+		embarqueReturn = supervisorUtilsRepository.obtieneEntregasAgenciasDetalle(vbeln);
 
 		if (embarqueReturn.getResultDT().getId() == 1) {
 

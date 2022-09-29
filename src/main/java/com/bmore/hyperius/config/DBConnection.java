@@ -43,28 +43,6 @@ public class DBConnection {
     }
 
     return null;
-		// Context initContext = null;
-		// Connection connection = null;
-		// DataSource dataSource = null;
-
-		// try {
-		// 	initContext = new InitialContext();
-		// 	dataSource = (DataSource) initContext.lookup("java:/BCPS");
-		// } catch (NamingException e) {
-		// 	e.printStackTrace();
-		// 	return null;
-		// }
-
-		// if (dataSource != null) {
-		// 	try {
-		// 		connection = dataSource.getConnection();
-		// 		return connection;
-		// 	} catch (SQLException e) {
-		// 		return null;
-		// 	}
-		// } else {
-		// 	return null;
-		// }
 	}
 
 	/**

@@ -141,7 +141,7 @@ public class UbicacionPTRepository {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -267,7 +267,7 @@ public class UbicacionPTRepository {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -417,7 +417,7 @@ public class UbicacionPTRepository {
 			LOCATION.error("Error SQL:" + en.toString());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Error SQL:" + e.toString());
 				e.getMessage();
@@ -470,7 +470,7 @@ public class UbicacionPTRepository {
 			resultDT.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Exception: " + e.toString());
 				resultDT.setId(2);
@@ -516,7 +516,7 @@ public class UbicacionPTRepository {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -566,7 +566,7 @@ public class UbicacionPTRepository {
 			resultDT.setId(2);
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(2);
 			}
@@ -604,7 +604,7 @@ public class UbicacionPTRepository {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -641,7 +641,7 @@ public class UbicacionPTRepository {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -708,7 +708,7 @@ public class UbicacionPTRepository {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -751,7 +751,7 @@ public class UbicacionPTRepository {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -787,7 +787,7 @@ public class UbicacionPTRepository {
 			x = 999999;
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				x = 999999;
 			}
@@ -831,7 +831,7 @@ public class UbicacionPTRepository {
 			resultDT.setId(0);
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(0);
 			}
@@ -876,7 +876,7 @@ public class UbicacionPTRepository {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -916,7 +916,7 @@ public class UbicacionPTRepository {
 // 			result.setMsg(en.getMessage());
 // 		} finally {
 // 			try {
-// 				DBConnection.closeConnection(con);
+// 				// DBConnection.closeConnection(con);
 // 			} catch (Exception e) {
 // 				result.setId(2);
 // 				result.setMsg(e.getMessage());
@@ -979,7 +979,7 @@ public class UbicacionPTRepository {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -1024,7 +1024,7 @@ public class UbicacionPTRepository {
 			map = null;
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Exception:" + e.toString());
 

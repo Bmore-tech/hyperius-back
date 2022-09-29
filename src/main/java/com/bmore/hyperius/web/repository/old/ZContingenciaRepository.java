@@ -250,7 +250,7 @@ public class ZContingenciaRepository {
 			retorno.setMsg(en.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				e.printStackTrace(System.out);
 			}

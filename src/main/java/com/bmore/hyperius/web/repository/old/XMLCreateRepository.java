@@ -210,7 +210,7 @@ public class XMLCreateRepository {
 			LOCATION.error(e.getLocalizedMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error(e.getLocalizedMessage());
 			}
@@ -236,7 +236,7 @@ public class XMLCreateRepository {
 			LOCATION.error(e.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error(e.getMessage());
 			}
@@ -298,7 +298,7 @@ public class XMLCreateRepository {
 			LOCATION.error(e.getLocalizedMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error(e.getLocalizedMessage());
 			}
@@ -386,7 +386,7 @@ public class XMLCreateRepository {
 			LOCATION.error(e.getMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error(e.getMessage());
 			}
@@ -418,7 +418,7 @@ public class XMLCreateRepository {
 			LOCATION.error(e.getLocalizedMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error(e.getLocalizedMessage());
 			}
@@ -447,7 +447,7 @@ public class XMLCreateRepository {
 			LOCATION.error(e.getLocalizedMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error(e.getLocalizedMessage());
 			}
@@ -477,7 +477,7 @@ public class XMLCreateRepository {
 			LOCATION.error(e.getLocalizedMessage());
 		} finally {
 			try {
-				DBConnection.closeConnection(con);
+				// DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error(e.getLocalizedMessage());
 			}
