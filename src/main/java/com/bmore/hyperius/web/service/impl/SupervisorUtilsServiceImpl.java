@@ -50,7 +50,7 @@ import com.jcraft.jsch.SftpException;
 @Service
 public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 
-	private final Logger LOCATION = LoggerFactory.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	private String pathIn = "E:" + File.separator + "RepoSentinel" + File.separator;
 	private String pathOut = "E:" + File.separator + "RepoSentinel" + File.separator + "final";
@@ -63,7 +63,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 
 		entregasTransportes = supervisorUtilsDAO.obtieneEntrega(tknum, werks);
 
-		LOCATION.error("TKNUM: " + tknum + " WERKs" + werks);
+		log.error("TKNUM: " + tknum + " WERKs" + werks);
 
 		if (entregasTransportes.getResultDT().getId() == 1) {
 
@@ -96,16 +96,18 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 
 	@Override
 	public EntregasTransportesDTO obtieneEntregas(String werks) {
-
 		EntregasTransportesDTO entregasTransportes = new EntregasTransportesDTO();
 		SupervisorUtilsRepository supervisorUtilsDAO = new SupervisorUtilsRepository();
+    log.info("WERK RECIBIDO:" + werks);
 
-		entregasTransportes = supervisorUtilsDAO.obtieneEntregas(werks);
+    try {
+      entregasTransportes = supervisorUtilsDAO.obtieneEntregas(werks);
+    } catch (Exception e) {
+      log.error("Error al consultar", e);
+    }
 
 		if (entregasTransportes.getResultDT().getId() == 1) {
-
 			for (int x = 0; x < entregasTransportes.getItems().getItem().size(); x++) {
-
 				if (entregasTransportes.getItems().getItem().get(x).getStatus() != null
 						&& !entregasTransportes.getItems().getItem().get(x).getStatus().equals("")) {
 					entregasTransportes.getItems().getItem().get(x).setStatus("Contabilizada");
@@ -126,15 +128,11 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 					entregasTransportes.getItems().getItem().get(x)
 							.setVblenSaliente(entregasTransportes.getItems().getItem().get(x).getVblenEntrante());
 					entregasTransportes.getItems().getItem().get(x).setVblenEntrante("");
-
 				}
-
 			}
-
 		}
 
 		return entregasTransportes;
-
 	}
 
 	@Override
@@ -148,7 +146,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 		try {
 
 			intOpc = Integer.parseInt(opc);
-			LOCATION.error("Conversion: " + intOpc + " init: " + opc);
+			log.error("Conversion: " + intOpc + " init: " + opc);
 
 		} catch (Exception e) {
 
@@ -284,9 +282,9 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 				carril.setMaterial(Utils.zeroFill(carril.getMaterial(), 18));
 			}
 
-			LOCATION.error("ENTREGA: " + carril.getEntrega());
-			LOCATION.error("MATERIAL: " + carril.getMaterial());
-			LOCATION.error("Tipo Almacen: " + carril.getTipoAlmacen());
+			log.error("ENTREGA: " + carril.getEntrega());
+			log.error("MATERIAL: " + carril.getMaterial());
+			log.error("Tipo Almacen: " + carril.getTipoAlmacen());
 
 			resultDT = supervisorUtilsDAO.limpiaCarril(carril);
 
@@ -458,7 +456,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 			// --5, no tiene pendientes
 			// --1, OK
 
-			LOCATION.error("Error al liberar carril: " + resultDT.getId());
+			log.error("Error al liberar carril: " + resultDT.getId());
 
 			switch (resultDT.getId()) {
 
@@ -647,11 +645,11 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 										logId + "No fue posible descargar la tabla del SFTP: FileNotFoundException ->"
 												+ e.toString());
 
-								LOCATION.error(logId + "FileNotFoundException: " + e.toString());
+								log.error(logId + "FileNotFoundException: " + e.toString());
 
 							} catch (UnsupportedEncodingException e) {
 								errorGetTable = true;
-								LOCATION.error(logId + "UnsupportedEncodingException: " + e.toString());
+								log.error(logId + "UnsupportedEncodingException: " + e.toString());
 
 								tablaSqlDTO.setMsg(logId
 										+ "No fue posible descargar la tabla del SFTP: UnsupportedEncodingException ->"
@@ -659,7 +657,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 
 							} catch (IOException e) {
 								errorGetTable = true;
-								LOCATION.error(logId + "IOException: " + e.toString());
+								log.error(logId + "IOException: " + e.toString());
 
 								tablaSqlDTO.setMsg(logId + "No fue posible descargar la tabla del SFTP: IOException ->"
 										+ e.toString());
@@ -686,7 +684,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 							session.disconnect();
 							*/
 						} catch (Exception e) {
-							LOCATION.error(logId + "Error al cerrar SFTP: " + e.toString());
+							log.error(logId + "Error al cerrar SFTP: " + e.toString());
 						}
 					}
 
@@ -794,12 +792,12 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 								channel.connect();
 								sftpChannel = (ChannelSftp) channel;
 
-								LOCATION.error("Eliminar SFTP");
+								log.error("Eliminar SFTP");
 								for (int x = 0; x < listTablasSqlItemDTO.size(); x++) {
 
 									TablaSqlDTO tablaSqlDTO = listTablasSqlItemDTO.get(x);
 
-									LOCATION.error("Eliminar SFTP ->" + tablaSqlDTO.getIdTablaSQL());
+									log.error("Eliminar SFTP ->" + tablaSqlDTO.getIdTablaSQL());
 									try {
 
 										sftpChannel.rm("/Datamart/dataBCP/" + ftpConf.getFolder() + "/_"
@@ -813,7 +811,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 												"No fue posible borrar archivo del SFTP: SftpException ->"
 														+ e.toString());
 
-										LOCATION.error(logId + "SftpException: " + e.toString() + e.getMessage() + " "
+										log.error(logId + "SftpException: " + e.toString() + e.getMessage() + " "
 												+ "/Datamart/dataBCP/" + ftpConf.getFolder() + "/_"
 												+ listTablasSqlItemDTO.get(x).getIdTablaSQL() + "_" + werks + ".txt");
 
@@ -826,7 +824,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 
 							} catch (JSchException e) {
 
-								LOCATION.error(logId + "JSchException: " + e.toString());
+								log.error(logId + "JSchException: " + e.toString());
 
 								resultDT.setId(2);
 								resultDT.setMsg(logId + "Error: JSchException -> " + e.toString());
@@ -839,7 +837,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 									session.disconnect();
 
 								} catch (Exception e) {
-									LOCATION.error(logId + "Error al cerrar SFTP: " + e.toString());
+									log.error(logId + "Error al cerrar SFTP: " + e.toString());
 								}
 							}
 
@@ -991,8 +989,8 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 		} else if (usuarioItemDTO.getResult().getId() == 2) {
 			result = supervisorUtilsDAO.crearUsuario(user);
 
-			LOCATION.error("idUsuario: " + user.getIdUsuario());
-			LOCATION.error("name: " + user.getName());
+			log.error("idUsuario: " + user.getIdUsuario());
+			log.error("name: " + user.getName());
 
 			if (result.getId() == 1) {
 				result.setId(1);
@@ -1019,8 +1017,8 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 
 		ResultDTO result = supervisorUtilsDAO.crearUsuario(user);
 
-		LOCATION.error("idUsuario: " + user.getIdUsuario());
-		LOCATION.error("name: " + user.getName());
+		log.error("idUsuario: " + user.getIdUsuario());
+		log.error("name: " + user.getName());
 
 		if (werksAdmin.equals(user.getWerks())) {
 
@@ -1107,7 +1105,7 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 
 			for (int x = 0; x < embarqueReturn.getItems().getItem().size(); x++) {
 
-				LOCATION.error("Item: " + embarqueReturn.getItems().getItem().get(x).getMaterial());
+				log.error("Item: " + embarqueReturn.getItems().getItem().get(x).getMaterial());
 
 				embarqueReturn.getItems().getItem().get(x).setMaterial(Utils.zeroClean(
 

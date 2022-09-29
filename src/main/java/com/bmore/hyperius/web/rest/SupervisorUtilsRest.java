@@ -50,7 +50,7 @@ import com.bmore.hyperius.web.utils.Utils;
 @RequestMapping("${web.uri}/supervisor-utils")
 public class SupervisorUtilsRest {
 
-	private final Logger LOCATION = LoggerFactory.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private SupervisorUtilsService supervisorUtilsService;
@@ -60,6 +60,8 @@ public class SupervisorUtilsRest {
 			@RequestBody TransportesDTO transporteDTO) {
 
 		ObtieneEntregasResponse response = new ObtieneEntregasResponse();
+
+    log.info("CONSUMIENDO /obtiene-entregas");
 
 		if (transporteDTO.getIdTransporte() == null || transporteDTO.getIdTransporte().trim().equals(""))
 			response.setData(supervisorUtilsService.obtieneEntregas(Utils.getWerksFromJwt(token)));

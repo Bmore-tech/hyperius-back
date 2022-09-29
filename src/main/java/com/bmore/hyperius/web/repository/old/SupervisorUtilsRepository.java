@@ -48,7 +48,7 @@ public class SupervisorUtilsRepository {
   @Autowired
   private DBConnection dbConnection;
 
-	private final Logger LOCATION = LoggerFactory.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 	
 	private String pathOut = "E:" + File.separator + "RepoSentinel" + File.separator + "final";
 
@@ -202,67 +202,62 @@ public class SupervisorUtilsRepository {
 		return entregasTransportesDTO;
 	}
 
-	public EntregasTransportesDTO obtieneEntregas(String werks) {
-		ResultDTO result = new ResultDTO();
-		Connection con = dbConnection.createConnection();
-		PreparedStatement stmnt2 = null;
-		ResultSet rs2 = null;
+public EntregasTransportesDTO obtieneEntregas(String werks) {
+    ResultDTO result = new ResultDTO();
+    Connection con = dbConnection.createConnection();
+    PreparedStatement stm = null;
+    ResultSet rs = null;
 
-		EntregasTransportesDTO entregasTransportesDTO = new EntregasTransportesDTO();
-		EntregasTransportesDetalleItemDTO entregasTransportesDetalleDTOItem = new EntregasTransportesDetalleItemDTO();
-		List<EntregasTransportesDetalleDTO> entregasTransportesDetalleDTOItemList = new ArrayList<EntregasTransportesDetalleDTO>();
+    EntregasTransportesDTO entregasTransportesDTO = new EntregasTransportesDTO();
+    EntregasTransportesDetalleItemDTO entregasTransportesDetalleDTOItem = new EntregasTransportesDetalleItemDTO();
+    List<EntregasTransportesDetalleDTO> entregasTransportesDetalleDTOItemList = new ArrayList<EntregasTransportesDetalleDTO>();
 
-		result.setId(2);
-		result.setMsg("Registros no encontrados");
+    result.setId(2);
+    result.setMsg("Registros no encontrados");
 
-		try {
+    try {
+      stm = con.prepareStatement(OBTIENE_ENTREGAS);
+      stm.setString(1, werks);
+      rs = stm.executeQuery();
 
-			stmnt2 = con.prepareStatement(OBTIENE_ENTREGAS);
+      while (rs.next()) {
+        EntregasTransportesDetalleDTO entregasTransportesDetalleDTO = new EntregasTransportesDetalleDTO();
 
-			stmnt2.setString(1, werks);
+        entregasTransportesDetalleDTO.setTknum(rs.getString("TKNUM"));
+        entregasTransportesDetalleDTO.setVblenEntrante(rs.getString("VBELN"));
+        entregasTransportesDetalleDTO.setStatus(rs.getString("CONTABILIZADA"));
+        entregasTransportesDetalleDTO.setLfart(rs.getString("LFART"));
+        entregasTransportesDetalleDTO.setEdi(rs.getString("EDI"));
+        result.setId(1);
+        result.setMsg("Registro encontrado");
 
-			rs2 = stmnt2.executeQuery();
+        entregasTransportesDetalleDTOItemList
+            .add(entregasTransportesDetalleDTO);
+      }
+      
+      log.info("DATOS ENCONTRADOS" + entregasTransportesDetalleDTOItemList.toString());
+    } catch (SQLException e) {
+      result.setId(2);
+      result.setMsg(e.getMessage());
+    } catch (Exception en) {
+      result.setId(2);
+      result.setMsg(en.getMessage());
+    } finally {
+      try {
+        DBConnection.closeConnection(con);
+      } catch (Exception e) {
+        result.setId(2);
+        result.setMsg(e.getMessage());
+      }
+    }
 
-			while (rs2.next()) {
+    entregasTransportesDetalleDTOItem
+        .setItem(entregasTransportesDetalleDTOItemList);
+    entregasTransportesDTO.setItems(entregasTransportesDetalleDTOItem);
+    entregasTransportesDTO.setResultDT(result);
 
-				EntregasTransportesDetalleDTO entregasTransportesDetalleDTO = new EntregasTransportesDetalleDTO();
-
-				entregasTransportesDetalleDTO.setTknum(rs2.getString("TKNUM"));
-				entregasTransportesDetalleDTO.setVblenEntrante(rs2
-						.getString("VBELN"));
-				entregasTransportesDetalleDTO.setStatus(rs2
-						.getString("CONTABILIZADA"));
-
-				entregasTransportesDetalleDTO.setLfart(rs2.getString("LFART"));
-				entregasTransportesDetalleDTO.setEdi(rs2.getString("EDI"));
-				result.setId(1);
-				result.setMsg("Registro encontrado");
-				entregasTransportesDetalleDTOItemList
-						.add(entregasTransportesDetalleDTO);
-			}
-
-		} catch (SQLException e) {
-			result.setId(2);
-			result.setMsg(e.getMessage());
-		} catch (Exception en) {
-			result.setId(2);
-			result.setMsg(en.getMessage());
-		} finally {
-			try {
-				DBConnection.closeConnection(con);
-			} catch (Exception e) {
-				result.setId(2);
-				result.setMsg(e.getMessage());
-			}
-		}
-
-		entregasTransportesDetalleDTOItem
-				.setItem(entregasTransportesDetalleDTOItemList);
-		entregasTransportesDTO.setItems(entregasTransportesDetalleDTOItem);
-		entregasTransportesDTO.setResultDT(result);
-
-		return entregasTransportesDTO;
-	}
+    return entregasTransportesDTO;
+  }
 
 	public InventarioDTO obtieneInventario(String werks) {
 		ResultDTO result = new ResultDTO();
@@ -530,7 +525,7 @@ public class SupervisorUtilsRepository {
 
 			callableStatement = con.prepareCall(LIBERA_CARRIL_PENDIENTES);
 
-			LOCATION.error("Carril: " + carril.getEntrega() + " "
+			log.error("Carril: " + carril.getEntrega() + " "
 					+ carril.getIdProceso() + " " + carril.getLgnum() + " "
 					+ carril.getLgtyp() + " " + carril.getLgpla()
 					+ carril.getMaterial() + " " + carril.getTipoAlmacen());
@@ -756,10 +751,10 @@ public class SupervisorUtilsRepository {
 		} catch (SQLException e) {
 			resultDT.setId(2);
 			resultDT.setMsg("Error SQL: " + e.toString());
-			LOCATION.error("SQLException: " + e.toString());
+			log.error("SQLException: " + e.toString());
 		} catch (Exception en) {
 			resultDT.setId(2);
-			LOCATION.error("Exception: " + en.toString());
+			log.error("Exception: " + en.toString());
 		} finally {
 			try {
 				DBConnection.closeConnection(con);
@@ -796,17 +791,17 @@ public class SupervisorUtilsRepository {
 			}
 
 		} catch (SQLException e) {
-			LOCATION.error("SQLException : " + e.toString());
+			log.error("SQLException : " + e.toString());
 			resultDT.setId(0);
 			resultDT.setMsg("No fue posible recuperar los centros: "
 					+ e.toString());
 		} catch (Exception e) {
-			LOCATION.error("Exception1 : " + e.toString());
+			log.error("Exception1 : " + e.toString());
 		} finally {
 			try {
 				DBConnection.closeConnection(con);
 			} catch (Exception e) {
-				LOCATION.error("Exception2 : " + e.toString());
+				log.error("Exception2 : " + e.toString());
 				resultDT.setId(0);
 				resultDT.setMsg("No fue posible recuperar los centros: "
 						+ e.toString());
@@ -850,14 +845,14 @@ public class SupervisorUtilsRepository {
 			}
 
 		} catch (SQLException e) {
-			LOCATION.error("SQLException : " + e.toString());
+			log.error("SQLException : " + e.toString());
 			resultDT.setId(0);
 			resultDT.setMsg("No fue posible recuper la configuración del FTP: "
 					+ e.toString());
 
 		} catch (Exception e) {
 
-			LOCATION.error("Exception1 : " + e.toString());
+			log.error("Exception1 : " + e.toString());
 			resultDT.setId(0);
 			resultDT.setMsg("No fue posible recuper la configuración del FTP: "
 					+ e.toString());
@@ -866,7 +861,7 @@ public class SupervisorUtilsRepository {
 			try {
 				DBConnection.closeConnection(con);
 			} catch (Exception e) {
-				LOCATION.error("Exception2 : " + e.toString());
+				log.error("Exception2 : " + e.toString());
 				resultDT.setId(0);
 				resultDT
 						.setMsg("No fue posible recuper la configuración del FTP.: "
@@ -902,7 +897,7 @@ public class SupervisorUtilsRepository {
 						(werks.startsWith("PA")))
 						&& rs.getBoolean("CERVECERAS") == true) {
 
-					LOCATION
+					log
 							.error("ENTRE PC: " + rs.getString("NOMBRE_TABLA"));
 					centros.add(rs.getString("NOMBRE_TABLA"));
 					resultDT.setId(1);
@@ -911,7 +906,7 @@ public class SupervisorUtilsRepository {
 				} else if (werks.startsWith("PV")
 						&& rs.getBoolean("VIDRIERAS") == true) {
 
-					LOCATION
+					log
 							.error("ENTRE PV: " + rs.getString("NOMBRE_TABLA"));
 
 					centros.add(rs.getString("NOMBRE_TABLA"));
@@ -921,7 +916,7 @@ public class SupervisorUtilsRepository {
 				} else if ((werks.startsWith("EM") || werks.startsWith("TM"))
 						&& rs.getBoolean("ENVASES") == true) {
 
-					LOCATION
+					log
 							.error("ENTRE EM: " + rs.getString("NOMBRE_TABLA"));
 
 					centros.add(rs.getString("NOMBRE_TABLA"));
@@ -933,12 +928,12 @@ public class SupervisorUtilsRepository {
 			}
 
 		} catch (SQLException e) {
-			LOCATION.error("SQLException : " + e.toString());
+			log.error("SQLException : " + e.toString());
 			resultDT.setId(0);
 			resultDT.setMsg("No fue posible recuperar las tablas: "
 					+ e.toString());
 		} catch (Exception e) {
-			LOCATION.error("Exception1 : " + e.toString());
+			log.error("Exception1 : " + e.toString());
 			resultDT.setId(0);
 			resultDT.setMsg("No fue posible recuperar las tablas: "
 					+ e.toString());
@@ -946,7 +941,7 @@ public class SupervisorUtilsRepository {
 			try {
 				DBConnection.closeConnection(con);
 			} catch (Exception e) {
-				LOCATION.error("Exception2 : " + e.toString());
+				log.error("Exception2 : " + e.toString());
 				resultDT.setId(0);
 				resultDT.setMsg("No fue posible recuperar las tablas: "
 						+ e.toString());
@@ -1064,7 +1059,7 @@ public class SupervisorUtilsRepository {
 						upd.executeUpdate();
 
 					}
-					LOCATION.error("Tabla SQL: " + tablaSQL + "   TxtTabla: "
+					log.error("Tabla SQL: " + tablaSQL + "   TxtTabla: "
 							+ txtTabla + "  Centro:" + werks);
 					resultDT.setId(1);
 
@@ -1076,20 +1071,20 @@ public class SupervisorUtilsRepository {
 
 					} else {
 
-						LOCATION.error("ERROR BULK ->SQLException: "
+						log.error("ERROR BULK ->SQLException: "
 								+ e.toString());
 						resultDT.setId(2);
 						resultDT.setMsg(e.getMessage());
 					}
 				} catch (Exception en) {
-					LOCATION.error("ERROR BULK ->Exception: " + en.toString());
+					log.error("ERROR BULK ->Exception: " + en.toString());
 					resultDT.setId(2);
 					resultDT.setMsg(en.getMessage());
 				} finally {
 					try {
 						DBConnection.closeConnection(con);
 					} catch (Exception e) {
-						LOCATION.error("ERROR BULK ->Exception: "
+						log.error("ERROR BULK ->Exception: "
 								+ e.toString());
 
 					}
@@ -1101,12 +1096,12 @@ public class SupervisorUtilsRepository {
 			}
 
 		} catch (SQLException e) {
-			LOCATION.error("SQLException : " + e.toString());
+			log.error("SQLException : " + e.toString());
 			resultDT.setId(2);
 			resultDT.setMsg("No fue posible recuperar las tablas: "
 					+ e.toString());
 		} catch (Exception e) {
-			LOCATION.error("Exception1 : " + e.toString());
+			log.error("Exception1 : " + e.toString());
 			resultDT.setId(2);
 			resultDT.setMsg("No fue posible recuperar las tablas: "
 					+ e.toString());
@@ -1114,7 +1109,7 @@ public class SupervisorUtilsRepository {
 			try {
 				DBConnection.closeConnection(con);
 			} catch (Exception e) {
-				LOCATION.error("Exception2 : " + e.toString());
+				log.error("Exception2 : " + e.toString());
 
 			}
 		}
@@ -1129,14 +1124,14 @@ public class SupervisorUtilsRepository {
 			callableStatement = con.prepareCall(REMOVEQUALITY);
 			callableStatement.execute();
 		} catch (SQLException e) {
-			LOCATION.error(e.getMessage());
+			log.error(e.getMessage());
 		} catch (Exception en) {
-			LOCATION.error(en.getMessage());
+			log.error(en.getMessage());
 		} finally {
 			try {
 				DBConnection.closeConnection(con);
 			} catch (Exception e) {
-				LOCATION.error(e.getMessage());
+				log.error(e.getMessage());
 			}
 		}
 	}
@@ -1259,19 +1254,19 @@ public class SupervisorUtilsRepository {
 			}
 
 		} catch (SQLException e) {
-			LOCATION
+			log
 					.error("Error SQLException buscarUsuario :" + e.toString());
 			result.setId(2);
 			result.setMsg(e.getMessage());
 		} catch (Exception en) {
-			LOCATION.error("Error Exception buscarUsuario :" + en.toString());
+			log.error("Error Exception buscarUsuario :" + en.toString());
 			result.setId(2);
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
 				DBConnection.closeConnection(con);
 			} catch (Exception e) {
-				LOCATION.error("Error buscarUsuario :" + e.toString());
+				log.error("Error buscarUsuario :" + e.toString());
 				result.setId(2);
 				result.setMsg(e.getMessage());
 			}
@@ -1310,19 +1305,19 @@ public class SupervisorUtilsRepository {
 			result.setId(id);
 
 		} catch (SQLException e) {
-			LOCATION
+			log
 					.error("Error SQLException buscarUsuario :" + e.toString());
 			result.setId(2);
 			result.setMsg(e.getMessage());
 		} catch (Exception en) {
-			LOCATION.error("Error Exception buscarUsuario :" + en.toString());
+			log.error("Error Exception buscarUsuario :" + en.toString());
 			result.setId(2);
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
 				DBConnection.closeConnection(con);
 			} catch (Exception e) {
-				LOCATION.error("Error buscarUsuario :" + e.toString());
+				log.error("Error buscarUsuario :" + e.toString());
 				result.setId(2);
 				result.setMsg(e.getMessage());
 			}
@@ -1357,19 +1352,19 @@ public class SupervisorUtilsRepository {
 			result.setId(id);
 
 		} catch (SQLException e) {
-			LOCATION
+			log
 					.error("Error SQLException buscarUsuario :" + e.toString());
 			result.setId(2);
 			result.setMsg(e.getMessage());
 		} catch (Exception en) {
-			LOCATION.error("Error Exception buscarUsuario :" + en.toString());
+			log.error("Error Exception buscarUsuario :" + en.toString());
 			result.setId(2);
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
 				DBConnection.closeConnection(con);
 			} catch (Exception e) {
-				LOCATION.error("Error buscarUsuario :" + e.toString());
+				log.error("Error buscarUsuario :" + e.toString());
 				result.setId(2);
 				result.setMsg(e.getMessage());
 			}
@@ -1404,19 +1399,19 @@ public class SupervisorUtilsRepository {
 			result.setId(id);
 
 		} catch (SQLException e) {
-			LOCATION
+			log
 					.error("Error SQLException buscarUsuario :" + e.toString());
 			result.setId(2);
 			result.setMsg(e.getMessage());
 		} catch (Exception en) {
-			LOCATION.error("Error Exception buscarUsuario :" + en.toString());
+			log.error("Error Exception buscarUsuario :" + en.toString());
 			result.setId(2);
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
 				DBConnection.closeConnection(con);
 			} catch (Exception e) {
-				LOCATION.error("Error buscarUsuario :" + e.toString());
+				log.error("Error buscarUsuario :" + e.toString());
 				result.setId(2);
 				result.setMsg(e.getMessage());
 			}
@@ -1444,21 +1439,21 @@ public class SupervisorUtilsRepository {
 			id = callableStatement.getInt(2);
 			result.setId(id);
 			// result.setId(1);
-			LOCATION.error("ID:" + result.getId());
+			log.error("ID:" + result.getId());
 		} catch (SQLException e) {
-			LOCATION
+			log
 					.error("Error SQLException buscarUsuario :" + e.toString());
 			result.setId(2);
 			result.setMsg(e.getMessage());
 		} catch (Exception en) {
-			LOCATION.error("Error Exception buscarUsuario :" + en.toString());
+			log.error("Error Exception buscarUsuario :" + en.toString());
 			result.setId(2);
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
 				DBConnection.closeConnection(con);
 			} catch (Exception e) {
-				LOCATION.error("Error buscarUsuario :" + e.toString());
+				log.error("Error buscarUsuario :" + e.toString());
 
 			}
 		}
@@ -1613,17 +1608,17 @@ public class SupervisorUtilsRepository {
 		try {
 
 			stmn = con.prepareStatement(OBTIENE_ENTREGA_DETALLE_AGENCIA);
-			LOCATION.error("VBLEN EN DAO:" + vbeln);
+			log.error("VBLEN EN DAO:" + vbeln);
 			stmn.setString(1, vbeln);
 			rs = stmn.executeQuery();
 
 			HashMap<String, String> map = new HashMap<String, String>();
-			LOCATION.error("after execute query");
+			log.error("after execute query");
 
 			while (rs.next()) {
-				LOCATION.error("while");
+				log.error("while");
 				if (map.get(rs.getString("MATNR")) == null) {
-					LOCATION.error("if");
+					log.error("if");
 					map.put(rs.getString("MATNR"), rs.getString("MATNR"));
 
 					EmbarqueDetalleDTO item = new EmbarqueDetalleDTO();
@@ -1631,18 +1626,18 @@ public class SupervisorUtilsRepository {
 					item.setPosicion(rs.getString("POSNR"));
 					item.setDescripcion(rs.getString("ARKTX"));
 
-					LOCATION.error("GET CAJAS");
+					log.error("GET CAJAS");
 					stmn2 = con
 							.prepareStatement(OBTIENE_ENTREGA_DETALLE_AGENCIA_CANTIDAD_X_MATNR);
 					stmn2.setString(1, vbeln);
 					stmn2.setString(2, item.getMaterial());
 
-					LOCATION.error("MATERIAL ->>>>>>>>>>>>>>: "
+					log.error("MATERIAL ->>>>>>>>>>>>>>: "
 							+ item.getMaterial());
 
 					rs2 = stmn2.executeQuery();
 
-					LOCATION.error("stmn4.executeQuery() ->>>>>>>>>>>>>>: "
+					log.error("stmn4.executeQuery() ->>>>>>>>>>>>>>: "
 							+ item.getMaterial());
 
 					if (rs2.next()) {
@@ -1660,16 +1655,16 @@ public class SupervisorUtilsRepository {
 						item.setCajas("0");
 					}
 
-					LOCATION.error("Cajas asignadas");
+					log.error("Cajas asignadas");
 
 					items.add(item);
-					LOCATION.error("Item agregado");
+					log.error("Item agregado");
 
 				}
 
 			}
 
-			LOCATION.error("Size Lista " + items.size());
+			log.error("Size Lista " + items.size());
 			if (items.size() > 0) {
 
 				result.setId(1);
@@ -1680,18 +1675,18 @@ public class SupervisorUtilsRepository {
 			}
 
 		} catch (SQLException e) {
-			LOCATION.error("SQLException: " + e.toString());
+			log.error("SQLException: " + e.toString());
 			result.setId(2);
 			result.setMsg(e.getMessage());
 		} catch (Exception en) {
-			LOCATION.error("SQLException: " + en.toString());
+			log.error("SQLException: " + en.toString());
 			result.setId(2);
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
 				DBConnection.closeConnection(con);
 			} catch (Exception e) {
-				LOCATION.error("SQLException: " + e.toString());
+				log.error("SQLException: " + e.toString());
 				result.setId(2);
 				result.setMsg(e.getMessage());
 			}
