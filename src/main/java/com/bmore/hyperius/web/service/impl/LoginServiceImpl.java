@@ -21,309 +21,309 @@ public class LoginServiceImpl implements LoginService {
   @Autowired
   private LoginRepository loginRepository;
 
-	@Override
-	public ResultDTO Login(String idRed, String password, HttpSession session, int opc) {
+  @Override
+  public ResultDTO Login(String idRed, String password, HttpSession session, int opc) {
 
-		ResultDTO resultDt = new ResultDTO();
-		LoginDTO loginDTO = new LoginDTO();
+    ResultDTO resultDt = new ResultDTO();
+    LoginDTO loginDTO = new LoginDTO();
 
-		boolean isValidUMEUser = true;
+    boolean isValidUMEUser = true;
 
-		String werks = "";
-		int admin = 0;
-		// resultDt = isValidUMEUser(idRed, password);
-		//
-		// if (resultDt.getId() == 1 || resultDt.getId() == 4) {
-		//
-		// if (resultDt.getId() == 4 && opc != 0) {//OPC == 0 no valida
-		// password, deja pasar con cualquier cosa, escenario montacarguistas
-		// isValidUMEUser = false;
-		// }
-		//
-		// } else {
-		// isValidUMEUser = false;
-		// }
+    String werks = "";
+    int admin = 0;
+    // resultDt = isValidUMEUser(idRed, password);
+    //
+    // if (resultDt.getId() == 1 || resultDt.getId() == 4) {
+    //
+    // if (resultDt.getId() == 4 && opc != 0) {//OPC == 0 no valida
+    // password, deja pasar con cualquier cosa, escenario montacarguistas
+    // isValidUMEUser = false;
+    // }
+    //
+    // } else {
+    // isValidUMEUser = false;
+    // }
 
-		if (isValidUMEUser) {
+    if (isValidUMEUser) {
 
-			resultDt = loginRepository.login(idRed);
+      resultDt = loginRepository.login(idRed);
 
-			if (resultDt.getId() == 1) {
+      if (resultDt.getId() == 1) {
 
-				werks = resultDt.getMsg();
-				admin = resultDt.getTypeI();
+        werks = resultDt.getMsg();
+        admin = resultDt.getTypeI();
 
-				log.error("Usuario: " + idRed);
+        log.error("Usuario: " + idRed);
 
-				loginDTO = loginRepository.existeRegistroUsuario(idRed);
+        loginDTO = loginRepository.existeRegistroUsuario(idRed);
 
-				if (loginDTO.getResult().getId() == 1) {// Existe un registro
-					// previo
-					// del usuario
+        if (loginDTO.getResult().getId() == 1) {// Existe un registro
+          // previo
+          // del usuario
 
-					// Revisar si han pasado mas de 15 min desde ultima
-					// operacion,
-					// planchar sessionId sin preguntar, caso contrario avisar
+          // Revisar si han pasado mas de 15 min desde ultima
+          // operacion,
+          // planchar sessionId sin preguntar, caso contrario avisar
 
-					java.util.Date date = new java.util.Date();
-					long miliseconds = date.getTime();
-					long lastOperation = 0;
+          java.util.Date date = new java.util.Date();
+          long miliseconds = date.getTime();
+          long lastOperation = 0;
 
-					try {
-						lastOperation = Long.parseLong(loginDTO.getLastOperation());
-					} catch (Exception e) {
+          try {
+            lastOperation = Long.parseLong(loginDTO.getLastOperation());
+          } catch (Exception e) {
 
-					}
+          }
 
-					lastOperation = miliseconds - lastOperation;
+          lastOperation = miliseconds - lastOperation;
 
-					log.error("logout:." + loginDTO.getLogOut() + ".");
+          log.error("logout:." + loginDTO.getLogOut() + ".");
 
-					// Session valida 0
-					if ((lastOperation > 900000 || session.getId().equals(loginDTO.getSessionId())
-							|| loginDTO.getLogOut().equals("1"))) {// Planchar
+          // Session valida 0
+          if ((lastOperation > 900000 || session.getId().equals(loginDTO.getSessionId())
+              || loginDTO.getLogOut().equals("1"))) {// Planchar
 
-						log.error("logout OK");
-						date = new java.util.Date();
-						miliseconds = date.getTime();
+            log.error("logout OK");
+            date = new java.util.Date();
+            miliseconds = date.getTime();
 
-						loginDTO.setIdRed(idRed);
-						loginDTO.setSessionId(session.getId());
-						loginDTO.setLastOperation(miliseconds + "");
-						loginDTO.setLastLogin(miliseconds + "");
+            loginDTO.setIdRed(idRed);
+            loginDTO.setSessionId(session.getId());
+            loginDTO.setLastOperation(miliseconds + "");
+            loginDTO.setLastLogin(miliseconds + "");
 
-						resultDt = loginRepository.actualizaRegistroUsuario(loginDTO);
+            resultDt = loginRepository.actualizaRegistroUsuario(loginDTO);
 
-					} else {// avisar que se requiere el planchado de session
-						resultDt.setId(998);
-						resultDt.setMsg("Existe un registro de sesión en otra máquina, "
-								+ "ya sea porque otro usuario está dentro del sistema o porque la aplicación "
-								+ "cerro de manera inesperada, ¿Desea terminar la sesión remota?");
-					}
+          } else {// avisar que se requiere el planchado de session
+            resultDt.setId(998);
+            resultDt.setMsg("Existe un registro de sesión en otra máquina, "
+                + "ya sea porque otro usuario está dentro del sistema o porque la aplicación "
+                + "cerro de manera inesperada, ¿Desea terminar la sesión remota?");
+          }
 
-				} else if (loginDTO.getResult().getId() == 3) {// No existe un
-					// registro previo
-					// de la session
+        } else if (loginDTO.getResult().getId() == 3) {// No existe un
+          // registro previo
+          // de la session
 
-					java.util.Date date = new java.util.Date();
-					long miliseconds = date.getTime();
+          java.util.Date date = new java.util.Date();
+          long miliseconds = date.getTime();
 
-					loginDTO.setIdRed(idRed);
-					loginDTO.setSessionId(session.getId());
-					loginDTO.setLastLogin(miliseconds + "");
-					loginDTO.setLastOperation(miliseconds + "");
+          loginDTO.setIdRed(idRed);
+          loginDTO.setSessionId(session.getId());
+          loginDTO.setLastLogin(miliseconds + "");
+          loginDTO.setLastOperation(miliseconds + "");
 
-					resultDt = loginRepository.ingresaRegistroUsuario(loginDTO);
+          resultDt = loginRepository.ingresaRegistroUsuario(loginDTO);
 
-				} else {
-					loginDTO.getResult().setId(2);// error
-				}
+        } else {
+          loginDTO.getResult().setId(2);// error
+        }
 
-			}
-		}
+      }
+    }
 
-		resultDt.setTypeS(werks);
-		resultDt.setTypeI(admin);
+    resultDt.setTypeS(werks);
+    resultDt.setTypeI(admin);
 
-		return resultDt;
+    return resultDt;
 
-	}
+  }
 
-	@Override
-	public ResultDTO newLogin(String idRed, String password, HttpSession session, int opc) {
+  @Override
+  public ResultDTO newLogin(String idRed, String password, HttpSession session, int opc) {
 
-		ResultDTO resultDt = new ResultDTO();
-		LoginDTO loginDTO = new LoginDTO();
+    ResultDTO resultDt = new ResultDTO();
+    LoginDTO loginDTO = new LoginDTO();
 
-		boolean isValidUMEUser = true;
+    boolean isValidUMEUser = true;
 
-		String werks = "";
-		int admin = 0;
-		if (isValidUMEUser) {
+    String werks = "";
+    int admin = 0;
+    if (isValidUMEUser) {
 
-			resultDt = loginRepository.login(idRed);
+      resultDt = loginRepository.login(idRed);
 
-			if (resultDt.getId() == 1) {
+      if (resultDt.getId() == 1) {
 
-				werks = resultDt.getMsg();
-				admin = resultDt.getTypeI();
+        werks = resultDt.getMsg();
+        admin = resultDt.getTypeI();
 
-				log.error("Usuario: " + idRed);
+        log.error("Usuario: " + idRed);
 
-				loginDTO = loginRepository.existeRegistroUsuario(idRed);
+        loginDTO = loginRepository.existeRegistroUsuario(idRed);
 
-				if (loginDTO.getResult().getId() == 1) {// Existe un registro
-					// previo
-					// del usuario
+        if (loginDTO.getResult().getId() == 1) {// Existe un registro
+          // previo
+          // del usuario
 
-					// Revisar si han pasado mas de 15 min desde ultima
-					// operacion,
-					// planchar sessionId sin preguntar, caso contrario avisar
+          // Revisar si han pasado mas de 15 min desde ultima
+          // operacion,
+          // planchar sessionId sin preguntar, caso contrario avisar
 
-					java.util.Date date = new java.util.Date();
-					long miliseconds = date.getTime();
-					long lastOperation = 0;
+          java.util.Date date = new java.util.Date();
+          long miliseconds = date.getTime();
+          long lastOperation = 0;
 
-					try {
-						lastOperation = Long.parseLong(loginDTO.getLastOperation());
-					} catch (Exception e) {
+          try {
+            lastOperation = Long.parseLong(loginDTO.getLastOperation());
+          } catch (Exception e) {
 
-					}
+          }
 
-					lastOperation = miliseconds - lastOperation;
+          lastOperation = miliseconds - lastOperation;
 
-					log.error("logout:." + loginDTO.getLogOut() + ".");
+          log.error("logout:." + loginDTO.getLogOut() + ".");
 
-					// Session valida 0
-					if ((lastOperation > 900000 || session.getId().equals(loginDTO.getSessionId())
-							|| loginDTO.getLogOut().equals("1"))) {// Planchar
+          // Session valida 0
+          if ((lastOperation > 900000 || session.getId().equals(loginDTO.getSessionId())
+              || loginDTO.getLogOut().equals("1"))) {// Planchar
 
-						log.error("logout OK");
-						date = new java.util.Date();
-						miliseconds = date.getTime();
+            log.error("logout OK");
+            date = new java.util.Date();
+            miliseconds = date.getTime();
 
-						loginDTO.setIdRed(idRed);
-						loginDTO.setSessionId(session.getId());
-						loginDTO.setLastOperation(miliseconds + "");
-						loginDTO.setLastLogin(miliseconds + "");
+            loginDTO.setIdRed(idRed);
+            loginDTO.setSessionId(session.getId());
+            loginDTO.setLastOperation(miliseconds + "");
+            loginDTO.setLastLogin(miliseconds + "");
 
-						resultDt = loginRepository.actualizaRegistroUsuario(loginDTO);
+            resultDt = loginRepository.actualizaRegistroUsuario(loginDTO);
 
-					} else {// avisar que se requiere el planchado de session
-						resultDt.setId(998);
-						resultDt.setMsg("Existe un registro de sesión en otra máquina, "
-								+ "ya sea porque otro usuario está dentro del sistema o porque la aplicación "
-								+ "cerro de manera inesperada, ¿Desea terminar la sesión remota?");
-					}
+          } else {// avisar que se requiere el planchado de session
+            resultDt.setId(998);
+            resultDt.setMsg("Existe un registro de sesión en otra máquina, "
+                + "ya sea porque otro usuario está dentro del sistema o porque la aplicación "
+                + "cerro de manera inesperada, ¿Desea terminar la sesión remota?");
+          }
 
-				} else if (loginDTO.getResult().getId() == 3) {// No existe un
-					// registro previo
-					// de la session
+        } else if (loginDTO.getResult().getId() == 3) {// No existe un
+          // registro previo
+          // de la session
 
-					java.util.Date date = new java.util.Date();
-					long miliseconds = date.getTime();
+          java.util.Date date = new java.util.Date();
+          long miliseconds = date.getTime();
 
-					loginDTO.setIdRed(idRed);
-					loginDTO.setSessionId(session.getId());
-					loginDTO.setLastLogin(miliseconds + "");
-					loginDTO.setLastOperation(miliseconds + "");
+          loginDTO.setIdRed(idRed);
+          loginDTO.setSessionId(session.getId());
+          loginDTO.setLastLogin(miliseconds + "");
+          loginDTO.setLastOperation(miliseconds + "");
 
-					resultDt = loginRepository.ingresaRegistroUsuario(loginDTO);
+          resultDt = loginRepository.ingresaRegistroUsuario(loginDTO);
 
-				} else {
-					loginDTO.getResult().setId(2);// error
-				}
+        } else {
+          loginDTO.getResult().setId(2);// error
+        }
 
-			}
-		}
+      }
+    }
 
-		resultDt.setTypeS(werks);
-		resultDt.setTypeI(admin);
+    resultDt.setTypeS(werks);
+    resultDt.setTypeI(admin);
 
-		return resultDt;
+    return resultDt;
 
-	}
+  }
 
-	@Override
-	public ResultDTO actualizaHoraUltimaOperacion(String idRed) {
+  @Override
+  public ResultDTO actualizaHoraUltimaOperacion(String idRed) {
 
-		LoginDTO loginDTO = new LoginDTO();
+    LoginDTO loginDTO = new LoginDTO();
 
-		Date date = new java.util.Date();
-		long miliseconds = date.getTime();
+    Date date = new java.util.Date();
+    long miliseconds = date.getTime();
 
-		loginDTO.setIdRed(idRed);
-		loginDTO.setLogOut("");
-		loginDTO.setLastOperation(miliseconds + "");
+    loginDTO.setIdRed(idRed);
+    loginDTO.setLogOut("");
+    loginDTO.setLastOperation(miliseconds + "");
 
-		return loginRepository.actualizaHoraUltimaOperacion(idRed);
+    return loginRepository.actualizaHoraUltimaOperacion(idRed);
 
-	}
+  }
 
-	@Override
-	public ResultDTO actualizaRegistroUsuario(HttpSession session, String idRed) {
+  @Override
+  public ResultDTO actualizaRegistroUsuario(HttpSession session, String idRed) {
 
-		LoginDTO loginDTO = new LoginDTO();
+    LoginDTO loginDTO = new LoginDTO();
 
-		java.util.Date date = new java.util.Date();
-		long miliseconds = date.getTime();
+    java.util.Date date = new java.util.Date();
+    long miliseconds = date.getTime();
 
-		loginDTO.setIdRed(idRed);
-		loginDTO.setSessionId(session.getId());
-		loginDTO.setLastLogin(miliseconds + "");
-		loginDTO.setLastOperation(miliseconds + "");
+    loginDTO.setIdRed(idRed);
+    loginDTO.setSessionId(session.getId());
+    loginDTO.setLastLogin(miliseconds + "");
+    loginDTO.setLastOperation(miliseconds + "");
 
-		return loginRepository.actualizaRegistroUsuario(loginDTO);
+    return loginRepository.actualizaRegistroUsuario(loginDTO);
 
-	}
+  }
 
-	@Override
-	public ResultDTO checkValidSession(HttpSession session) {
+  @Override
+  public ResultDTO checkValidSession(HttpSession session) {
 
-		ResultDTO resultDt = new ResultDTO();
-		LoginDTO loginDTO = new LoginDTO();
+    ResultDTO resultDt = new ResultDTO();
+    LoginDTO loginDTO = new LoginDTO();
 
-		loginDTO = loginRepository.existeRegistroUsuario((String) session.getAttribute("user"));
+    loginDTO = loginRepository.existeRegistroUsuario((String) session.getAttribute("user"));
 
-		if (loginDTO.getResult().getId() == 1) {// Existe un registro previo
+    if (loginDTO.getResult().getId() == 1) {// Existe un registro previo
 
-			if (session.getId().equals(loginDTO.getSessionId())) {
-				resultDt.setId(1);
-			} else {
+      if (session.getId().equals(loginDTO.getSessionId())) {
+        resultDt.setId(1);
+      } else {
 
-				if (loginDTO.getLogOut().equals("0")) {
+        if (loginDTO.getLogOut().equals("0")) {
 
-					resultDt.setId(2);
-					resultDt.setMsg("Su sesión fue cerrada porque alguien ingreso desde otra terminal con su usuario");
+          resultDt.setId(2);
+          resultDt.setMsg("Su sesión fue cerrada porque alguien ingreso desde otra terminal con su usuario");
 
-				} else {
-					resultDt.setId(2);
-					resultDt.setMsg("Su sesión expiro, vuelva a ingresar al sistema");
-				}
+        } else {
+          resultDt.setId(2);
+          resultDt.setMsg("Su sesión expiro, vuelva a ingresar al sistema");
+        }
 
-				// session.removeAttribute("user");
-				// session.removeAttribute("werks");
-				// session.invalidate();
-				// LOCATION.error("Cerrando session");
-			}
-		}
+        // session.removeAttribute("user");
+        // session.removeAttribute("werks");
+        // session.invalidate();
+        // LOCATION.error("Cerrando session");
+      }
+    }
 
-		return resultDt;
-	}
+    return resultDt;
+  }
 
-	/*
-	 * public ResultDT isValidUMEUser(String user, String password) {
-	 * 
-	 * ResultDT resultDT = new ResultDT();
-	 * 
-	 * try { IUserAccount userAccount = UMFactory.getUserAccountFactory()
-	 * .getUserAccountByLogonId(user); if (!userAccount.isPasswordDisabled()) { if
-	 * (!userAccount.isUserAccountLocked()) {
-	 * 
-	 * if (userAccount.checkPassword(password)) { resultDT.setId(1);
-	 * resultDT.setMsg("Usuario validado correctamente"); } else {
-	 * resultDT.setId(4); resultDT.setMsg("Password incorrecto"); }
-	 * 
-	 * } else { LOCATION.error("Password disabled for user: " + user);
-	 * resultDT.setId(4); resultDT.setMsg("Password disabled for user: " + user); }
-	 * } else { LOCATION.error("Account blocked for user: " + user);
-	 * resultDT.setId(4); resultDT.setMsg("Account blocked for user: " + user); } }
-	 * catch (UMException e) {
-	 * 
-	 * LOCATION.error("Hubo un error al validar el usuario. " + e.getMessage());
-	 * 
-	 * resultDT.setId(2); resultDT.setMsg("Hubo un error al validar el usuario. " +
-	 * e.getMessage()); e.printStackTrace(); }
-	 * 
-	 * return resultDT;
-	 * 
-	 * }
-	 */
+  /*
+   * public ResultDT isValidUMEUser(String user, String password) {
+   * 
+   * ResultDT resultDT = new ResultDT();
+   * 
+   * try { IUserAccount userAccount = UMFactory.getUserAccountFactory()
+   * .getUserAccountByLogonId(user); if (!userAccount.isPasswordDisabled()) { if
+   * (!userAccount.isUserAccountLocked()) {
+   * 
+   * if (userAccount.checkPassword(password)) { resultDT.setId(1);
+   * resultDT.setMsg("Usuario validado correctamente"); } else {
+   * resultDT.setId(4); resultDT.setMsg("Password incorrecto"); }
+   * 
+   * } else { LOCATION.error("Password disabled for user: " + user);
+   * resultDT.setId(4); resultDT.setMsg("Password disabled for user: " + user); }
+   * } else { LOCATION.error("Account blocked for user: " + user);
+   * resultDT.setId(4); resultDT.setMsg("Account blocked for user: " + user); } }
+   * catch (UMException e) {
+   * 
+   * LOCATION.error("Hubo un error al validar el usuario. " + e.getMessage());
+   * 
+   * resultDT.setId(2); resultDT.setMsg("Hubo un error al validar el usuario. " +
+   * e.getMessage()); e.printStackTrace(); }
+   * 
+   * return resultDT;
+   * 
+   * }
+   */
 
-	@Override
-	public ResultDTO loginWebApp(String IdRed) {
-		ResultDTO resultDt = new ResultDTO();
-		resultDt = loginRepository.loginAppWeb(IdRed);
-		return resultDt;
-	}
+  @Override
+  public ResultDTO loginWebApp(String IdRed) {
+    ResultDTO resultDt = new ResultDTO();
+    resultDt = loginRepository.loginAppWeb(IdRed);
+    return resultDt;
+  }
 }

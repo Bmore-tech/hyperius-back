@@ -20,7 +20,6 @@ import com.bmore.hyperius.web.dto.PaletizadoraDTO;
 import com.bmore.hyperius.web.dto.PaletizadorasDTO;
 import com.bmore.hyperius.web.dto.ResultDTO;
 import com.bmore.hyperius.web.repository.ControlPaletizadoraRepository;
-import com.bmore.hyperius.web.repository.old.ControlPaletizadoraRepositoryOld;
 import com.bmore.hyperius.web.repository.old.RecepcionEnvaseRepository;
 import com.bmore.hyperius.web.repository.old.UbicacionPTRepository;
 import com.bmore.hyperius.web.service.ControlPaletizadoraService;
@@ -29,442 +28,439 @@ import com.bmore.hyperius.web.utils.Utils;
 @Service
 public class ControlPaletizadoraServiceImpl implements ControlPaletizadoraService {
 
-	private final Logger LOCATION = LoggerFactory.getLogger(getClass());
+  private final Logger LOCATION = LoggerFactory.getLogger(getClass());
 
-	@Autowired
-	private ControlPaletizadoraRepository controlPaletizadoraRepository;
-	
-	//private ControlPaletizadoraRepositoryOld controlPaletizadoraDAO = new ControlPaletizadoraRepositoryOld();
+  @Autowired
+  private ControlPaletizadoraRepository controlPaletizadoraRepository;
 
-	@Override
-	public PaletizadorasDTO obtienePaletizadoras(String werks) {
+  @Autowired
+  private RecepcionEnvaseRepository recepcionEnvaseRepository;
 
-		PaletizadorasDTO paletizadorasDTO = new PaletizadorasDTO();
-		paletizadorasDTO = controlPaletizadoraRepository.obtienePaletizadoras(werks);
+  @Autowired
+  private UbicacionPTRepository ubicacionPTRepository;
 
-		if (paletizadorasDTO.getResultDT().getId() == 1) {
+  // private ControlPaletizadoraRepositoryOld controlPaletizadoraDAO = new
+  // ControlPaletizadoraRepositoryOld();
 
-			for (int x = 0; x < paletizadorasDTO.getPaletizadoras().getItem().size(); x++) {
+  @Override
+  public PaletizadorasDTO obtienePaletizadoras(String werks) {
 
-				PaletizadoraDTO item = paletizadorasDTO.getPaletizadoras().getItem().get(x);
+    PaletizadorasDTO paletizadorasDTO = new PaletizadorasDTO();
+    paletizadorasDTO = controlPaletizadoraRepository.obtienePaletizadoras(werks);
 
-				item.setAufnr(Utils.zeroClean(item.getAufnr()));
-				item.setTarima(Utils.zeroClean(item.getTarima()));
+    if (paletizadorasDTO.getResultDT().getId() == 1) {
 
-			}
+      for (int x = 0; x < paletizadorasDTO.getPaletizadoras().getItem().size(); x++) {
 
-		}
+        PaletizadoraDTO item = paletizadorasDTO.getPaletizadoras().getItem().get(x);
 
-		return paletizadorasDTO;
+        item.setAufnr(Utils.zeroClean(item.getAufnr()));
+        item.setTarima(Utils.zeroClean(item.getTarima()));
 
-	}
+      }
 
-	@Override
-	public ResultDTO actualizaOrdenEnPaletizadora(PaletizadoraDTO paletizadora) {
+    }
 
-		ResultDTO result = new ResultDTO();
+    return paletizadorasDTO;
 
-		UbicacionPTRepository ubicacionPTDAO = new UbicacionPTRepository();
-		
+  }
 
-		OrdenProduccionDTO ordenProduccionDTO = new OrdenProduccionDTO();
+  @Override
+  public ResultDTO actualizaOrdenEnPaletizadora(PaletizadoraDTO paletizadora) {
+    ResultDTO result = new ResultDTO();
+    OrdenProduccionDTO ordenProduccionDTO = new OrdenProduccionDTO();
 
-		paletizadora.setAufnr(Utils.zeroFill(paletizadora.getAufnr(), 12));
+    paletizadora.setAufnr(Utils.zeroFill(paletizadora.getAufnr(), 12));
 
-		ordenProduccionDTO.setOrdenProduccion(paletizadora.getAufnr());
-		ordenProduccionDTO.setWerks(paletizadora.getWerks());
+    ordenProduccionDTO.setOrdenProduccion(paletizadora.getAufnr());
+    ordenProduccionDTO.setWerks(paletizadora.getWerks());
 
-		ordenProduccionDTO = ubicacionPTDAO.getOrden(ordenProduccionDTO);
+    ordenProduccionDTO = ubicacionPTRepository.getOrden(ordenProduccionDTO);
 
-		result = ordenProduccionDTO.getResultDT();
+    result = ordenProduccionDTO.getResultDT();
 
-		if (result.getId() == 1) {
-			controlPaletizadoraRepository.guardaPaletizadora(paletizadora);
-		}
+    if (result.getId() == 1) {
+      controlPaletizadoraRepository.guardaPaletizadora(paletizadora);
+    }
 
-		return result;
+    return result;
+  }
 
-	}
+  @Override
+  public ResultDTO obtieneCantidadHUS(String aufnr) {
 
-	@Override
-	public ResultDTO obtieneCantidadHUS(String aufnr) {
+    ResultDTO result = new ResultDTO();
 
-		ResultDTO result = new ResultDTO();
+    result = controlPaletizadoraRepository.obtieneCantidadHUS(Utils.zeroFill(aufnr, 12));
 
-		result = controlPaletizadoraRepository.obtieneCantidadHUS(Utils.zeroFill(aufnr, 12));
+    return result;
 
-		return result;
+  }
 
-	}
+  @Override
+  public ResultDTO marcarHusParaImprimir(PaletizadoraDTO paletizadora) {
 
-	@Override
-	public ResultDTO marcarHusParaImprimir(PaletizadoraDTO paletizadora) {
+    ResultDTO result = new ResultDTO();
 
-		ResultDTO result = new ResultDTO();
+    // ControlPaletizadoraDAO controlPaletizadoraDAO = new
+    // ControlPaletizadoraDAO();
+    paletizadora.setAufnr(Utils.zeroFill(paletizadora.getAufnr(), 12));
 
-		// ControlPaletizadoraDAO controlPaletizadoraDAO = new
-		// ControlPaletizadoraDAO();
-		paletizadora.setAufnr(Utils.zeroFill(paletizadora.getAufnr(), 12));
+    // if (paletizadora.getWerks().indexOf("PC") >= 0) {
 
-		// if (paletizadora.getWerks().indexOf("PC") >= 0) {
+    result = generaHusBCPS(paletizadora);
 
-		result = generaHusBCPS(paletizadora);
+    // } else {
+    //
+    // result = controlPaletizadoraDAO.marcarHusParaImprimir(paletizadora);
+    // }
 
-		// } else {
-		//
-		// result = controlPaletizadoraDAO.marcarHusParaImprimir(paletizadora);
-		// }
+    return result;
 
-		return result;
+  }
 
-	}
+  @Override
+  public ResultDTO generaHusBCPS(PaletizadoraDTO paletizadora) {
+    // Hus generadas por el legado
 
-	@Override
-	public ResultDTO generaHusBCPS(PaletizadoraDTO paletizadora) {
-		// Hus generadas por el legado
+    ResultDTO result = new ResultDTO();
 
-		ResultDTO result = new ResultDTO();
+    paletizadora.setAufnr(Utils.zeroFill(paletizadora.getAufnr(), 12));
 
-		paletizadora.setAufnr(Utils.zeroFill(paletizadora.getAufnr(), 12));
+    String keyTimeStamp = Utils.getKeyTimeStamp();
 
-		String keyTimeStamp = Utils.getKeyTimeStamp();
+    BigDecimal bigDecimal = new BigDecimal(paletizadora.getCantidadEtiqueasAImprimir());
 
-		BigDecimal bigDecimal = new BigDecimal(paletizadora.getCantidadEtiqueasAImprimir());
+    int generarHus = Integer.parseInt(bigDecimal.toBigInteger() + "");
 
-		int generarHus = Integer.parseInt(bigDecimal.toBigInteger() + "");
+    LOCATION.error("Numero generar hus: " + generarHus);
+    int contHus = 0;
+    for (int x = 0; x < generarHus; x++) {
 
-		LOCATION.error("Numero generar hus: " + generarHus);
-		int contHus = 0;
-		for (int x = 0; x < generarHus; x++) {
+      result = controlPaletizadoraRepository.generaHusBCPS(paletizadora, keyTimeStamp);
 
-			result = controlPaletizadoraRepository.generaHusBCPS(paletizadora, keyTimeStamp);
+      switch (result.getId()) {
 
-			switch (result.getId()) {
+        case 1:// Todo Ok
 
-			case 1:// Todo Ok
+          break;
+        case 10:
+          result.setMsg("No se encontro la orden de producción en la ZPAITT_PALLETOBR");
+          break;
 
-				break;
-			case 10:
-				result.setMsg("No se encontro la orden de producción en la ZPAITT_PALLETOBR");
-				break;
+        default:
+          result.setMsg("No fue posible generar nueva hu: " + result.getId() + result.getMsg());
+          break;
 
-			default:
-				result.setMsg("No fue posible generar nueva hu: " + result.getId() + result.getMsg());
-				break;
+      }
 
-			}
+      if (result.getId() != 1) {
+        contHus++;
+        result.setMsg("Se crearon " + contHus + " hus ->" + result.getMsg());
 
-			if (result.getId() != 1) {
-				contHus++;
-				result.setMsg("Se crearon " + contHus + " hus ->" + result.getMsg());
+        break;
+      } else {
+        result.setMsg(paletizadora.getAufnr());
+      }
+    }
 
-				break;
-			} else {
-				result.setMsg(paletizadora.getAufnr());
-			}
-		}
+    result.setTypeS(keyTimeStamp);
+    return result;
 
-		result.setTypeS(keyTimeStamp);
-		return result;
+  }
 
-	}
+  @Override
+  public NormasEmbalajeDTO obtieneNormasEmbalaje(String aufnr, String werks, String unidadMedida, String cantidad,
+      int opc, String material) {
 
-	@Override
-	public NormasEmbalajeDTO obtieneNormasEmbalaje(String aufnr, String werks, String unidadMedida, String cantidad,
-			int opc, String material) {
+    NormasEmbalajeDTO normasEmbalajeDTO = new NormasEmbalajeDTO();
+    NormaEmbalajeItemsDTO normaEmbalajeItemsDTO = new NormaEmbalajeItemsDTO();
+    List<NormaEmbalajeDTO> listNormaEmbalajeDTO = new ArrayList<NormaEmbalajeDTO>();
 
-		NormasEmbalajeDTO normasEmbalajeDTO = new NormasEmbalajeDTO();
-		NormaEmbalajeItemsDTO normaEmbalajeItemsDTO = new NormaEmbalajeItemsDTO();
-		List<NormaEmbalajeDTO> listNormaEmbalajeDTO = new ArrayList<NormaEmbalajeDTO>();
+    normaEmbalajeItemsDTO.setItem(listNormaEmbalajeDTO);
+    normasEmbalajeDTO.setItems(normaEmbalajeItemsDTO);
 
-		normaEmbalajeItemsDTO.setItem(listNormaEmbalajeDTO);
-		normasEmbalajeDTO.setItems(normaEmbalajeItemsDTO);
+    ResultDTO resultDT = new ResultDTO();
+    OrdenProduccionDTO ordenProduccionDTO = new OrdenProduccionDTO();
 
-		ResultDTO resultDT = new ResultDTO();
+    EntregaDTO entregaDTO = new EntregaDTO();
+    boolean equivalenciasOk = true;
 
-		UbicacionPTRepository ubicacionPTDAO = new UbicacionPTRepository();
-		RecepcionEnvaseRepository recepcionEnvaseDAO = new RecepcionEnvaseRepository();
+    LOCATION.error("Doc: " + Utils.zeroFill(aufnr, 12) + " werks: " + werks);
 
-		OrdenProduccionDTO ordenProduccionDTO = new OrdenProduccionDTO();
+    int listSize = 0;
 
-		EntregaDTO entregaDTO = new EntregaDTO();
-		boolean equivalenciasOk = true;
+    switch (opc) {
 
-		LOCATION.error("Doc: " + Utils.zeroFill(aufnr, 12) + " werks: " + werks);
+      case 1:
 
-		int listSize = 0;
+        ordenProduccionDTO = ubicacionPTRepository.detalleOrdenProduccionSoloCabecera(Utils.zeroFill(aufnr, 12), werks);
 
-		switch (opc) {
+        listSize = ordenProduccionDTO.getItems().getItem().size();
 
-		case 1:
+        resultDT = ordenProduccionDTO.getResultDT();
 
-			ordenProduccionDTO = ubicacionPTDAO.detalleOrdenProduccionSoloCabecera(Utils.zeroFill(aufnr, 12), werks);
+        break;
 
-			listSize = ordenProduccionDTO.getItems().getItem().size();
+      case 2:
 
-			resultDT = ordenProduccionDTO.getResultDT();
+        entregaDTO = recepcionEnvaseRepository.getEntregaDetalleSoloCabecera(Utils.zeroFill(aufnr, 10));
 
-			break;
+        resultDT = entregaDTO.getResultDT();
 
-		case 2:
+        listSize = entregaDTO.getItems().getItem().size();
 
-			entregaDTO = recepcionEnvaseDAO.getEntregaDetalleSoloCabecera(Utils.zeroFill(aufnr, 10));
+        break;
 
-			resultDT = entregaDTO.getResultDT();
+      case 3:// Mostrar normas embalaje para creacion entregas cscLogistica
+        listSize = 1;
+        resultDT.setId(1);
 
-			listSize = entregaDTO.getItems().getItem().size();
+        break;
+      default:
+        LOCATION.error("No se envió la OPC para recuperar datos del documento");
+        return null;
 
-			break;
+    }
 
-		case 3:// Mostrar normas embalaje para creacion entregas cscLogistica
-			listSize = 1;
-			resultDT.setId(1);
+    if (resultDT.getId() == 1) {
 
-			break;
-		default:
-			LOCATION.error("No se envió la OPC para recuperar datos del documento");
-			return null;
+      for (int x = 0; x < listSize; x++) {
 
-		}
+        OrdenProduccionDetalleDTO item = new OrdenProduccionDetalleDTO();
 
-		if (resultDT.getId() == 1) {
+        switch (opc) {
 
-			for (int x = 0; x < listSize; x++) {
+          case 1:
+            item = ordenProduccionDTO.getItems().getItem().get(x);
+            break;
 
-				OrdenProduccionDetalleDTO item = new OrdenProduccionDetalleDTO();
+          case 2:
+            item.setMaterial(entregaDTO.getItems().getItem().get(x).getMaterial());
+            item.setDescripcion(entregaDTO.getItems().getItem().get(x).getDescripcion());
 
-				switch (opc) {
+            break;
+          case 3:
+            item.setMaterial(Utils.zeroFill(material, 18));
 
-				case 1:
-					item = ordenProduccionDTO.getItems().getItem().get(x);
-					break;
+            break;
+          default:
+            LOCATION.error("No se envió la OPC para recuperar datos del documento");
+            return null;
+        }
 
-				case 2:
-					item.setMaterial(entregaDTO.getItems().getItem().get(x).getMaterial());
-					item.setDescripcion(entregaDTO.getItems().getItem().get(x).getDescripcion());
+        // // Obtener letys por material
 
-					break;
-				case 3:
-					item.setMaterial(Utils.zeroFill(material, 18));
+        NormasEmbalajeDTO tarimas = controlPaletizadoraRepository.obtieneTarimas(item.getMaterial());
 
-					break;
-				default:
-					LOCATION.error("No se envió la OPC para recuperar datos del documento");
-					return null;
-				}
+        if (tarimas.getResultDT().getId() == 1) {
 
-				// // Obtener letys por material
+          for (int y = 0; y < tarimas.getItems().getItem().size(); y++) {
 
-				NormasEmbalajeDTO tarimas = controlPaletizadoraRepository.obtieneTarimas(item.getMaterial());
+            NormaEmbalajeDTO tarima = tarimas.getItems().getItem().get(y);
 
-				if (tarimas.getResultDT().getId() == 1) {
+            tarima.setMatnr(Utils.zeroClean(item.getMaterial()));
 
-					for (int y = 0; y < tarimas.getItems().getItem().size(); y++) {
+            tarima.setMaktx(item.getDescripcion());
 
-						NormaEmbalajeDTO tarima = tarimas.getItems().getItem().get(y);
+            tarima.setTarima(Utils.zeroClean(tarima.getTarima()));
 
-						tarima.setMatnr(Utils.zeroClean(item.getMaterial()));
+            tarima.setCantidad2(tarima.getCantidad());
+            tarima.setUnidadMedida2(tarima.getUnidadMedida());
 
-						tarima.setMaktx(item.getDescripcion());
+            if (opc == 2 && !unidadMedida.trim().equalsIgnoreCase(tarima.getUnidadMedida().trim())) {
 
-						tarima.setTarima(Utils.zeroClean(tarima.getTarima()));
+              /**
+               * Se estan mostrando las normas de embalaje para embalar entregas y es
+               * necesario realizar la conversion entre las unidades de medida
+               */
 
-						tarima.setCantidad2(tarima.getCantidad());
-						tarima.setUnidadMedida2(tarima.getUnidadMedida());
+              NormasEmbalajeDTO equivalencias = controlPaletizadoraRepository
+                  .obtieneEquivalenciasUM(item.getMaterial(), unidadMedida);
 
-						if (opc == 2 && !unidadMedida.trim().equalsIgnoreCase(tarima.getUnidadMedida().trim())) {
+              if (equivalencias.getResultDT().getId() == 1) {
 
-							/**
-							 * Se estan mostrando las normas de embalaje para embalar entregas y es
-							 * necesario realizar la conversion entre las unidades de medida
-							 */
+                LOCATION.error("ResultDT Entro.....");
 
-							NormasEmbalajeDTO equivalencias = controlPaletizadoraRepository
-									.obtieneEquivalenciasUM(item.getMaterial(), unidadMedida);
+                /**
+                 * Solo existe una equivalencia en el sistema
+                 */
 
-							if (equivalencias.getResultDT().getId() == 1) {
+                NormaEmbalajeDTO equivalencia = equivalencias.getItems().getItem().get(0);
 
-								LOCATION.error("ResultDT Entro.....");
+                BigDecimal cantidadBD = new BigDecimal(0);
+                BigDecimal umrez = new BigDecimal(0);
+                BigDecimal umren = new BigDecimal(0);
+                BigDecimal res = new BigDecimal(0);
+                LOCATION.error("ResultDT Entro 213.....");
+                try {
 
-								/**
-								 * Solo existe una equivalencia en el sistema
-								 */
+                  LOCATION.error("cantidadDB " + cantidad.trim());
+                  cantidadBD = new BigDecimal(cantidad.trim());
 
-								NormaEmbalajeDTO equivalencia = equivalencias.getItems().getItem().get(0);
+                  umrez = new BigDecimal(equivalencia.getUmrez().trim());
+                  LOCATION.error("umrez " + equivalencia.getUmrez().trim());
+                  umren = new BigDecimal(equivalencia.getUmren().trim());
 
-								BigDecimal cantidadBD = new BigDecimal(0);
-								BigDecimal umrez = new BigDecimal(0);
-								BigDecimal umren = new BigDecimal(0);
-								BigDecimal res = new BigDecimal(0);
-								LOCATION.error("ResultDT Entro 213.....");
-								try {
+                  LOCATION.error("umren " + equivalencia.getUmren().trim());
+                  res = new BigDecimal(0);
 
-									LOCATION.error("cantidadDB " + cantidad.trim());
-									cantidadBD = new BigDecimal(cantidad.trim());
+                  LOCATION.error("res1 " + res.toString());
 
-									umrez = new BigDecimal(equivalencia.getUmrez().trim());
-									LOCATION.error("umrez " + equivalencia.getUmrez().trim());
-									umren = new BigDecimal(equivalencia.getUmren().trim());
+                  res = cantidadBD.multiply(umrez).divide(umren);
 
-									LOCATION.error("umren " + equivalencia.getUmren().trim());
-									res = new BigDecimal(0);
+                  LOCATION.error("res2 " + res);
 
-									LOCATION.error("res1 " + res.toString());
+                  LOCATION.error("tarimaGetCatidad" + tarima.getCantidad());
 
-									res = cantidadBD.multiply(umrez).divide(umren);
+                  res = res.divide(new BigDecimal(tarima.getCantidad().trim()), RoundingMode.HALF_UP)
+                      .setScale(3);
 
-									LOCATION.error("res2 " + res);
+                  LOCATION.error("res3 " + res);
 
-									LOCATION.error("tarimaGetCatidad" + tarima.getCantidad());
+                  res = cantidadBD.divide(res, RoundingMode.HALF_UP).setScale(3);
 
-									res = res.divide(new BigDecimal(tarima.getCantidad().trim()), RoundingMode.HALF_UP)
-											.setScale(3);
+                  LOCATION.error("res4 " + res);
 
-									LOCATION.error("res3 " + res);
+                  tarima.setCantidad(res.toString());
+                  tarima.setUnidadMedida(unidadMedida);
 
-									res = cantidadBD.divide(res, RoundingMode.HALF_UP).setScale(3);
+                } catch (Exception e) {
+                  resultDT.setId(2);
+                  resultDT.setMsg("Error al realizar la conversión a BigDecimal");
+                  LOCATION.error("Error: " + e.toString());
+                  equivalenciasOk = false;
 
-									LOCATION.error("res4 " + res);
+                }
 
-									tarima.setCantidad(res.toString());
-									tarima.setUnidadMedida(unidadMedida);
+              } else {
 
-								} catch (Exception e) {
-									resultDT.setId(2);
-									resultDT.setMsg("Error al realizar la conversión a BigDecimal");
-									LOCATION.error("Error: " + e.toString());
-									equivalenciasOk = false;
+                resultDT = equivalencias.getResultDT();
 
-								}
+                equivalenciasOk = false;
+                break;
+              }
 
-							} else {
+            }
 
-								resultDT = equivalencias.getResultDT();
+            normaEmbalajeItemsDTO.getItem().add(tarima);
 
-								equivalenciasOk = false;
-								break;
-							}
+          }
 
-						}
+        }
 
-						normaEmbalajeItemsDTO.getItem().add(tarima);
+        normaEmbalajeItemsDTO.setItem(tarimas.getItems().getItem());
+        normasEmbalajeDTO.setItems(normaEmbalajeItemsDTO);
+      }
+    }
 
-					}
+    if (normasEmbalajeDTO.getItems().getItem().size() > 0 && equivalenciasOk) {
+      resultDT.setId(1);
+      resultDT.setMsg("Normas de embalaje recuperadas con exito");
 
-				}
+    }
 
-				normaEmbalajeItemsDTO.setItem(tarimas.getItems().getItem());
-				normasEmbalajeDTO.setItems(normaEmbalajeItemsDTO);
-			}
-		}
+    normasEmbalajeDTO.setResultDT(resultDT);
 
-		if (normasEmbalajeDTO.getItems().getItem().size() > 0 && equivalenciasOk) {
-			resultDT.setId(1);
-			resultDT.setMsg("Normas de embalaje recuperadas con exito");
+    return normasEmbalajeDTO;
 
-		}
+  }
 
-		normasEmbalajeDTO.setResultDT(resultDT);
+  @Override
+  public ResultDTO cambiarNormaEmbalaje(PaletizadoraDTO paletizadoraDTO) {
 
-		return normasEmbalajeDTO;
+    ResultDTO resultDT = new ResultDTO();
 
-	}
+    paletizadoraDTO.setAufnr(Utils.zeroFill(paletizadoraDTO.getAufnr(), 12));
 
-	@Override
-	public ResultDTO cambiarNormaEmbalaje(PaletizadoraDTO paletizadoraDTO) {
+    paletizadoraDTO.setTarima(Utils.zeroFill(paletizadoraDTO.getTarima(), 18));
 
-		ResultDTO resultDT = new ResultDTO();
+    // if (paletizadoraDTO.getWerks().toUpperCase().indexOf("PC") >= 0) {//
+    // Cerveza
 
-		paletizadoraDTO.setAufnr(Utils.zeroFill(paletizadoraDTO.getAufnr(), 12));
+    paletizadoraDTO.setMaterialPTTarima(Utils.zeroFill(paletizadoraDTO.getMaterialPTTarima(), 18));
 
-		paletizadoraDTO.setTarima(Utils.zeroFill(paletizadoraDTO.getTarima(), 18));
+    resultDT = controlPaletizadoraRepository.cambiarNormaEmbalajeBCPS(paletizadoraDTO);
 
-		// if (paletizadoraDTO.getWerks().toUpperCase().indexOf("PC") >= 0) {//
-		// Cerveza
+    if (resultDT.getId() == 1)
+      resultDT.setMsg("Orden actualizada con exito");
 
-		paletizadoraDTO.setMaterialPTTarima(Utils.zeroFill(paletizadoraDTO.getMaterialPTTarima(), 18));
+    //
+    // } else {// envases y tapas
+    //
+    // paletizadoraDTO.setMaterialPTTarima(Utils.zeroFill(paletizadoraDTO
+    // .getMaterialPTTarima(), 18));
+    //
+    // resultDT = controlPaletizadoraDAO
+    // .cambiarNormaEmbalajeBCPS(paletizadoraDTO);
+    //
+    // if (resultDT.getId() == 1) {
+    //
+    // resultDT = controlPaletizadoraDAO
+    // .cambiarNormaEmbalaje(paletizadoraDTO);
+    //
+    // }
 
-		resultDT = controlPaletizadoraRepository.cambiarNormaEmbalajeBCPS(paletizadoraDTO);
+    // }
 
-		if (resultDT.getId() == 1)
-			resultDT.setMsg("Orden actualizada con exito");
+    return resultDT;
 
-		//
-		// } else {// envases y tapas
-		//
-		// paletizadoraDTO.setMaterialPTTarima(Utils.zeroFill(paletizadoraDTO
-		// .getMaterialPTTarima(), 18));
-		//
-		// resultDT = controlPaletizadoraDAO
-		// .cambiarNormaEmbalajeBCPS(paletizadoraDTO);
-		//
-		// if (resultDT.getId() == 1) {
-		//
-		// resultDT = controlPaletizadoraDAO
-		// .cambiarNormaEmbalaje(paletizadoraDTO);
-		//
-		// }
+  }
 
-		// }
+  @Override
+  public ResultDTO embalarHus(PaletizadoraDTO paletizadora, String userId) {
 
-		return resultDT;
+    // Hus generadas por el legado
 
-	}
+    ResultDTO result = new ResultDTO();
 
-	@Override
-	public ResultDTO embalarHus(PaletizadoraDTO paletizadora, String userId) {
+    paletizadora.setAufnr(Utils.zeroFill(paletizadora.getAufnr(), 10));
 
-		// Hus generadas por el legado
+    String keyTimeStamp = Utils.getKeyTimeStamp();
 
-		ResultDTO result = new ResultDTO();
+    BigDecimal bigDecimal = new BigDecimal(paletizadora.getCantidadEtiqueasAImprimir());
 
-		paletizadora.setAufnr(Utils.zeroFill(paletizadora.getAufnr(), 10));
+    int generarHus = Integer.parseInt(bigDecimal.toBigInteger() + "");
 
-		String keyTimeStamp = Utils.getKeyTimeStamp();
+    LOCATION.error("Numero generar hus: " + generarHus);
 
-		BigDecimal bigDecimal = new BigDecimal(paletizadora.getCantidadEtiqueasAImprimir());
+    int contHus = 0;
+    for (int x = 0; x < generarHus; x++) {
 
-		int generarHus = Integer.parseInt(bigDecimal.toBigInteger() + "");
+      paletizadora.setAufnr(Utils.zeroFill(paletizadora.getAufnr(), 10));
 
-		LOCATION.error("Numero generar hus: " + generarHus);
+      paletizadora.setMaterialPTTarima(Utils.zeroFill(paletizadora.getMaterialPTTarima(), 18));
+      paletizadora.setTarima(Utils.zeroFill(paletizadora.getTarima(), 18));
 
-		int contHus = 0;
-		for (int x = 0; x < generarHus; x++) {
+      result = controlPaletizadoraRepository.embalarHus(paletizadora, keyTimeStamp, userId);
 
-			paletizadora.setAufnr(Utils.zeroFill(paletizadora.getAufnr(), 10));
+      switch (result.getId()) {
 
-			paletizadora.setMaterialPTTarima(Utils.zeroFill(paletizadora.getMaterialPTTarima(), 18));
-			paletizadora.setTarima(Utils.zeroFill(paletizadora.getTarima(), 18));
+        case 1:// Todo Ok
 
-			result = controlPaletizadoraRepository.embalarHus(paletizadora, keyTimeStamp, userId);
+          break;
+        case 10:
+          result.setMsg("No se encontro la orden de entrega en LIKP");
+          break;
 
-			switch (result.getId()) {
+        default:
+          result.setMsg("No fue posible generar nueva hu: " + result.getId() + result.getMsg());
+          break;
 
-			case 1:// Todo Ok
+      }
 
-				break;
-			case 10:
-				result.setMsg("No se encontro la orden de entrega en LIKP");
-				break;
+      if (result.getId() != 1) {
+        contHus++;
+        result.setMsg("Se crearon " + contHus + " hus ->" + result.getMsg());
 
-			default:
-				result.setMsg("No fue posible generar nueva hu: " + result.getId() + result.getMsg());
-				break;
+        break;
+      } else {
+        result.setMsg(paletizadora.getAufnr());
+      }
+    }
 
-			}
+    result.setTypeS(keyTimeStamp);
+    return result;
 
-			if (result.getId() != 1) {
-				contHus++;
-				result.setMsg("Se crearon " + contHus + " hus ->" + result.getMsg());
-
-				break;
-			} else {
-				result.setMsg(paletizadora.getAufnr());
-			}
-		}
-
-		result.setTypeS(keyTimeStamp);
-		return result;
-
-	}
+  }
 }

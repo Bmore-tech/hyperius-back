@@ -6,8 +6,6 @@ import java.io.FileNotFoundException;
 
 import javax.servlet.ServletContext;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -18,12 +16,12 @@ import org.springframework.stereotype.Service;
 
 import com.bmore.hyperius.web.dto.ResultDTO;
 import com.bmore.hyperius.web.repository.HUsRepository;
-import com.bmore.hyperius.web.repository.old.HUsRepositoryOld;
 import com.bmore.hyperius.web.rest.resquest.CreateEtiquetaReportRequest;
 import com.bmore.hyperius.web.service.EtiquetaViaEtiquetaService;
 import com.bmore.hyperius.web.utils.print.EtiquetaDatasource;
 import com.bmore.hyperius.web.utils.print.Etiquetas;
 
+import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -33,141 +31,137 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
+@Slf4j
 @Service
 public class EtiquetaViaEtiquetaServiceImpl implements EtiquetaViaEtiquetaService {
 
-	private final Logger logger = LoggerFactory.getLogger(getClass());
+  @Autowired
+  private HUsRepository hUsRepository;
 
-	@Autowired
-	private HUsRepository hUsRepository;
+  @Autowired
+  private ServletContext servletContext;
 
-	private HUsRepositoryOld husRepositoryOld = new HUsRepositoryOld();
+  @Override
+  public ResponseEntity<Resource> createEtiquetaReport(CreateEtiquetaReportRequest request, String token) {
+    String jasper = "";
+    HttpHeaders headers = new HttpHeaders();
+    ResultDTO resultDT = new ResultDTO();
+    String proceso = "";
+    String entrega = "";
 
-	@Autowired
-	private ServletContext servletContext;
+    String hus = "";
+    String hu = "";
 
-	@Override
-	public ResponseEntity<Resource> createEtiquetaReport(CreateEtiquetaReportRequest request, String token) {
-		String jasper = "";
-		HttpHeaders headers = new HttpHeaders();
-		ResultDTO resultDT = new ResultDTO();
-		String proceso = "";
-		String entrega = "";
+    for (int x = 0; x < request.getItem().size(); x++) {
+      entrega = request.getItem().get(x).getVblen();
+      proceso = request.getItem().get(x).getId();
+      hus += "'" + request.getItem().get(x).getHu() + "',";
 
-		String hus = "";
-		String hu = "";
+      hu = request.getItem().get(x).getHu();
+    }
 
-		for (int x = 0; x < request.getItem().size(); x++) {
-			entrega = request.getItem().get(x).getVblen();
-			proceso = request.getItem().get(x).getId();
-			hus += "'" + request.getItem().get(x).getHu() + "',";
+    if (hus.length() > 0) {
+      hus = hus.substring(0, hus.length() - 1);
+    }
 
-			hu = request.getItem().get(x).getHu();
-		}
+    Etiquetas etiquetas = new Etiquetas();
+    resultDT.setId(2);
+    resultDT.setMsg("Falta parametro de proceso");
 
-		if (hus.length() > 0) {
-			hus = hus.substring(0, hus.length() - 1);
-		}
+    log.info("proceso: " + proceso);
 
-		Etiquetas etiquetas = new Etiquetas();
-		resultDT.setId(2);
-		resultDT.setMsg("Falta parametro de proceso");
+    if (proceso.equals("1") || proceso.equals("3") || proceso.equals("5") || proceso.equals("6")) {
+      // hus de VEKP, entrega standar sap o entrega saliente de
+      // vidrio
 
-		logger.info("proceso: " + proceso);
+      etiquetas = hUsRepository.obtieneDatosHusVekp(hus);
 
-		if (proceso.equals("1") || proceso.equals("3") || proceso.equals("5") || proceso.equals("6")) {
-			// hus de VEKP, entrega standar sap o entrega saliente de
-			// vidrio
-			HUsRepositoryOld husRepositoryOldAux = new HUsRepositoryOld();
+      // intenta recuperar etiquetas de LQUA, entrega saliente de
+      // envases si no existen en VEKP
+      if (proceso.equals("1") && etiquetas.getResultDT().getId() != 1)
+        etiquetas = hUsRepository.obtieneDatosHusLqua(hus);
 
-			etiquetas = husRepositoryOldAux.obtieneDatosHusVekp(hus);
+    } else if (proceso.equals("2") || proceso.equals("4") || proceso.equals("900")) {
 
-			// intenta recuperar etiquetas de LQUA, entrega saliente de
-			// envases si no existen en VEKP
-			if (proceso.equals("1") && etiquetas.getResultDT().getId() != 1)
-				etiquetas = husRepositoryOld.obtieneDatosHusLqua(hus);
+      // Hus LQUA
+      etiquetas = hUsRepository.obtieneDatosHusLqua(hus);
+    }
 
-		} else if (proceso.equals("2") || proceso.equals("4") || proceso.equals("900")) {
+    // if (etiquetas.getResultDT().getId() == 1) {
 
-			// Hus LQUA
-			etiquetas = hUsRepository.obtieneDatosHusLqua(hus);
-		}
+    EtiquetaDatasource datasource = new EtiquetaDatasource();
 
-		// if (etiquetas.getResultDT().getId() == 1) {
+    for (int x = 0; x < etiquetas.getItems().size(); x++) {
 
-		EtiquetaDatasource datasource = new EtiquetaDatasource();
+      if (proceso.equals("1") || proceso.equals("2") || proceso.equals("900")) {
+        // Etiquetas envase
 
-		for (int x = 0; x < etiquetas.getItems().size(); x++) {
+        jasper = "jasper/EtiquetaEnvase.jrxml";
 
-			if (proceso.equals("1") || proceso.equals("2") || proceso.equals("900")) {
-				// Etiquetas envase
+        etiquetas.getItems().get(x).setEntrega(entrega);
+        etiquetas.getItems().get(x).setBarCode(etiquetas.getItems().get(x).getEXIDV_HU());
 
-				jasper = "jasper/EtiquetaEnvase.jrxml";
+      } else if (proceso.equals("3") || proceso.equals("4") || proceso.equals("5") || proceso.equals("900")
+          || proceso.equals("6")) {
+        jasper = "jasper/EtiquetaPT.jrxml";
+      }
 
-				etiquetas.getItems().get(x).setEntrega(entrega);
-				etiquetas.getItems().get(x).setBarCode(etiquetas.getItems().get(x).getEXIDV_HU());
+      if (!proceso.equals("1"))
+        etiquetas.getItems().get(x).setEntrega("");
 
-			} else if (proceso.equals("3") || proceso.equals("4") || proceso.equals("5") || proceso.equals("900")
-					|| proceso.equals("6")) {
-				jasper = "jasper/EtiquetaPT.jrxml";
-			}
+      datasource.addEtiqueta(etiquetas.getItems().get(x));
+    }
 
-			if (!proceso.equals("1"))
-				etiquetas.getItems().get(x).setEntrega("");
+    // GEneración
 
-			datasource.addEtiqueta(etiquetas.getItems().get(x));
-		}
+    // ***
+    headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+    headers.add("Pragma", "no-cache");
+    headers.add("Expires", "0");
 
-		// GEneración
+    log.info("Iniciando");
+    String filePath = "Etiqueta" + hu + ".pdf";
+    JasperReport jasperReport = null;
+    JasperPrint jasperPrint = null;
+    JasperDesign jasperDesign = null;
 
-		// ***
-		headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-		headers.add("Pragma", "no-cache");
-		headers.add("Expires", "0");
+    try {
+      jasperDesign = JRXmlLoader.load(servletContext.getRealPath(jasper));
+      jasperReport = JasperCompileManager.compileReport(jasperDesign);
+      jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
+    } catch (JRException e) {
+      e.printStackTrace();
+    }
 
-		logger.info("Iniciando");
-		String filePath = "Etiqueta" + hu + ".pdf";
-		JasperReport jasperReport = null;
-		JasperPrint jasperPrint = null;
-		JasperDesign jasperDesign = null;
+    File file = new File(filePath);
 
-		try {
-			jasperDesign = JRXmlLoader.load(servletContext.getRealPath(jasper));
-			jasperReport = JasperCompileManager.compileReport(jasperDesign);
-			jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
-		} catch (JRException e) {
-			e.printStackTrace();
-		}
+    log.info("Datos del archivo:");
+    log.info("AbsolutePath: " + file.getAbsolutePath());
+    log.info("Name: " + file.getName());
 
-		File file = new File(filePath);
+    try {
+      log.info("Exportando a PDF...");
+      JasperExportManager.exportReportToPdfFile(jasperPrint, file.getAbsolutePath());
+    } catch (JRException e) {
+      log.error("Error al exportar: " + e.toString());
+      e.printStackTrace();
+    }
 
-		logger.info("Datos del archivo:");
-		logger.info("AbsolutePath: " + file.getAbsolutePath());
-		logger.info("Name: " + file.getName());
+    // Mostrar en pantalla PDF concatenado
+    // 0906637273
+    // File file = new File(filePath);
+    // ***
 
-		try {
-			logger.info("Exportando a PDF...");
-			JasperExportManager.exportReportToPdfFile(jasperPrint, file.getAbsolutePath());
-		} catch (JRException e) {
-			logger.error("Error al exportar: " + e.toString());
-			e.printStackTrace();
-		}
+    log.info("Cargando archivo para descarga...");
+    InputStreamResource resource = null;
+    try {
+      resource = new InputStreamResource(new FileInputStream(file));
+    } catch (FileNotFoundException e) {
+      log.error("Error al cargar: " + e.toString());
+      e.printStackTrace();
+    }
 
-		// Mostrar en pantalla PDF concatenado
-		// 0906637273
-		// File file = new File(filePath);
-		// ***
-
-		logger.info("Cargando archivo para descarga...");
-		InputStreamResource resource = null;
-		try {
-			resource = new InputStreamResource(new FileInputStream(file));
-		} catch (FileNotFoundException e) {
-			logger.error("Error al cargar: " + e.toString());
-			e.printStackTrace();
-		}
-
-		return ResponseEntity.ok().headers(headers).contentLength(file.length())
-				.contentType(MediaType.APPLICATION_OCTET_STREAM).body(resource);
-	}
+    return ResponseEntity.ok().headers(headers).contentLength(file.length())
+        .contentType(MediaType.APPLICATION_OCTET_STREAM).body(resource);
+  }
 }

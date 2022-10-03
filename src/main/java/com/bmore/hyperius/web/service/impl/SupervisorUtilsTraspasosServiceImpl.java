@@ -1,5 +1,6 @@
 package com.bmore.hyperius.web.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bmore.hyperius.web.dto.AlmacenDTO;
@@ -14,154 +15,122 @@ import com.bmore.hyperius.web.utils.Utils;
 @Service
 public class SupervisorUtilsTraspasosServiceImpl implements SupervisorUtilsTraspasosService {
 
-	// private final Logger LOCATION = LoggerFactory.getLogger(getClass());
+  @Autowired
+  private SupervisorUtilsTraspasosRepository supervisorUtilsTraspasosRepository;
 
-	@Override
-	public AlmacenesDTO lgortPermitidos(String werks) {
+  // private final Logger LOCATION = LoggerFactory.getLogger(getClass());
 
-		SupervisorUtilsTraspasosRepository supervisorUtilsTraspasosDAO = new SupervisorUtilsTraspasosRepository();
+  @Override
+  public AlmacenesDTO lgortPermitidos(String werks) {
+    AlmacenesDTO result = supervisorUtilsTraspasosRepository.lgortPermitidos(werks);
 
-		AlmacenesDTO result = supervisorUtilsTraspasosDAO.lgortPermitidos(werks);
+    if (result.getItems().getItem().size() > 0) {
+      AlmacenDTO blank = new AlmacenDTO();
+      result.getItems().getItem().add(0, blank);
+    }
 
-		if (result.getItems().getItem().size() > 0) {
+    return result;
+  }
 
-			AlmacenDTO blank = new AlmacenDTO();
-			result.getItems().getItem().add(0, blank);
+  @Override
+  public AlmacenesDTO lgnumPermitidos(AlmacenDTO almacen) {
+    AlmacenesDTO result = supervisorUtilsTraspasosRepository.lgnumPermitidos(almacen);
 
-		}
+    if (result.getItems().getItem().size() > 0) {
+      AlmacenDTO blank = new AlmacenDTO();
+      result.getItems().getItem().add(0, blank);
+    }
 
-		return result;
+    return result;
+  }
 
-	}
+  @Override
+  public AlmacenesDTO lgtypPermitidos(AlmacenDTO almacen) {
+    AlmacenesDTO result = supervisorUtilsTraspasosRepository.lgtypPermitidos(almacen);
 
-	@Override
-	public AlmacenesDTO lgnumPermitidos(AlmacenDTO almacen) {
+    if (result.getItems().getItem().size() > 0) {
+      AlmacenDTO blank = new AlmacenDTO();
+      result.getItems().getItem().add(0, blank);
+    }
 
-		SupervisorUtilsTraspasosRepository supervisorUtilsTraspasosDAO = new SupervisorUtilsTraspasosRepository();
+    return result;
+  }
 
-		AlmacenesDTO result = supervisorUtilsTraspasosDAO.lgnumPermitidos(almacen);
+  @Override
+  public AlmacenesDTO lgplaPermitidos(AlmacenDTO almacen) {
+    AlmacenesDTO result = supervisorUtilsTraspasosRepository.lgplaPermitidos(almacen);
 
-		if (result.getItems().getItem().size() > 0) {
+    if (result.getItems().getItem().size() > 0) {
+      AlmacenDTO blank = new AlmacenDTO();
+      result.getItems().getItem().add(0, blank);
+    }
 
-			AlmacenDTO blank = new AlmacenDTO();
-			result.getItems().getItem().add(0, blank);
+    return result;
+  }
 
-		}
+  @Override
+  public InventarioDTO lquaBusquedaTraspasos(AlmacenDTO almacen) {
+    InventarioDTO result = new InventarioDTO();
 
-		return result;
+    if (almacen.getCharg() == null || almacen.getCharg().equals("")) {
+      result = supervisorUtilsTraspasosRepository.lquaBusquedaTraspasos(almacen, 1);
+    } else {
 
-	}
+      result = supervisorUtilsTraspasosRepository.lquaBusquedaTraspasos(almacen, 2);
+    }
 
-	@Override
-	public AlmacenesDTO lgtypPermitidos(AlmacenDTO almacen) {
+    if (result.getResultDT().getId() == 1) {
+      for (int x = 0; x < result.getItems().getItem().size(); x++) {
+        result.getItems().getItem().get(x)
+            .setMatnr(Utils.zeroClean(result.getItems().getItem().get(x).getMatnr()));
 
-		SupervisorUtilsTraspasosRepository supervisorUtilsTraspasosDAO = new SupervisorUtilsTraspasosRepository();
+      }
+    }
 
-		AlmacenesDTO result = supervisorUtilsTraspasosDAO.lgtypPermitidos(almacen);
+    return result;
+  }
 
-		if (result.getItems().getItem().size() > 0) {
+  @Override
+  public ResultDTO traspaso(InventarioDetalleDTOItem inventarioDetalleDTOItem, String user) {
+    String logErrores = "";
+    ResultDTO resultM = new ResultDTO();
 
-			AlmacenDTO blank = new AlmacenDTO();
-			result.getItems().getItem().add(0, blank);
+    resultM.setId(1);
 
-		}
+    for (int x = 0; x < inventarioDetalleDTOItem.getItem().size(); x++) {
+      ResultDTO result = new ResultDTO();
+      result = supervisorUtilsTraspasosRepository.traspaso(inventarioDetalleDTOItem.getItem().get(x), user);
 
-		return result;
+      switch (result.getId()) {
+        case 1:// Todo OK
 
-	}
+          break;
+        case 3:
+          resultM.setId(result.getId());
+          logErrores += "No fue posible ingresar la nueva ubicación de la HU "
+              + inventarioDetalleDTOItem.getItem().get(x).getLenum() + " en la tabla ZContingencia\n";
+          break;
+        case 4:
+          resultM.setId(result.getId());
+          logErrores += "No fue posible actualizar la nueva ubicación de la HU "
+              + inventarioDetalleDTOItem.getItem().get(x).getLenum() + " en la tabla LQUA\n";
+          break;
+        case 800:
+          resultM.setId(result.getId());
+          logErrores += "HU: " + inventarioDetalleDTOItem.getItem().get(x).getLenum() + " " + result.getMsg()
+              + "\n";
+          break;
+      }
 
-	@Override
-	public AlmacenesDTO lgplaPermitidos(AlmacenDTO almacen) {
+    }
 
-		SupervisorUtilsTraspasosRepository supervisorUtilsTraspasosDAO = new SupervisorUtilsTraspasosRepository();
+    if (resultM.getId() == 1) {
+      resultM.setMsg(
+          "El traspaso se realizó correctamente, por  favor verifique que se realice el traspaso físico de las HUs");
+    } else {
+      resultM.setMsg(logErrores);
+    }
 
-		AlmacenesDTO result = supervisorUtilsTraspasosDAO.lgplaPermitidos(almacen);
-
-		if (result.getItems().getItem().size() > 0) {
-
-			AlmacenDTO blank = new AlmacenDTO();
-			result.getItems().getItem().add(0, blank);
-
-		}
-
-		return result;
-
-	}
-
-	@Override
-	public InventarioDTO lquaBusquedaTraspasos(AlmacenDTO almacen) {
-
-		SupervisorUtilsTraspasosRepository supervisorUtilsTraspasosDAO = new SupervisorUtilsTraspasosRepository();
-
-		InventarioDTO result = new InventarioDTO();
-
-		if (almacen.getCharg() == null || almacen.getCharg().equals("")) {
-
-			result = supervisorUtilsTraspasosDAO.lquaBusquedaTraspasos(almacen, 1);
-		} else {
-
-			result = supervisorUtilsTraspasosDAO.lquaBusquedaTraspasos(almacen, 2);
-		}
-
-		if (result.getResultDT().getId() == 1) {
-			for (int x = 0; x < result.getItems().getItem().size(); x++) {
-
-				result.getItems().getItem().get(x)
-						.setMatnr(Utils.zeroClean(result.getItems().getItem().get(x).getMatnr()));
-
-			}
-		}
-
-		return result;
-
-	}
-
-	@Override
-	public ResultDTO traspaso(InventarioDetalleDTOItem inventarioDetalleDTOItem, String user) {
-
-		SupervisorUtilsTraspasosRepository supervisorUtilsTraspasosDAO = new SupervisorUtilsTraspasosRepository();
-
-		String logErrores = "";
-		ResultDTO resultM = new ResultDTO();
-
-		resultM.setId(1);
-
-		for (int x = 0; x < inventarioDetalleDTOItem.getItem().size(); x++) {
-			ResultDTO result = new ResultDTO();
-			result = supervisorUtilsTraspasosDAO.traspaso(inventarioDetalleDTOItem.getItem().get(x), user);
-
-			switch (result.getId()) {
-
-			case 1:// Todo OK
-
-				break;
-			case 3:
-				resultM.setId(result.getId());
-				logErrores += "No fue posible ingresar la nueva ubicación de la HU "
-						+ inventarioDetalleDTOItem.getItem().get(x).getLenum() + " en la tabla ZContingencia\n";
-				break;
-			case 4:
-				resultM.setId(result.getId());
-				logErrores += "No fue posible actualizar la nueva ubicación de la HU "
-						+ inventarioDetalleDTOItem.getItem().get(x).getLenum() + " en la tabla LQUA\n";
-				break;
-			case 800:
-				resultM.setId(result.getId());
-				logErrores += "HU: " + inventarioDetalleDTOItem.getItem().get(x).getLenum() + " " + result.getMsg()
-						+ "\n";
-				break;
-			}
-
-		}
-
-		if (resultM.getId() == 1) {
-			resultM.setMsg(
-					"El traspaso se realizó correctamente, por  favor verifique que se realice el traspaso físico de las HUs");
-		} else {
-			resultM.setMsg(logErrores);
-		}
-
-		return resultM;
-
-	}
+    return resultM;
+  }
 }
