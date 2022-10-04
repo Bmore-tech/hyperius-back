@@ -11,8 +11,6 @@ import com.bmore.hyperius.web.utils.Utils;
 @Service
 public class ValidarHUMServiceImpl implements ValidarHUMService {
 
-  // private final Logger LOCATION = LoggerFactory.getLogger(getClass());
-
   @Autowired
   private HUsRepository hUsRepository;
 

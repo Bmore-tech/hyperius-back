@@ -1,7 +1,5 @@
 package com.bmore.hyperius.web.rest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,51 +27,49 @@ import com.bmore.hyperius.web.utils.Utils;
 @RequestMapping("${web.uri}/recepcion-envase")
 public class RecepcionEnvaseRest {
 
-	private final Logger LOCATION = LoggerFactory.getLogger(getClass());
+  @Autowired
+  private RecepcionEnvaseService recepcionEnvaseService;
 
-	@Autowired
-	private RecepcionEnvaseService recepcionEnvaseService;
+  @PostMapping(path = "/validar-entrega", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ValidarEntregaResponse validarEntrega(@RequestHeader("Auth") String token,
+      @RequestBody EntregaDTO request) {
 
-	@PostMapping(path = "/validar-entrega", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ValidarEntregaResponse validarEntrega(@RequestHeader("Auth") String token,
-			@RequestBody EntregaDTO request) {
+    ValidarEntregaResponse response = new ValidarEntregaResponse();
 
-		ValidarEntregaResponse response = new ValidarEntregaResponse();
+    request.setWerks(Utils.getWerksFromJwt(token));
+    response.setData(recepcionEnvaseService.validaEntrega(request));
+    response.getData().setWerks(Utils.getWerksFromJwt(token));
+    response.setResponseCode(response.getData().getResultDT().getId());
+    response.setMessage(response.getData().getResultDT().getMsg());
 
-		request.setWerks(Utils.getWerksFromJwt(token));
-		response.setData(recepcionEnvaseService.validaEntrega(request));
-		response.getData().setWerks(Utils.getWerksFromJwt(token));
-		response.setResponseCode(response.getData().getResultDT().getId());
-		response.setMessage(response.getData().getResultDT().getMsg());
+    return response;
+  }
 
-		return response;
-	}
+  @PostMapping(path = "/ingresa-detalle-envase", produces = MediaType.APPLICATION_JSON_VALUE)
+  public DefaultResponse ingresaDetalleEnvase(@RequestHeader("Auth") String token,
+      @RequestBody CarrilesUbicacionDTO request) {
+    ResultDTO resultDT = new ResultDTO();
+    DefaultResponse response = new DefaultResponse();
 
-	@PostMapping(path = "/ingresa-detalle-envase", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse ingresaDetalleEnvase(@RequestHeader("Auth") String token,
-			@RequestBody CarrilesUbicacionDTO request) {
-		ResultDTO resultDT = new ResultDTO();
-		DefaultResponse response = new DefaultResponse();
+    resultDT = recepcionEnvaseService.ingresaDetalleEnvaseBO(request, Utils.getUsuarioFromToken(token),
+        Utils.getWerksFromJwt(token));
+    response.setResponseCode(resultDT.getId());
+    response.setMessage(resultDT.getMsg());
 
-		resultDT = recepcionEnvaseService.ingresaDetalleEnvaseBO(request, Utils.getUsuarioFromToken(token),
-				Utils.getWerksFromJwt(token));
-		response.setResponseCode(resultDT.getId());
-		response.setMessage(resultDT.getMsg());
+    return response;
+  }
 
-		return response;
-	}
+  @PostMapping(path = "/contabilizar-entrega-entrante", produces = MediaType.APPLICATION_JSON_VALUE)
+  public DefaultResponse contabilizarEntregaEntrante(@RequestHeader("Auth") String token,
+      @RequestBody EntregaDTO request) {
+    ResultDTO result = new ResultDTO();
+    DefaultResponse response = new DefaultResponse();
 
-	@PostMapping(path = "/contabilizar-entrega-entrante", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DefaultResponse contabilizarEntregaEntrante(@RequestHeader("Auth") String token,
-			@RequestBody EntregaDTO request) {
-		ResultDTO result = new ResultDTO();
-		DefaultResponse response = new DefaultResponse();
+    request.setWerks(Utils.getWerksFromJwt(token));
+    result = recepcionEnvaseService.contabilizarEntregaEntrante(request, Utils.getUsuarioFromToken(token));
+    response.setResponseCode(result.getId());
+    response.setMessage(result.getMsg());
 
-		request.setWerks(Utils.getWerksFromJwt(token));
-		result = recepcionEnvaseService.contabilizarEntregaEntrante(request, Utils.getUsuarioFromToken(token));
-		response.setResponseCode(result.getId());
-		response.setMessage(result.getMsg());
-
-		return response;
-	}
+    return response;
+  }
 }
