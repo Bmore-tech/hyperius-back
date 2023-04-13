@@ -202,7 +202,7 @@ public class EmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -336,7 +336,7 @@ public class EmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				logger.error("SQLException: " + e.toString());
 				result.setId(2);
@@ -485,7 +485,7 @@ public class EmbarquePTRepositoryOld {
 			logger.error("Error: GETCARRILES_EMBARQUE_PT " + en.toString());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				e.getMessage();
 			}
@@ -519,7 +519,7 @@ public class EmbarquePTRepositoryOld {
 			resultDT.setId(0);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(0);
 			}
@@ -569,7 +569,7 @@ public class EmbarquePTRepositoryOld {
 			resultDT.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(2);
 				resultDT.setMsg(e.getMessage());
@@ -618,7 +618,7 @@ public class EmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -671,7 +671,7 @@ public class EmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -728,7 +728,7 @@ public class EmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());
@@ -773,7 +773,7 @@ public class EmbarquePTRepositoryOld {
 			resultDT.setId(0);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(0);
 			}
@@ -846,7 +846,7 @@ public class EmbarquePTRepositoryOld {
 			logger.error("Error Exception: " + en.toString());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -907,7 +907,7 @@ public class EmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());
@@ -952,7 +952,7 @@ public class EmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());
@@ -1002,7 +1002,7 @@ public class EmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());
@@ -1041,7 +1041,7 @@ public class EmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -1077,7 +1077,7 @@ public class EmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -1108,7 +1108,7 @@ public class EmbarquePTRepositoryOld {
 			 */
 			logger.error("Error en base de datos", ex);
 		} finally {
-			// DBConnection.closeConnection(con);
+			DBConnection.closeConnection(con);
 		}
 
 		return queryResult;
@@ -1134,7 +1134,7 @@ public class EmbarquePTRepositoryOld {
 			 */
 			logger.error("Error en base de datos", e);
 		} finally {
-			// DBConnection.closeConnection(con);
+			DBConnection.closeConnection(con);
 		}
 		return count;
 	}
@@ -1165,7 +1165,7 @@ public class EmbarquePTRepositoryOld {
 			 */
 			logger.error("Error en base de datos", ex);
 		} finally {
-			// DBConnection.closeConnection(con);
+			DBConnection.closeConnection(con);
 		}
 		return queryResult;
 	}
@@ -1196,7 +1196,7 @@ public class EmbarquePTRepositoryOld {
 			 */
 			logger.error("Error en base de datos", ex);
 		} finally {
-			// DBConnection.closeConnection(con);
+			DBConnection.closeConnection(con);
 		}
 
 		return queryResult;
@@ -1240,7 +1240,7 @@ public class EmbarquePTRepositoryOld {
 			 */
 			logger.error("Error en base de datos", ex);
 		} finally {
-			// DBConnection.closeConnection(con);
+			DBConnection.closeConnection(con);
 		}
 
 		return queryResult;
@@ -1281,7 +1281,7 @@ public class EmbarquePTRepositoryOld {
 			 */
 			logger.error("Error en base de datos", ex);
 		} finally {
-			// DBConnection.closeConnection(con);
+			DBConnection.closeConnection(con);
 		}
 
 		return queryResult;
@@ -1322,7 +1322,7 @@ public class EmbarquePTRepositoryOld {
 			 */
 			logger.error("Error en base de datos", ex);
 		} finally {
-			// DBConnection.closeConnection(con);
+			DBConnection.closeConnection(con);
 		}
 
 		return datasource;
@@ -1362,7 +1362,7 @@ public class EmbarquePTRepositoryOld {
 			 */
 			logger.error("Error en base de datos", ex);
 		} finally {
-			// DBConnection.closeConnection(con);
+			DBConnection.closeConnection(con);
 		}
 
 		return datasource;
@@ -1420,7 +1420,7 @@ public class EmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());
@@ -1457,7 +1457,7 @@ public class EmbarquePTRepositoryOld {
 			map = null;
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				logger.error("Exception:" + e.toString());
 
@@ -1496,7 +1496,7 @@ public class EmbarquePTRepositoryOld {
 			map = null;
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				logger.error("Exception:" + e.toString());
 

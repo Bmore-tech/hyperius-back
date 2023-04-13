@@ -55,7 +55,7 @@ public class ServletReporteRepository {
 			LOCATION.error("Exception getDatosShipping: " + e.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION
 						.error("Exception getDatosShipping: " + e.getMessage());
@@ -81,7 +81,7 @@ public class ServletReporteRepository {
 			LOCATION.error("Exception getDatosShipping: " + e.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION
 						.error("Exception getDatosShipping: " + e.getMessage());
@@ -107,7 +107,7 @@ public class ServletReporteRepository {
 			LOCATION.error("Exception getDatosShipping: " + e.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION
 						.error("Exception getDatosShipping: " + e.getMessage());
@@ -134,7 +134,7 @@ public class ServletReporteRepository {
 			LOCATION.error("Exception getDatosShipping: " + e.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION
 						.error("Exception getDatosShipping: " + e.getMessage());
@@ -177,7 +177,7 @@ public class ServletReporteRepository {
 			LOCATION.error("Exception getDatosShipping: " + e.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION
 						.error("Exception getDatosShipping: " + e.getMessage());

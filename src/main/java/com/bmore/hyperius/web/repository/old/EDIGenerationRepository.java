@@ -54,7 +54,7 @@ public class EDIGenerationRepository {
 			e.printStackTrace(System.out);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				e.printStackTrace(System.out);
 			}
@@ -90,7 +90,7 @@ public class EDIGenerationRepository {
 			e.printStackTrace(System.out);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				e.printStackTrace(System.out);
 			}
@@ -129,7 +129,7 @@ public class EDIGenerationRepository {
 			e.printStackTrace(System.out);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				e.printStackTrace(System.out);
 			}
@@ -167,7 +167,7 @@ public class EDIGenerationRepository {
 			e.printStackTrace(System.out);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				e.printStackTrace(System.out);
 			}
@@ -203,7 +203,7 @@ public class EDIGenerationRepository {
 			e.printStackTrace(System.out);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				e.printStackTrace(System.out);
 			}
@@ -240,7 +240,7 @@ public class EDIGenerationRepository {
 			e.printStackTrace(System.out);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				e.printStackTrace(System.out);
 			}
@@ -270,7 +270,7 @@ public class EDIGenerationRepository {
 			e.printStackTrace(System.out);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				e.printStackTrace(System.out);
 			}
@@ -304,7 +304,7 @@ public class EDIGenerationRepository {
 			e.printStackTrace(System.out);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				e.printStackTrace(System.out);
 			}

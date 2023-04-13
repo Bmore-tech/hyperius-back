@@ -307,7 +307,7 @@ public class RecepcionEnvaseRepository {
     } finally {
       try {
         stmn.close();
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -396,7 +396,7 @@ public class RecepcionEnvaseRepository {
 
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -588,7 +588,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -652,7 +652,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -693,7 +693,7 @@ public class RecepcionEnvaseRepository {
       map = null;
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         log.error("Exception:" + e.toString());
 
@@ -857,7 +857,7 @@ public class RecepcionEnvaseRepository {
       log.error("Error SQL:" + en.toString());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         log.error("Error SQL:" + e.toString());
         e.getMessage();
@@ -911,7 +911,7 @@ public class RecepcionEnvaseRepository {
       resultDT.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         resultDT.setId(2);
         resultDT.setMsg(e.getMessage());
@@ -957,7 +957,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -1000,7 +1000,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -1039,7 +1039,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -1072,7 +1072,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(9);
         result.setMsg(e.getMessage());
@@ -1108,7 +1108,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -1145,7 +1145,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -1180,7 +1180,7 @@ public class RecepcionEnvaseRepository {
       x = 999999;
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         x = 999999;
       }
@@ -1214,7 +1214,7 @@ public class RecepcionEnvaseRepository {
       resultDT.setId(0);
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         resultDT.setId(0);
       }
@@ -1260,7 +1260,7 @@ public class RecepcionEnvaseRepository {
       resultDT.setId(0);
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         resultDT.setId(0);
       }
@@ -1304,7 +1304,7 @@ public class RecepcionEnvaseRepository {
       resultDT.setId(0);
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         resultDT.setId(0);
       }
@@ -1344,7 +1344,7 @@ public class RecepcionEnvaseRepository {
       resultDT.setId(0);
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         resultDT.setId(0);
       }
@@ -1381,7 +1381,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -1429,7 +1429,7 @@ public class RecepcionEnvaseRepository {
       resultDT.setId(2);
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         resultDT.setId(2);
       }
@@ -1474,7 +1474,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -1520,7 +1520,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -1557,7 +1557,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -1603,7 +1603,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -1641,7 +1641,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -1687,7 +1687,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -1747,7 +1747,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -1792,7 +1792,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         log.error("SQL Exception 4to paso: " + e.toString());
         result.setId(2);
@@ -1844,7 +1844,7 @@ public class RecepcionEnvaseRepository {
       result.setMsg(en.getMessage());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());

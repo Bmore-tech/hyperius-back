@@ -64,7 +64,7 @@ public class TransportesRepository {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -132,7 +132,7 @@ public class TransportesRepository {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -177,7 +177,7 @@ public class TransportesRepository {
 					+ en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg("Error al actualizar status transporte: "
@@ -226,7 +226,7 @@ public class TransportesRepository {
 					+ en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg("Error al registrar Entrada carga transporte: "

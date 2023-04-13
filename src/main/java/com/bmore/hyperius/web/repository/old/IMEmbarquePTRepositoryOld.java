@@ -189,7 +189,7 @@ public class IMEmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("SQLException: " + e.toString());
 				result.setId(2);
@@ -307,7 +307,7 @@ public class IMEmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -346,7 +346,7 @@ public class IMEmbarquePTRepositoryOld {
 			resultDT.setId(0);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(0);
 			}
@@ -402,7 +402,7 @@ public class IMEmbarquePTRepositoryOld {
 			resultDT.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(2);
 				resultDT.setMsg(e.getMessage());
@@ -453,7 +453,7 @@ public class IMEmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -506,7 +506,7 @@ public class IMEmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -556,7 +556,7 @@ public class IMEmbarquePTRepositoryOld {
 			resultDT.setId(0);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(0);
 			}
@@ -601,7 +601,7 @@ public class IMEmbarquePTRepositoryOld {
 			resultDT.setId(0);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(0);
 			}
@@ -666,7 +666,7 @@ public class IMEmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -717,7 +717,7 @@ public class IMEmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -791,7 +791,7 @@ public class IMEmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -887,7 +887,7 @@ public class IMEmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Exception: " + e.toString());
 				result.setId(200);
@@ -935,7 +935,7 @@ public class IMEmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -986,7 +986,7 @@ public class IMEmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());
@@ -1039,7 +1039,7 @@ public class IMEmbarquePTRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());

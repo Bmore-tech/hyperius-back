@@ -237,7 +237,7 @@ public class ControlPaletizadoraRepositoryOld {
 					+ en.toString());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(2);
 				resultDT.setMsg(e.getMessage());
@@ -297,7 +297,7 @@ public class ControlPaletizadoraRepositoryOld {
 					+ en.toString());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(2);
 				resultDT.setMsg(e.getMessage());
@@ -372,7 +372,7 @@ public class ControlPaletizadoraRepositoryOld {
 // 					+ en.toString());
 // 		} finally {
 // 			try {
-// 				// DBConnection.closeConnection(con);
+// 				DBConnection.closeConnection(con);
 // 			} catch (Exception e) {
 // 				resultDT.setId(2);
 // 				resultDT.setMsg(e.getMessage());
@@ -425,7 +425,7 @@ public class ControlPaletizadoraRepositoryOld {
 
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());
@@ -477,7 +477,7 @@ public class ControlPaletizadoraRepositoryOld {
 					+ en.toString());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(2);
 				resultDT.setMsg(e.getMessage());
@@ -559,7 +559,7 @@ public class ControlPaletizadoraRepositoryOld {
 					+ en.toString());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(2);
 				resultDT.setMsg(e.getMessage());
@@ -645,7 +645,7 @@ public class ControlPaletizadoraRepositoryOld {
 // 					+ en.toString());
 // 		} finally {
 // 			try {
-// 				// DBConnection.closeConnection(con);
+// 				DBConnection.closeConnection(con);
 // 			} catch (Exception e) {
 // 				resultDT.setId(2);
 // 				resultDT.setMsg(e.getMessage());
@@ -803,7 +803,7 @@ public class ControlPaletizadoraRepositoryOld {
 					+ en.toString());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(2);
 				resultDT.setMsg(e.getMessage());
@@ -875,7 +875,7 @@ public class ControlPaletizadoraRepositoryOld {
 // 			LOCATION.error("Exception in obtieneTarimas:" + en.toString());
 // 		} finally {
 // 			try {
-// 				// DBConnection.closeConnection(con);
+// 				DBConnection.closeConnection(con);
 // 			} catch (Exception e) {
 // 				resultDT.setId(2);
 // 				resultDT.setMsg(e.getMessage());
@@ -950,7 +950,7 @@ public class ControlPaletizadoraRepositoryOld {
 // 					+ en.toString());
 // 		} finally {
 // 			try {
-// 				// DBConnection.closeConnection(con);
+// 				DBConnection.closeConnection(con);
 // 			} catch (Exception e) {
 // 				resultDT.setId(2);
 // 				resultDT.setMsg(e.getMessage());
@@ -1003,7 +1003,7 @@ public class ControlPaletizadoraRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());
@@ -1074,7 +1074,7 @@ public class ControlPaletizadoraRepositoryOld {
 
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());
@@ -1148,7 +1148,7 @@ public class ControlPaletizadoraRepositoryOld {
 					.error("Exception in obtieneConversionUM:" + en.toString());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(2);
 				resultDT.setMsg(e.getMessage());

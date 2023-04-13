@@ -127,7 +127,7 @@ public class HUsRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Error: " + e.toString());
 				result.setId(2);
@@ -193,7 +193,7 @@ public class HUsRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Error: " + e.toString());
 				result.setId(2);
@@ -271,7 +271,7 @@ public class HUsRepositoryOld {
 					+ en.toString());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(2);
 				resultDT.setMsg(e.getMessage());
@@ -332,7 +332,7 @@ public class HUsRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Error: " + e.toString());
 				result.setId(2);
@@ -392,7 +392,7 @@ public class HUsRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Error: " + e.toString());
 				result.setId(2);
@@ -472,7 +472,7 @@ public class HUsRepositoryOld {
 					+ en.toString());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(2);
 				resultDT.setMsg(e.getMessage());
@@ -535,7 +535,7 @@ public class HUsRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Error: " + e.toString());
 				result.setId(2);
@@ -585,7 +585,7 @@ public class HUsRepositoryOld {
 							+ hu + " " + en.toString());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Error: " + e.toString());
 				result.setId(2);
@@ -653,7 +653,7 @@ public class HUsRepositoryOld {
 					+ en.toString());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION
 						.error("Finally Exception -> No fue posible recuperar status de HU: "
@@ -725,7 +725,7 @@ public class HUsRepositoryOld {
 					+ " " + en.toString());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION
 						.error("Finally Exception -> No fue posible recuperar status de HU: "

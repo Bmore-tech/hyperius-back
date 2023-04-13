@@ -100,7 +100,7 @@ public class CreacionEntregasRepository {
 			resultDT.setMsg(e.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("obtieneMaterialDAO Exception: "
 						+ e.getMessage());
@@ -154,7 +154,7 @@ public class CreacionEntregasRepository {
 			resultDT.setMsg(e.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("obtieneMaterialDAO Exception: "
 						+ e.getMessage());
@@ -215,7 +215,7 @@ public class CreacionEntregasRepository {
 			resultDT.setMsg(e.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("obtieneMaterialDAO Exception: "
 						+ e.getMessage());
@@ -276,7 +276,7 @@ public class CreacionEntregasRepository {
 			resultDT.setMsg(e.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("obtieneMaterialDAO Exception: "
 						+ e.getMessage());
@@ -343,7 +343,7 @@ public class CreacionEntregasRepository {
 
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("obtieneMaterialDAO Exception: "
 						+ e.getMessage());
@@ -399,7 +399,7 @@ public class CreacionEntregasRepository {
 
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());
@@ -482,7 +482,7 @@ public class CreacionEntregasRepository {
 
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());
@@ -542,7 +542,7 @@ public class CreacionEntregasRepository {
 
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());
@@ -618,7 +618,7 @@ public class CreacionEntregasRepository {
 
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());
@@ -716,7 +716,7 @@ public class CreacionEntregasRepository {
 
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());
@@ -781,7 +781,7 @@ public class CreacionEntregasRepository {
 
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(200);
 				result.setMsg(e.getMessage());

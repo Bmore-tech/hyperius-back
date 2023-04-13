@@ -151,7 +151,7 @@ public class AlimentacionLineaRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -282,7 +282,7 @@ public class AlimentacionLineaRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -443,7 +443,7 @@ public class AlimentacionLineaRepositoryOld {
 
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				e.getMessage();
 			}
@@ -499,7 +499,7 @@ public class AlimentacionLineaRepositoryOld {
 			resultDT.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(2);
 				resultDT.setMsg(e.getMessage());
@@ -540,7 +540,7 @@ public class AlimentacionLineaRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -606,7 +606,7 @@ public class AlimentacionLineaRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -651,7 +651,7 @@ public class AlimentacionLineaRepositoryOld {
 			resultDT.setId(0);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(0);
 			}
@@ -699,7 +699,7 @@ public class AlimentacionLineaRepositoryOld {
 			resultDT.setId(0);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(0);
 			}
@@ -747,7 +747,7 @@ public class AlimentacionLineaRepositoryOld {
 			resultDT.setId(0);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(0);
 			}
@@ -794,7 +794,7 @@ public class AlimentacionLineaRepositoryOld {
 			resultDT.setId(0);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(0);
 			}
@@ -844,7 +844,7 @@ public class AlimentacionLineaRepositoryOld {
 			resultDT.setId(0);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(0);
 			}
@@ -891,7 +891,7 @@ public class AlimentacionLineaRepositoryOld {
 			resultDT.setId(0);
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				resultDT.setId(0);
 			}
@@ -931,7 +931,7 @@ public class AlimentacionLineaRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -967,7 +967,7 @@ public class AlimentacionLineaRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -1003,7 +1003,7 @@ public class AlimentacionLineaRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -1046,7 +1046,7 @@ public class AlimentacionLineaRepositoryOld {
 			result.setMsg(en.getMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				result.setId(2);
 				result.setMsg(e.getMessage());
@@ -1084,7 +1084,7 @@ public class AlimentacionLineaRepositoryOld {
 			map = null;
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				logger.error("Exception:" + e.toString());
 
@@ -1126,7 +1126,7 @@ public class AlimentacionLineaRepositoryOld {
 			map = null;
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				logger.error("Exception:" + e.toString());
 			}

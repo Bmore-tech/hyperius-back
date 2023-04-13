@@ -64,7 +64,7 @@ public class Export_DAO {
 			exp_DTO = null;
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Export_DAO: " + e.getLocalizedMessage());
 				exp_DTO = null;
@@ -94,7 +94,7 @@ public class Export_DAO {
 			exp_DTO = null;
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Export_DAO: " + e.getLocalizedMessage());
 				exp_DTO = null;
@@ -138,7 +138,7 @@ public class Export_DAO {
 			exp_DTO = null;
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Export_DAO: " + e.getLocalizedMessage());
 			}
@@ -193,7 +193,7 @@ public class Export_DAO {
 			exp_DTO = null;
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Export_DAO: " + e.getLocalizedMessage());
 			}
@@ -226,7 +226,7 @@ public class Export_DAO {
 			exp_DTO = null;
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Export_DAO: " + e.getLocalizedMessage());
 			}
@@ -251,7 +251,7 @@ public class Export_DAO {
 			exp_DTO = null;
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Export_DAO: " + e.getLocalizedMessage());
 			}
@@ -279,7 +279,7 @@ public class Export_DAO {
 			exp_DTO = null;
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Export_DAO: " + e.getLocalizedMessage());
 			}
@@ -305,7 +305,7 @@ public class Export_DAO {
 			exp_DTO = null;
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Export_DAO: " + e.getLocalizedMessage());
 			}
@@ -334,7 +334,7 @@ public class Export_DAO {
 			LOCATION.error("Export_DAO: " + e.getLocalizedMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Export_DAO: " + e.getLocalizedMessage());
 			}
@@ -359,7 +359,7 @@ public class Export_DAO {
 			LOCATION.error("Export_DAO: " + e.getLocalizedMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Export_DAO: " + e.getLocalizedMessage());
 			}
@@ -384,7 +384,7 @@ public class Export_DAO {
 			LOCATION.error("Export_DAO: " + e.getLocalizedMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Export_DAO: " + e.getLocalizedMessage());
 			}
@@ -412,7 +412,7 @@ public class Export_DAO {
 			LOCATION.error("Export_DAO: " + e.getLocalizedMessage());
 		} finally {
 			try {
-				// DBConnection.closeConnection(con);
+				DBConnection.closeConnection(con);
 			} catch (Exception e) {
 				LOCATION.error("Export_DAO: " + e.getLocalizedMessage());
 			}

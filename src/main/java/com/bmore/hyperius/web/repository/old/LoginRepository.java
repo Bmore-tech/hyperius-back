@@ -86,7 +86,7 @@ public class LoginRepository {
       log.error("Error: " + en.toString());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -172,7 +172,7 @@ public class LoginRepository {
       log.error("Error: " + en.toString());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -228,7 +228,7 @@ public class LoginRepository {
       log.error("Error: " + en.toString());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -276,7 +276,7 @@ public class LoginRepository {
       log.error("Error: " + en.toString());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -323,7 +323,7 @@ public class LoginRepository {
       log.error("Error: " + en.toString());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -364,7 +364,7 @@ public class LoginRepository {
       log.error("Error: " + en.toString());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -412,7 +412,7 @@ public class LoginRepository {
       log.error("Error: " + en.toString());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
@@ -453,7 +453,7 @@ public class LoginRepository {
       log.error("Error: " + en.toString());
     } finally {
       try {
-        // DBConnection.closeConnection(con);
+        DBConnection.closeConnection(con);
       } catch (Exception e) {
         result.setId(2);
         result.setMsg(e.getMessage());
