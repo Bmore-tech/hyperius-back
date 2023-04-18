@@ -25,6 +25,9 @@ import com.bmore.hyperius.web.dto.ReporteAvanceDTO;
 import com.bmore.hyperius.web.dto.ResultDTO;
 import com.bmore.hyperius.web.repository.CifrasControlRepository;
 import com.bmore.hyperius.web.service.CifrasControlService;
+import com.bmore.hyperius.web.utils.ConnectionManager;
+import com.bmore.hyperius.web.utils.SAPConector;
+import com.sap.conn.jco.JCoDestination;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,6 +40,19 @@ public class CifrasControlServiceImpl implements CifrasControlService {
 
   @Override
   public DescargaInformacionDTO getDescargaInformacion() {
+
+    ConnectionManager connectionManager = new ConnectionManager();
+    // Quitar este 
+    JCoDestination destination;
+    try {
+      destination = connectionManager.getSapConnection("ECC PRD");
+      new SAPConector(destination).start();// , con , docInvBean
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+			
+      
     DescargaInformacionDTO descargaInformacionDTO = new DescargaInformacionDTO();
     // CifrasControlRepositoryOld cifrasControlDAO = new
     // CifrasControlRepositoryOld();
