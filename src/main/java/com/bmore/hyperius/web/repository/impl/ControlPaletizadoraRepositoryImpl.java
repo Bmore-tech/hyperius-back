@@ -24,6 +24,9 @@ import com.bmore.hyperius.web.utils.Utils;
 import com.bmore.hyperius.web.utils.print.Etiqueta;
 import com.bmore.hyperius.web.utils.print.Etiquetas;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Repository
 public class ControlPaletizadoraRepositoryImpl implements ControlPaletizadoraRepository {
 
@@ -327,12 +330,19 @@ public class ControlPaletizadoraRepositoryImpl implements ControlPaletizadoraRep
 
   @Override
   public PaletizadorasDTO obtienePaletizadoras(String werks) {
-    String query1 = "SELECT  ZPPBR.WERKS, ZPPBR.LGPLA, ZPPBR.ID_PALETIZ, ZPPBR.AUFNR, TB_BCPS_DATA_NEW_HU.VHILM,MAKT.MAKTX as MAKTX1, TB_BCPS_DATA_NEW_HU.VEMNG, TB_BCPS_DATA_NEW_HU.MEINS, ZPAITT_TTW.MAKTX as MAKTX2 "
-        + "FROM ZPAITT_PALLETOBR ZPPBR WITH(NOLOCK) " + "LEFT JOIN AUFK AUFK ON ZPPBR.AUFNR = AUFK.AUFNR "
-        + "LEFT JOIN TB_BCPS_DATA_NEW_HU ON ZPPBR.AUFNR = dbo.TB_BCPS_DATA_NEW_HU.AUFNR "
-        + "LEFT JOIN MAKT MAKT ON TB_BCPS_DATA_NEW_HU.VHILM = MAKT.MATNR "
-        + "LEFT JOIN ZPAITT_TTW ZPAITT_TTW ON TB_BCPS_DATA_NEW_HU.VHILM = ZPAITT_TTW.MATNR "
-        + "WHERE ZPPBR.WERKS = ?  group bY ZPPBR.WERKS, ZPPBR.LGPLA, ZPPBR.ID_PALETIZ, ZPPBR.AUFNR, TB_BCPS_DATA_NEW_HU.VHILM, MAKT.MAKTX, TB_BCPS_DATA_NEW_HU.VEMNG, TB_BCPS_DATA_NEW_HU.MEINS, ZPAITT_TTW.MAKTX ";
+    String query1 = "SELECT  ZPPBR.WERKS, ZPPBR.LGPLA, ZPPBR.ID_PALETIZ "
+        + " ,ZPPBR.AUFNR, TB_BCPS_DATA_NEW_HU.VHILM,MAKT.MAKTX as MAKTX1 "
+        + " , TB_BCPS_DATA_NEW_HU.VEMNG, TB_BCPS_DATA_NEW_HU.MEINS "
+        + " , ZPAITT_TTW.MAKTX as MAKTX2  "
+        + " FROM ZPAITT_PALLETOBR ZPPBR WITH(NOLOCK)  "
+        + " LEFT JOIN AUFK AUFK WITH(NOLOCK) ON ZPPBR.AUFNR = AUFK.AUFNR  "
+        + " LEFT JOIN TB_BCPS_DATA_NEW_HU WITH(NOLOCK) ON ZPPBR.AUFNR = dbo.TB_BCPS_DATA_NEW_HU.AUFNR  "
+        + " LEFT JOIN MAKT MAKT WITH(NOLOCK) ON TB_BCPS_DATA_NEW_HU.VHILM = MAKT.MATNR  "
+        + " LEFT JOIN ZPAITT_TTW ZPAITT_TTW WITH(NOLOCK) ON TB_BCPS_DATA_NEW_HU.VHILM = ZPAITT_TTW.MATNR  "
+        + " WHERE ZPPBR.WERKS = ? "
+        + " group bY ZPPBR.WERKS, ZPPBR.LGPLA, ZPPBR.ID_PALETIZ, ZPPBR.AUFNR "
+        + " , TB_BCPS_DATA_NEW_HU.VHILM, MAKT.MAKTX, TB_BCPS_DATA_NEW_HU.VEMNG "
+        + " , TB_BCPS_DATA_NEW_HU.MEINS, ZPAITT_TTW.MAKTX ";
     Object[] args1 = { werks };
 
     HashMap<String, PaletizadoraDTO> hashMap = new HashMap<String, PaletizadoraDTO>();
@@ -364,17 +374,17 @@ public class ControlPaletizadoraRepositoryImpl implements ControlPaletizadoraRep
 
         paletizadoraDTO.setRowId(paletizadoraDTO.getWerks() + paletizadoraDTO.getLgpla()
             + paletizadoraDTO.getIdPaletizadora() + paletizadoraDTO.getAufnr());
-
+        
         if (hashMap.get(paletizadoraDTO.getRowId()) == null) {
           // Obtiene cantidad de HUS
           hashMap.put(paletizadoraDTO.getRowId(), paletizadoraDTO);
-          String query2 = "SELECT COUNT(*) AS cantidadHUs FROM vekp WITH(NOLOCK) INNER JOIN AUFK ON VEKP.VPOBJKEY = AUFK.VPOBJKEY "
+          String query2 = "SELECT COUNT(*) AS cantidadHUs FROM vekp WITH(NOLOCK) INNER JOIN AUFK WITH(NOLOCK) ON VEKP.VPOBJKEY = AUFK.VPOBJKEY "
               + "AND AUFK.AUFNR = ?";
           Object[] args2 = { paletizadoraDTO.getAufnr() };
           paletizadoraDTO.setCantidadEtiquetas(jdbcTemplate.queryForObject(query2, String.class, args2));
 
           // Obtiene cantidad de HUS impresas
-          String query3 = "SELECT COUNT(*) AS cantidadHUs FROM vekp WITH(NOLOCK) INNER JOIN AUFK ON VEKP.VPOBJKEY = dbo.AUFK.VPOBJKEY "
+          String query3 = "SELECT COUNT(*) AS cantidadHUs FROM vekp WITH(NOLOCK) INNER JOIN AUFK WITH(NOLOCK) ON VEKP.VPOBJKEY = dbo.AUFK.VPOBJKEY "
               + "AND AUFK.AUFNR = ? WHERE VEKP.ERLKZ IS NOT NULL";
           Object[] args3 = { paletizadoraDTO.getAufnr() };
 
