@@ -135,14 +135,6 @@
       <artifactId>spring-boot-devtools</artifactId>
       <scope>runtime</scope>
     </dependency>
-    <!-- SAPJCO -->
-		<dependency>
-			<groupId>com.sap</groupId>
-			<artifactId>jco</artifactId>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/sapjco3.jar</systemPath>
-			<scope>system</scope>
-			<version>3.0.7</version>
-		</dependency>
   </dependencies>
 
   <build>
