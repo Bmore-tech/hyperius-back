@@ -76,7 +76,7 @@ public class AlimentacionLineaServiceImpl implements AlimentacionLineaService {
             // Obtiene carriles bloqueados por otro proceso
             HashMap<String, String> carrilesBloqueados = alimentacionLineaRepository.getCarrilesBloqueados("2",
                 orden.getWerks());
-
+            log.error("termina de extraer los carriles ");
             for (int x = 0; x < entregaReturn2.getItems().getItem().size(); x++) {
 
               // Obtiene carriles con materiales bloqueados

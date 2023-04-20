@@ -200,7 +200,7 @@ public class UbicacionPTRepository {
 
 					if (rs2.next()) {
 
-						String cantidad = rs2.getString("cantidad");
+						String cantidad = rs2.getString("cantidad") != null ? rs2.getString("cantidad") :"0" ;
 
 						item.setCajasAsignadas(
 								(Float.parseFloat(cantidad) + Float.parseFloat(rs.getString("WEMNG"))) + "");

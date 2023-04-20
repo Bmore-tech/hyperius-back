@@ -37,8 +37,11 @@ public class EmbarquePTServiceImpl implements EmbarquePTService {
     embarque.setOrdenEmbarque(Utils.zeroFill(embarque.getOrdenEmbarque(), 10));
 
     // valida que entrega exista para centro
-
-    embarqueReturn = embarquePTRepository.getEmbarque(embarque);
+    try {
+      embarqueReturn = embarquePTRepository.getEmbarque(embarque);
+    } catch (Exception e) {
+      log.error("error" , e);
+    }
 
     log.error("retorno consulta embarque DAO12345_ :" + embarque.getOrdenEmbarque() + " " + embarque.getWerks()
         + " " + embarqueReturn.getResultDT().getId() + " " + embarqueReturn.getResultDT().getMsg()
@@ -161,7 +164,7 @@ public class EmbarquePTServiceImpl implements EmbarquePTService {
           entregaInput.setEntrega(embarque.getOrdenEmbarque());
           entregaInput.setWerks(embarque.getWerks());
 
-          log.error("Error: entro a validar el ZPICKING:");
+          log.error("Error: entro a validar el ZPICKING");
 
           EntregaInputDTO resultDT1 = embarquePTRepository.validarEntregaPickinCompleto(entregaInput);
 
@@ -195,6 +198,7 @@ public class EmbarquePTServiceImpl implements EmbarquePTService {
         break;
       case 5:
         resultDT.setId(2);
+        resultDT.setMsg("Engrega con error, en validaEntrega");
         // Entrega con error en datos de cabecera
         break;
       case 6:// entrega se puede contabilizar

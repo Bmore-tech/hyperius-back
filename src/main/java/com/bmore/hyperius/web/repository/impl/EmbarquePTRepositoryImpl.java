@@ -32,6 +32,9 @@ import com.bmore.hyperius.web.utils.export.ExportacionDatasource;
 import com.bmore.hyperius.web.utils.remission.Remision;
 import com.bmore.hyperius.web.utils.remission.RemisionDatasource;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Repository
 public class EmbarquePTRepositoryImpl implements EmbarquePTRepository {
 
@@ -278,16 +281,17 @@ public class EmbarquePTRepositoryImpl implements EmbarquePTRepository {
     result.setId(5);
     result.setMsg("La entrega no tiene datos de cabecera para mostrar");
 
-    jdbcTemplate.queryForObject(query1, new RowMapper<Integer>() {
+    log.info("hace el primer query");
+    jdbcTemplate.query(query1, new RowMapper<Integer>() {
 
       @Override
       public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
         String query2 = "select VBELN,dbo.conFec(ERDAT) as ERDAT,LIKP.KUNNR,KNA1.NAME1,KNA1.NAME2, "
             + "KNA1.ORT01, KNA1.PSTLZ,KNA1.STRAS,VKORG,LFART   from HCMDB.dbo.LIKP LIKP with(nolock) "
-            + "left outer join  HCMDB.dbo.KNA1 KNA1 on LIKP.KUNNR= KNA1.KUNNR  where VBELN=?";
+            + "left outer join  HCMDB.dbo.KNA1 KNA1 with(nolock) on LIKP.KUNNR= KNA1.KUNNR  where VBELN=?";
         Object[] args2 = { embarqueDTOInput.getOrdenEmbarque() };
-
-        jdbcTemplate.queryForObject(query2, new RowMapper<Integer>() {
+        log.info("hace el segundo query");
+        jdbcTemplate.query(query2, new RowMapper<Integer>() {
 
           @Override
           public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -311,15 +315,21 @@ public class EmbarquePTRepositoryImpl implements EmbarquePTRepository {
             return 1;
           }
         }, args2);
+        log.info("termina el segundo query");
 
         return 1;
       }
     }, args1);
-
+    log.info("termina el primer query");
     embarque.setResultDT(result);
     return embarque;
   }
 
+  //se utilizan para resolver el bug en el query 1 al usar queryForObject 
+  Boolean rowExist = false;
+  public void updateRowSize(Boolean exist){
+    rowExist = exist;
+  }
   @Override
   public EmbarqueDTO getEmbarqueDetalle(EmbarqueDTO embarque) {
     String query1 = "select count(POSNR) from HCMDB.dbo.LIPS with(nolock) where VBELN=?";
@@ -328,10 +338,17 @@ public class EmbarquePTRepositoryImpl implements EmbarquePTRepository {
     List<EmbarqueDetalleDTO> items = new ArrayList<EmbarqueDetalleDTO>();
     ResultDTO result = new ResultDTO();
     EmbarqueDetalleDTOItem embarqueDetalleDTOItem = new EmbarqueDetalleDTOItem();
-
-    if (jdbcTemplate.queryForObject(query1, Integer.class, args1) >= 1) {
+    updateRowSize(false);
+    jdbcTemplate.query(query1, new RowMapper<Integer>() {
+      @Override
+        public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+          updateRowSize(true);
+          return 1;
+        }
+    }, args1);
+    if (rowExist) {
       String query2 = "select POSNR, MATNR, ARKTX from HCMDB.dbo.LIPS with(nolock) where VBELN=? and "
-          + " PSTYV in (select tipo_posicion FROM TB_BCPS_TIPO_DOC_POS where ID_PROC = 4) and convert(decimal(18, 3), LFIMG) > 0 and LGORT!='TA01' and LGORT!='TA02'";
+          + " PSTYV in (select tipo_posicion FROM TB_BCPS_TIPO_DOC_POS with(nolock) where ID_PROC = 4) and convert(decimal(18, 3), LFIMG) > 0 and LGORT!='TA01' and LGORT!='TA02'";
       Object[] args2 = { embarque.getOrdenEmbarque() };
       HashMap<String, String> map = new HashMap<String, String>();
 
@@ -354,7 +371,7 @@ public class EmbarquePTRepositoryImpl implements EmbarquePTRepository {
                 + "and convert(decimal(18, 3), LFIMG) > 0 group by MEINS";
             Object[] args3 = { embarque.getOrdenEmbarque(), item.getMaterial() };
 
-            jdbcTemplate.queryForObject(query3, new RowMapper<Integer>() {
+            jdbcTemplate.query(query3, new RowMapper<Integer>() {
 
               @Override
               public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -781,8 +798,8 @@ public class EmbarquePTRepositoryImpl implements EmbarquePTRepository {
 
     result.setId(0);
     result.setMsg("Entrega saliente no disponible para picking");
-
-    jdbcTemplate.queryForObject(query, new RowMapper<Integer>() {
+    log.error("Hace el query");
+    jdbcTemplate.query(query, new RowMapper<Integer>() {
 
       @Override
       public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -792,7 +809,7 @@ public class EmbarquePTRepositoryImpl implements EmbarquePTRepository {
         return 1;
       }
     }, args);
-
+    log.error("termina el query");
     entregaInputReturn.setResultDT(result);
     entregaInputReturn.setMateriales(hashhMap);
 

@@ -25,6 +25,9 @@ import com.bmore.hyperius.web.dto.OrdenProduccionInputDTO;
 import com.bmore.hyperius.web.dto.ResultDTO;
 import com.bmore.hyperius.web.repository.AlimentacionLineaRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Repository
 public class AlimentacionLineaRepositoryImpl implements AlimentacionLineaRepository {
 
@@ -66,7 +69,7 @@ public class AlimentacionLineaRepositoryImpl implements AlimentacionLineaReposit
     List<OrdenProduccionDetalleDTO> detalle = new ArrayList<OrdenProduccionDetalleDTO>();
     ResultDTO result = new ResultDTO();
     int contabilizado = 0;
-
+    log.error("query 1 ");
     detalle = jdbcTemplate.query(query1, new RowMapper<OrdenProduccionDetalleDTO>() {
 
       @Override
@@ -89,7 +92,7 @@ public class AlimentacionLineaRepositoryImpl implements AlimentacionLineaReposit
               + "FROM HCMDB.dbo.RESB RESB WITH(NOLOCK) where MATNR = ? and "
               + "RESB.AUFNR = ? group by RESB.MATNR";
           Object[] args2 = { item.getMaterial(), aufnr };
-
+          log.error("query 2 ");
           jdbcTemplate.queryForObject(query2, new RowMapper<OrdenProduccionDTO>() {
 
             @Override
@@ -105,23 +108,23 @@ public class AlimentacionLineaRepositoryImpl implements AlimentacionLineaReposit
               + "in(SELECT EXIDV FROM HCMDB.dbo.ZPickingEntregaEntrante WITH(NOLOCK) where vbeln =? and matnr=? and "
               + "status='2' and EXIDV is not null and idProceso='2')";
           Object[] args3 = { aufnr, item.getMaterial() };
-
-          jdbcTemplate.queryForObject(query3, new RowMapper<String>() {
+          log.error("query 3 ");
+          jdbcTemplate.query(query3, new RowMapper<String>() {
 
             @Override
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-              String cantidad = rs.getString("cantidad");
+              String cantidad = rs.getString("cantidad") != null ? rs.getString("cantidad") : "";
               Float ENMNG_f = Float.parseFloat(ENMNG);
-              Float cantidad_f = Float.parseFloat(cantidad);
+              Float cantidad_f = Float.parseFloat(cantidad != "" ? cantidad : "0");
               Float cajas = cantidad_f + ENMNG_f;
 
               item.setCajasAsignadas(cajas + "");
 
-              return null;
+              return "";
             }
           }, args3);
         }
-
+        log.error("termina query 3 ");
         if (cant != 0) {
           result.setId(1);
           result.setMsg("Detalle de Orden recuperado con exito");
@@ -133,7 +136,7 @@ public class AlimentacionLineaRepositoryImpl implements AlimentacionLineaReposit
         return item;
       }
     }, args1);
-
+    log.error("termina los querys ");
     if (contabilizado == detalle.size()) {
       ordenProduccionDTO.setContabilizar("true");
     } else {
@@ -160,8 +163,8 @@ public class AlimentacionLineaRepositoryImpl implements AlimentacionLineaReposit
 
     CarrilesUbicacionDTO carrilesDTO = new CarrilesUbicacionDTO();
     List<CarrilUbicacionDTO> carrilList = new ArrayList<CarrilUbicacionDTO>();
-
-    jdbcTemplate.update(query1, args1, new RowMapper<String>() {
+    log.error("extrae datos de carriles con sp ");
+    jdbcTemplate.query(query1, new RowMapper<String>() {
 
       @Override
       public String mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -186,8 +189,9 @@ public class AlimentacionLineaRepositoryImpl implements AlimentacionLineaReposit
 
             Object[] args2 = { item.getLgnum(), item.getLgtyp(), item.getLgpla() };
 
+            log.info("query 2 de carriles");
             Integer cantidad = jdbcTemplate.queryForObject(query2, Integer.class, args2);
-
+            log.info("query 2 de carriles finalizado");
             item.setHusPendientes(cantidad.toString());
             carrilList.add(item);
           }
@@ -195,7 +199,7 @@ public class AlimentacionLineaRepositoryImpl implements AlimentacionLineaReposit
 
         return null;
       }
-    });
+    }, args1);
     carrilesDTO.setItem(carrilList);
 
     return carrilesDTO;
@@ -300,7 +304,7 @@ public class AlimentacionLineaRepositoryImpl implements AlimentacionLineaReposit
 
     OrdenProduccionDTO orden = new OrdenProduccionDTO();
 
-    orden = jdbcTemplate.queryForObject(query, new RowMapper<OrdenProduccionDTO>() {
+    jdbcTemplate.query(query, new RowMapper<OrdenProduccionDTO>() {
 
       @Override
       public OrdenProduccionDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
