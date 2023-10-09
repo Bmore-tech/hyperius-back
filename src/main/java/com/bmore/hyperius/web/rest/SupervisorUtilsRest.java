@@ -37,6 +37,7 @@ import com.bmore.hyperius.web.rest.resquest.ObtieneEntregasAgenciasDetalleReques
 import com.bmore.hyperius.web.rest.resquest.SwitchUbsBcpsRequest;
 import com.bmore.hyperius.web.rest.resquest.SwitchUbsSapRequest;
 import com.bmore.hyperius.web.service.SupervisorUtilsService;
+import com.bmore.hyperius.web.utils.SAPConector;
 import com.bmore.hyperius.web.utils.Utils;
 
 /**

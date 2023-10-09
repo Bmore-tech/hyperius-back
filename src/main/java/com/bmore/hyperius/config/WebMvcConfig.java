@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Configuration
 @EnableWebMvc
-@ComponentScan({ "com.bmore.prueba.config", "com.bmore.prueba.web.*", "com.bmore.prueba.mobile.*" })
+@ComponentScan({ "com.bmore.hyperius.web.*" })
 public class WebMvcConfig implements WebMvcConfigurer {
 
   /**

@@ -7,13 +7,16 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 
 import com.bmore.hyperius.web.dto.CargaInformacionBodyDTO;
@@ -25,6 +28,9 @@ import com.bmore.hyperius.web.dto.ReporteAvanceDTO;
 import com.bmore.hyperius.web.dto.ResultDTO;
 import com.bmore.hyperius.web.repository.CifrasControlRepository;
 import com.bmore.hyperius.web.service.CifrasControlService;
+import com.bmore.hyperius.web.utils.ConnectionManager;
+import com.bmore.hyperius.web.utils.SAPConector;
+import com.sap.conn.jco.JCoDestination;
 
 import lombok.extern.slf4j.Slf4j;
 

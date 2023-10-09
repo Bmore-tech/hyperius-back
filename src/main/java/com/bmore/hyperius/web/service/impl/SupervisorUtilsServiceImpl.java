@@ -11,13 +11,16 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 
 import com.bmore.hyperius.web.dto.CarrilUbicacionDTO;
 import com.bmore.hyperius.web.dto.CarrilesBloqueadosDTO;
@@ -38,6 +41,8 @@ import com.bmore.hyperius.web.dto.UsuarioItemDTO;
 import com.bmore.hyperius.web.repository.old.SupervisorUtilsRepository;
 import com.bmore.hyperius.web.repository.old.ZContingenciaRepository;
 import com.bmore.hyperius.web.service.SupervisorUtilsService;
+import com.bmore.hyperius.web.utils.ConnectionManager;
+import com.bmore.hyperius.web.utils.SAPConector;
 import com.bmore.hyperius.web.utils.Utils;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
@@ -45,6 +50,7 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
+import com.sap.conn.jco.JCoDestination;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,6 +58,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
 
+  @Value("${eas.url}")
+  private String easUrl;
   @Autowired
   private SupervisorUtilsRepository supervisorUtilsRepository;
 
@@ -502,10 +510,17 @@ public class SupervisorUtilsServiceImpl implements SupervisorUtilsService {
     TablasSqlItemDTO tablasSqlItemDTO = new TablasSqlItemDTO();
     List<TablaSqlDTO> listTablasSqlItemDTO = new ArrayList<TablaSqlDTO>();
 
+    ConnectionManager iConnectionManager = new ConnectionManager(
+        new RestTemplateBuilder().setConnectTimeout(Duration.ofSeconds(500))
+            .setReadTimeout(Duration.ofSeconds(500)));
+
+    JCoDestination destination = iConnectionManager.getSapConnection(easUrl, "ECC_PRD");
+    log.info("destino creado: ");
+    new SAPConector(destination);
     FTPConfDTO ftpConf = new FTPConfDTO();
     ResultDTO resultDT = new ResultDTO();
 
-    tablasSqlItemDTO.setItem(listTablasSqlItemDTO);
+    tablasSqlItemDTO.setItem(listTablasSqlItemDTO); 
 
     resultDT = supervisorUtilsRepository.validaInicioBCPS(werks);
 
